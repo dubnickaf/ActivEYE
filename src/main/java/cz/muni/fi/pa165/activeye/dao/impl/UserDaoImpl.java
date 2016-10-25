@@ -25,6 +25,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
+    @Transactional
     public void create(User user) {
         if(user == null){
             throw new IllegalArgumentException("User should not be null.");

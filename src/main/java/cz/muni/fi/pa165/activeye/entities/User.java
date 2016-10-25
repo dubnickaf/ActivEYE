@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.activeye.entities;
 
 import cz.muni.fi.pa165.activeye.enums.Gender;
+
+import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
@@ -74,6 +76,14 @@ public class User {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public Set<Group> getGroups() {
+        return Collections.unmodifiableSet(groups);
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 
     @Override
