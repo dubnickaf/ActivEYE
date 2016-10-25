@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -69,7 +69,7 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public List<Activity> findAll() {
-        return em.createQuery("SELECT a FROM Activity a").getResultList();
+        return Collections.unmodifiableList(em.createQuery("SELECT a FROM Activity a").getResultList());
     }
 
 }
