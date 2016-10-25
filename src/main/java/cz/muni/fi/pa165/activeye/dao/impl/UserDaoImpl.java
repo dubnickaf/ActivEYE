@@ -3,7 +3,9 @@ package cz.muni.fi.pa165.activeye.dao.impl;
 import cz.muni.fi.pa165.activeye.dao.UserDao;
 import cz.muni.fi.pa165.activeye.entities.User;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
@@ -14,8 +16,13 @@ import java.util.List;
  */
 @Repository
 public class UserDaoImpl implements UserDao{
-    @PersistenceContext
-    private EntityManager entityManager;
+
+    private final EntityManager entityManager;
+
+    @Inject
+    public UserDaoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public void create(User user) {
@@ -58,11 +65,11 @@ public class UserDaoImpl implements UserDao{
         if(email == null){
             throw new IllegalArgumentException("Email should not be null.");
         }
-        return (User) entityManager.createQuery("SELECT user u FROM Users u WHERE u.email =: givenEmail").setParameter("givenEmail", email).getSingleResult();
+        return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.emailAddress =:givenEmail").setParameter("givenEmail", email).getSingleResult();
     }
 
     @Override
     public List findAll() {
-        return entityManager.createQuery("SELECT user u FROM Users u").getResultList();
+        return entityManager.createQuery("SELECT u FROM User u").getResultList();
     }
 }
