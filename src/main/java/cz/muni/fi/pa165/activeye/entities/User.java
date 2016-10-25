@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.activeye.entities;
 
 import cz.muni.fi.pa165.activeye.enums.Gender;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -23,7 +24,8 @@ public class User {
     private Date bornDate;
     private Gender gender;
     private String passwordHash;
-
+    @ManyToMany
+    private Set<Group> groups;
 
 
     public Long getId() {
