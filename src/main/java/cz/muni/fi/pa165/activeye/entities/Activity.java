@@ -74,4 +74,9 @@ public class Activity {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Activity{" + "id = " + id + ", name = " + name + ", caloriesRatio = " + caloriesRatio + '}';
+    }
+
 }

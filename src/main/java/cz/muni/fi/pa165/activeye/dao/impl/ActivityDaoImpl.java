@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.activeye.dao.impl;
 import cz.muni.fi.pa165.activeye.dao.ActivityDao;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -17,6 +18,7 @@ import java.util.List;
  */
 
 @Repository
+@Transactional
 public class ActivityDaoImpl implements ActivityDao {
 
     @PersistenceContext
@@ -44,7 +46,8 @@ public class ActivityDaoImpl implements ActivityDao {
         if (a == null)
             throw new IllegalArgumentException("Activity should not be null.");
 
-        em.remove(a);
+        //em.remove(a);
+        em.remove(em.contains(a) ? a : em.merge(a));
     }
 
     @Override
