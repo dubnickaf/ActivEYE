@@ -69,7 +69,7 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public List<Activity> findAll() {
-        return Collections.unmodifiableList(em.createQuery("SELECT a FROM Activity a").getResultList());
+        return em.createQuery("SELECT a FROM Activity a").getResultList();
     }
 
 }
