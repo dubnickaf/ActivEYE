@@ -15,7 +15,7 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
 
@@ -72,5 +72,32 @@ public class Record {
                 "activity: " + activity + ", " +
                 "burnedCalories: " + burnedCalories + ", " +
                 "time: " + time + "]";
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o){
+            return true;
+        }
+        if (o == null){
+            return true;
+        }
+        final Record other = (Record)o;
+        if (!user.equals(other.getUser())){
+            return false;
+        }
+        if (!activity.equals(other.getActivity())){
+            return false;
+        }
+        return burnedCalories.equals(other.getBurnedCalories());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = user.hashCode();
+        result = 31 * result + activity.hashCode();
+        result = 31 * result + (burnedCalories != null ? burnedCalories.hashCode() : 0);
+        result = 31 * result + (time != null ? time.hashCode() : 0);
+        return result;
     }
 }

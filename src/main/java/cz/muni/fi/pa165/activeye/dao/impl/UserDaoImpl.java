@@ -15,6 +15,7 @@ import java.util.List;
  * @author Filip Dubnička [445647]
  */
 @Repository
+@Transactional
 public class UserDaoImpl implements UserDao{
 
     private final EntityManager entityManager;
@@ -25,7 +26,6 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    @Transactional
     public void create(User user) {
         if(user == null){
             throw new IllegalArgumentException("User should not be null.");
@@ -50,7 +50,7 @@ public class UserDaoImpl implements UserDao{
         if(user == null){
             throw new IllegalArgumentException("User should not be null.");
         }
-        entityManager.remove(user);
+        entityManager.remove(entityManager.contains(user) ? user : entityManager.merge(user));
     }
 
     @Override
@@ -70,7 +70,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public List findAll() {
+    public List<User> findAll() {
         return entityManager.createQuery("SELECT u FROM User u").getResultList();
     }
 }

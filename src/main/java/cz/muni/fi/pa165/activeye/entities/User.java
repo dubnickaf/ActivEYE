@@ -42,6 +42,9 @@ public class User {
     @ManyToMany
     private Set<Group> groups;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Record> activityRecords;
+
 
     public Long getId() {
         return id;
@@ -112,5 +115,13 @@ public class User {
     @Override
     public int hashCode() {
         return emailAddress.hashCode();
+    }
+
+    public Set<Record> getActivityRecords() {
+        return Collections.unmodifiableSet(activityRecords);
+    }
+
+    public void setActivityRecords(Set<Record> activityRecords) {
+        this.activityRecords = activityRecords;
     }
 }
