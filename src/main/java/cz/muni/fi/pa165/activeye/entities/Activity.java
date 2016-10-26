@@ -15,6 +15,7 @@ public class Activity {
 
     @Id // Specifies the primary key of an entity.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ACTIVITY_ID")
     private Long id;
 
     @NotNull // A variable cannot hold null value.

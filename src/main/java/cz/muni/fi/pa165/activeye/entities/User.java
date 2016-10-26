@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 
 /**
@@ -18,14 +20,25 @@ import javax.validation.constraints.NotNull;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID")
     private Long id;
 
     private String name;
     @NotNull
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message="{invalid.email}")
     private String emailAddress;
+
+    @Temporal(TemporalType.DATE)
+    @Past
     private Date bornDate;
+
     private Gender gender;
+
     private String passwordHash;
+
     @ManyToMany
     private Set<Group> groups;
 
