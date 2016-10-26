@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @EnableJpaRepositories
 @ComponentScan(basePackages = "cz.muni.fi.pa165.activeye.dao")
-public class PersistanceContext {
+public class PersistenceContext {
 
     @Bean
     public JpaTransactionManager transactionManager() {

@@ -49,7 +49,7 @@ public class RecordDaoImpl implements RecordDao{
         if (record == null){
             throw new IllegalArgumentException("Record cannot be null");
         }
-        em.remove(em.contains(record) ? em.remove(record) : em.merge(record));
+        em.remove(em.contains(record) ? record : em.merge(record));
     }
 
     @Override

@@ -53,7 +53,24 @@ public class Record {
         this.burnedCalories = burnedCalories;
     }
 
+    public void setTime(long time){
+        this.time = time;
+    }
+
+    public Long getId(){
+        return id;
+    }
+
     public Long getTime(){
         return time;
+    }
+
+    @Override
+    public String toString(){
+        return "Record: [id:" + id + ", " +
+                "user: " + user + ", " +
+                "activity: " + activity + ", " +
+                "burnedCalories: " + burnedCalories + ", " +
+                "time: " + time + "]";
     }
 }

@@ -1,19 +1,9 @@
 package cz.muni.fi.pa165.activeye;
 
-import cz.muni.fi.pa165.activeye.dao.ActivityDao;
-import cz.muni.fi.pa165.activeye.dao.UserDao;
-import cz.muni.fi.pa165.activeye.dao.impl.UserDaoImpl;
-import cz.muni.fi.pa165.activeye.entities.Activity;
-import cz.muni.fi.pa165.activeye.entities.User;
-import cz.muni.fi.pa165.activeye.enums.Gender;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import java.lang.annotation.Annotation;
-import java.math.BigDecimal;
 
 /**
  * Created by dubnickaf@gmail.com [445647] on windows user "Toshiba" on 22.10.2016.
@@ -26,7 +16,7 @@ public class Application {
      */
     public static void main(String[] args){
         System.out.println("Running ActivEYE");
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class,PersistanceContext.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class, PersistenceContext.class);
         EntityManager em = applicationContext.getBean(EntityManager.class);
 
 
