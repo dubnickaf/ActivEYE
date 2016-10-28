@@ -114,10 +114,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((emailAddress == null) ? 0 : emailAddress.hashCode());
-        return result;
+        return emailAddress.hashCode();
     }
 
     public Set<Record> getActivityRecords() {
