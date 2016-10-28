@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.activeye.dao;
 
 /**
- * Created by dubnickaf@gmail.com [445647] on windows user "Toshiba" on 24.10.2016.
+ * @author Branislav Bajuzik; 445772
  */
 public class GroupDaoTest {
 }

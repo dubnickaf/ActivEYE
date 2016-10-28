@@ -6,18 +6,20 @@ import java.util.Collections;
 import java.util.Set;
 
 /**
- * @author Branislav Bajuzik 442772
+ * @author Branislav Bajuzik; 442772
  */
 @Entity
 @Table(name = "Groups")
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "GROUP_ID")
     private Long id;
     private Long creatorsUserId;
     @ManyToMany(mappedBy = "groups")
     private Set<User> users;
     @NotNull
+    @Column(nullable = false)
     private String name;
 
     public Long getId() {
@@ -56,5 +58,27 @@ public class Group {
         return users.size();
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Group:{id:").append(id).append(", name:").append(name).append(", creatorsUserId:")
+                .append(creatorsUserId).append(", users:").append(users.toString()).append("}");
+        return builder.toString();
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Group)) return false;
+
+        Group group = (Group) o;
+
+        return getId().equals(group.getId());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
 }

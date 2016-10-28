@@ -3,46 +3,54 @@ package cz.muni.fi.pa165.activeye.dao;
 import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
 import java.util.List;
+import java.util.Set;
 
 /**
- * @author Branislav Bajuzik 442772
+ * @author Branislav Bajuzik; 442772
  */
 public interface GroupDao {
     /**
      *
      * @param group
      */
-    public void create(Group group);
+    void create(Group group);
 
     /**
      *
      * @param group
      */
-    public void update(Group group);
+    void update(Group group);
 
     /**
      *
      * @param group
      */
-    public void delete(Group group);
+    void delete(Group group);
 
     /**
      *
      * @param id
      * @return
      */
-    public Group findUserById(Long id);
+    Group findGroupById(Long id);
 
     /**
      *
      * @return
      */
-    public List<User> findAllUsers();
+    List<User> findAllGroups();
 
     /**
      *
      * @param user
      * @return
      */
-    public boolean isUserInGroup(User user);
+    boolean isUserInGroup(Group group, User user);
+
+    /**
+     *
+     * @param group
+     * @return
+     */
+    Set<User> getAllGroupUsers(Group group);
 }
