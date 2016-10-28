@@ -5,68 +5,148 @@ import cz.muni.fi.pa165.activeye.PersistenceContext;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
-import cz.muni.fi.pa165.activeye.enums.Gender;
+import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
+import javax.persistence.EntityExistsException;
+import javax.persistence.PersistenceException;
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.util.List;
 
 /**
- * Created by dubnickaf@gmail.com [445647] on windows user "Toshiba" on 24.10.2016.
- * @author spriadka
+ * @author  Matej Vasko 422713
+ * @version 1.0
+ * @since   28-10-2016
  */
+
+@Transactional
 public class RecordDaoTest {
-
-    @BeforeClass
-    public static void init(){
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class, PersistenceContext.class);
-        userDao = applicationContext.getBean(UserDao.class);
-        activityDao = applicationContext.getBean(ActivityDao.class);
-        recordDao = applicationContext.getBean(RecordDao.class);
-
-        User user = new User();
-        user.setName("Janko");
-        user.setEmailAddress("janko@gmail.com");
-        user.setGender(Gender.MALE);
-        Calendar birthday = Calendar.getInstance();
-        birthday.set(1994,2,2);
-        user.setBornDate(birthday.getTime());
-        Activity activity = new Activity();
-        activity.setName("Beh");
-        activity.setCaloriesRatio(new BigDecimal("0.9"));
-        userDao.create(user);
-        activityDao.create(activity);
-    }
-
-    private static UserDao userDao;
-
-    private static ActivityDao activityDao;
 
     private static RecordDao recordDao;
 
-    @Test
-    public void test(){
+    @BeforeClass
+    public static void init(){
+        ApplicationContext appContext = new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class, PersistenceContext.class);
+        recordDao = appContext.getBean(RecordDao.class);
+    }
+
+    @After
+    public void flushRecords(){
+        for (Record record : recordDao.getAllRecords()){
+            recordDao.deleteRecord(record);
+        }
+    }
+
+    /// CREATE tests
+    @Test(expected = IllegalArgumentException.class)
+    public void createRecordNull() {
+        recordDao.createRecord(null);
+    }
+
+    @Test(expected = PersistenceException.class)
+    public void createDuplicateRecord() {
         Record record = new Record();
-        User user = userDao.findUserByEmail("janko@gmail.com");
-        Activity activity = activityDao.findByName("Beh");
-        long time = Long.valueOf(60000);
-        BigDecimal burnedCalories = activity.getCaloriesRatio().multiply(new BigDecimal(time));
-        record.setUser(user);
-        record.setActivity(activity);
-        record.setBurnedCalories(burnedCalories);
-        record.setTime(time);
+        record.setBurnedCalories(new BigDecimal("14.00"));
         recordDao.createRecord(record);
-        Assert.assertTrue(record != null);
-        Assert.assertTrue(record.getId() != null);
-        Assert.assertEquals(user,record.getUser());
-        Assert.assertEquals(activity,record.getActivity());
-        Assert.assertEquals(burnedCalories,record.getBurnedCalories());
+        recordDao.createRecord(record);
+    }
+
+    // RETRIEVE tests
+    @Test(expected = IllegalArgumentException.class)
+    public void findRecordByIdNull() {
+        recordDao.getRecord(null);
+    }
+
+    @Test
+    public void findRecordById() {
+        Record record = new Record();
+        record.setBurnedCalories(new BigDecimal("14.15"));
+        recordDao.createRecord(record);
+        Record find = recordDao.getRecord(record.getId());
+        Assert.assertEquals(find.getId(), record.getId());
+        Assert.assertEquals(find.getBurnedCalories(), new BigDecimal("14.15"));
+    }
+
+    @Test
+    public void findRecordByIdNoResult() {
+        Assert.assertNull(recordDao.getRecord(999l));
+    }
+
+    @Test
+    public void findAllRecords() {
+        Record r1 = new Record();
+        Record r2 = new Record();
+
+        r1.setBurnedCalories(new BigDecimal("14.15"));
+        r2.setBurnedCalories(new BigDecimal("99.99"));
+
+        recordDao.createRecord(r1);
+        recordDao.createRecord(r2);
+
+        List<Record> records = recordDao.getAllRecords();
+
+        Assert.assertEquals(2, records.size());
+    }
+
+    // UPDATE test
+    @Test(expected = IllegalArgumentException.class)
+    public void updateRecordNull() {
+        recordDao.createRecord(null);
+    }
+
+    @Test
+    public void updateRecord() {
+        Record record = new Record();
+        record.setBurnedCalories(new BigDecimal("14.15"));
+        recordDao.createRecord(record);
+        record.setBurnedCalories(new BigDecimal("99.99"));
+        recordDao.updateRecord(record);
+        Record find = recordDao.getRecord(record.getId());
+        Assert.assertEquals(find.getBurnedCalories(), new BigDecimal("99.99"));
+    }
+
+    // DELETE tests
+    @Test(expected = IllegalArgumentException.class)
+    public void deleteRecordNull() {
+        recordDao.deleteRecord(null);
+    }
+
+    @Test
+    public void deleteRecord() {
+        Record record = new Record();
+        record.setBurnedCalories(new BigDecimal("14.15"));
+        recordDao.createRecord(record);
+        Assert.assertNotNull(recordDao.getRecord(record.getId()));
+        recordDao.deleteRecord(record);
+        Assert.assertNull(recordDao.getRecord(record.getId()));
+    }
+
+    @Test
+    public void equalsRecord() {
+        Record record = new Record();
+        Activity activity = new Activity();
+        User user = new User();
+
+        // compulsory attributes for Activity and User
+        activity.setName("name for my activity");
+        user.setName("name for my user");
+        user.setEmailAddress("e@mail.com");
+
+        record.setActivity(activity);
+        record.setUser(user);
+        record.setBurnedCalories(new BigDecimal("14.15"));
+        record.setTime(15l);
+
+        recordDao.createRecord(record);
+
+        Record find = recordDao.getRecord(record.getId());
+
+        Assert.assertEquals(record, find);
     }
 
 }

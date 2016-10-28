@@ -15,12 +15,12 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
     @JoinColumn(name = "USER_ID")
+    @ManyToOne(cascade=CascadeType.PERSIST)
     private User user;
 
-    @OneToOne
     @JoinColumn(name = "ACTIVITY_ID")
+    @OneToOne(cascade=CascadeType.PERSIST)
     private Activity activity;
 
     private BigDecimal burnedCalories;
@@ -83,10 +83,10 @@ public class Record {
             return true;
         }
         final Record other = (Record)o;
-        if (!user.equals(other.getUser())){
+        if (!(user instanceof User)){
             return false;
         }
-        if (!activity.equals(other.getActivity())){
+        if (!(activity.equals(other.getActivity()))){
             return false;
         }
         return burnedCalories.equals(other.getBurnedCalories());
