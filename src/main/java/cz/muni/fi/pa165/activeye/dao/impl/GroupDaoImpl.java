@@ -23,26 +23,26 @@ public class GroupDaoImpl implements GroupDao{
 
     @Override
     public void create(Group group) {
-        if (group == null) {
-            throw new IllegalArgumentException("Group can't be null");
-        }
+        validateGroup(group);
         em.persist(group);
     }
 
     @Override
     public void update(Group group) {
-        if (group == null) {
-            throw new IllegalArgumentException("Group can't be null");
-        }
+        validateGroup(group);
+        if (group.getId() == null)
+            throw new IllegalArgumentException("Group's id can't be null");
         em.merge(group);
     }
 
     @Override
     public void delete(Group group) {
-        if (group == null) {
-            throw new IllegalArgumentException("Group can't be null");
+        validateGroup(group);
+        if (group.getId() == null)
+            throw new IllegalArgumentException("Group's id can't be null");
+        if (em.contains(group)) {
+            em.remove(group);
         }
-        em.remove(em.contains(group) ? group : em.merge(group));
     }
 
     @Override
@@ -60,11 +60,33 @@ public class GroupDaoImpl implements GroupDao{
 
     @Override
     public boolean isUserInGroup(User user, Group group) {
+        if (user == null)
+            throw new IllegalArgumentException("User can't be null");
+        validateGroup(group);
         return findById(group.getId()).getUsers().contains(user);
     }
 
     @Override
     public Set<User> getAllUsers(Group group) {
         return findById(group.getId()).getUsers();
+    }
+
+    private static void validateGroup(Group group) {
+        if (group == null)
+            throw new IllegalArgumentException("Group can't be null");
+        if (group.getId() != null && group.getId() <1)
+            throw new IllegalArgumentException("Group's id can't be < 1");
+        if (group.getName() == null)
+            throw new IllegalArgumentException("Group's name can't be null");
+        if (group.getName().isEmpty())
+            throw new IllegalArgumentException("Group's name can't be empty");
+        if (group.getUsers() == null)
+            throw new IllegalArgumentException("Group's users can't be null");
+        if (group.getCreatorsUserId() == null)
+            throw new IllegalArgumentException("Group's creatorsUsersId can't be null");
+        if (group.getCreatorsUserId() < 1)
+            throw new IllegalArgumentException("Group's creatorsUsersId can't be < 1");
+        if (group.getGroupSize() < 0)
+            throw new IllegalArgumentException("Group's groupSize can't be < 0");
     }
 }
