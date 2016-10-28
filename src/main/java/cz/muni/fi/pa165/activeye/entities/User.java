@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.activeye.entities;
 
 import cz.muni.fi.pa165.activeye.enums.Gender;
+import org.hibernate.annotations.Fetch;
 
 import java.util.Collections;
 import java.util.Date;
@@ -39,7 +40,7 @@ public class User {
 
     private String passwordHash;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Group> groups;
 
     @OneToMany(mappedBy = "user")
@@ -95,7 +96,7 @@ public class User {
     }
 
     public Set<Group> getGroups() {
-        return Collections.unmodifiableSet(groups);
+        return groups;
     }
 
     public void setGroups(Set<Group> groups) {
@@ -118,10 +119,21 @@ public class User {
     }
 
     public Set<Record> getActivityRecords() {
-        return Collections.unmodifiableSet(activityRecords);
+        return (activityRecords);
     }
 
     public void setActivityRecords(Set<Record> activityRecords) {
         this.activityRecords = activityRecords;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", bornDate=" + bornDate +
+                ", gender=" + gender +
+                '}';
     }
 }

@@ -9,40 +9,40 @@ import java.util.List;
  */
 public interface UserDao {
     /**
-     *
-     * @param user
+     * Creates a new User in DB
+     * @param user User to be created
      */
     public void create(User user);
 
     /**
-     *
-     * @param user
+     * Updates a User in DB
+     * @param user User to be updated
      */
     public void update(User user);
 
     /**
-     *
-     * @param user
+     * Deletes a User in DB
+     * @param user User to be deleted
      */
     public void delete(User user);
 
     /**
-     *
-     * @param id
-     * @return
+     * Finds a User in DB by id
+     * @param id id of User to be found
+     * @return user with chosen id
      */
     public User findUserById(Long id);
 
     /**
-     *
-     * @param email-
-     * @return
+     * Finds a User in DB by email
+     * @param email email of User to be found
+     * @return user with chosen email
      */
     public User findUserByEmail(String email);
 
     /**
-     *
-     * @return
+     * Finds all User from DB
+     * @return all Users from DB
      */
     public List<User> findAll();
 }

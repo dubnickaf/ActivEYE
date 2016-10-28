@@ -54,4 +54,11 @@ public interface GroupDao {
      * @return Set of all Users in Group
      */
     Set<User> getAllUsers(Group group);
+
+    /**
+     * Adds user to Group
+     * @param user user to be added
+     * @param group group where to be added
+     */
+    void addUser(User user, Group group);
 }

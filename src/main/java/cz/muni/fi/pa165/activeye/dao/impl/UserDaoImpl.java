@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.activeye.dao.impl;
 
 import cz.muni.fi.pa165.activeye.dao.UserDao;
+import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -34,6 +36,7 @@ public class UserDaoImpl implements UserDao{
         if(user.getId() != null){
             throw new IllegalArgumentException("");
         }
+        //if(user.getGroups() == null)user.setGroups(new HashSet<Group>());
         entityManager.persist(user);
     }
 

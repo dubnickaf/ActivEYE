@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.activeye.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,7 +17,7 @@ public class Group {
     @Column(name = "GROUP_ID")
     private Long id;
     private Long creatorsUserId;
-    @ManyToMany(mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
     private Set<User> users;
     @NotNull
     @Column(nullable = false)
@@ -39,7 +40,7 @@ public class Group {
     }
 
     public Set<User> getUsers() {
-        return Collections.unmodifiableSet(users);
+        return users;
     }
 
     public void setUsers(Set<User> users) {
@@ -58,11 +59,24 @@ public class Group {
         return users.size();
     }
 
+    public void addUser(User user) {
+        if (user == null)
+            throw new IllegalArgumentException("User can't be null");
+        Set<User> users = getUsers();
+        if (users == null) {
+            users = new HashSet<User>();
+        }
+        if (users.contains(user))
+            throw new IllegalArgumentException("User is already in group");
+        users.add(user);
+        setUsers(users);
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Group:{id:").append(id).append(", name:").append(name).append(", creatorsUserId:")
-                .append(creatorsUserId).append(", users:").append(users.toString()).append("}");
+        builder.append("Group:{id:").append(getId()).append(", name:").append(getName()).append(", creatorsUserId:")
+                .append(getCreatorsUserId()).append(", users:").append(getUsers().toString()).append("}");
         return builder.toString();
     }
 
@@ -79,6 +93,9 @@ public class Group {
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        int result = creatorsUserId.hashCode();
+        result = 31 * result + users.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
     }
 }

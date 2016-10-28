@@ -71,6 +71,12 @@ public class GroupDaoImpl implements GroupDao{
         return findById(group.getId()).getUsers();
     }
 
+    @Override
+    public void addUser(User user, Group group) {
+        group.addUser(user);
+        update(group);
+    }
+
     private static void validateGroup(Group group) {
         if (group == null)
             throw new IllegalArgumentException("Group can't be null");
