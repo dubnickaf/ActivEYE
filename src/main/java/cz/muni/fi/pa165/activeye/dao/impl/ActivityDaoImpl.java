@@ -26,6 +26,7 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public void create(Activity a) {
+        validateActivity(a);
         if (a == null)
             throw new IllegalArgumentException("Activity should not be null.");
         // No need to check if id == null, @GeneratedValue is called during the insert process on db level. The JPA provider will ensure that the entity is updated afterwards! (this means I can set id to whatever, it will be overriden???)
@@ -35,6 +36,7 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public void update(Activity a) {
+        validateActivity(a);
         if (a == null)
             throw new IllegalArgumentException("Activity should not be null.");
 
@@ -43,6 +45,7 @@ public class ActivityDaoImpl implements ActivityDao {
 
     @Override
     public void delete(Activity a) {
+        validateActivity(a);
         if (a == null)
             throw new IllegalArgumentException("Activity should not be null.");
 
@@ -54,7 +57,8 @@ public class ActivityDaoImpl implements ActivityDao {
     public Activity findById(Long id) {
         if (id == null)
             throw new IllegalArgumentException("ID should not be null.");
-
+        if (id < 1)
+            throw new IllegalArgumentException("Activity id can't be < 1.");
         return em.find(Activity.class, id);
     }
 
@@ -62,6 +66,8 @@ public class ActivityDaoImpl implements ActivityDao {
     public Activity findByName(String name) {
         if (name == null)
             throw new IllegalArgumentException("Name should not be null.");
+        if (name.isEmpty())
+            throw new IllegalArgumentException("Name should not be empty.");
 
         try {
               return (Activity) em.createQuery("SELECT a FROM Activity a WHERE a.name =:name").setParameter("name", name).getSingleResult();
@@ -73,6 +79,17 @@ public class ActivityDaoImpl implements ActivityDao {
     @Override
     public List<Activity> findAll() {
         return em.createQuery("SELECT a FROM Activity a").getResultList();
+    }
+
+    private static void validateActivity(Activity activity) {
+        if (activity == null)
+            throw new IllegalArgumentException("Activity can't be null.");
+        if (activity.getId() != null && activity.getId() < 1)
+            throw new IllegalArgumentException("Activity id can't be < 1 or null.");
+        if (activity.getName() == null)
+            throw new IllegalArgumentException("Activity name can't be null.");
+        if (activity.getName().isEmpty())
+            throw new IllegalArgumentException("Activity name can't be empty.");
     }
 
 }
