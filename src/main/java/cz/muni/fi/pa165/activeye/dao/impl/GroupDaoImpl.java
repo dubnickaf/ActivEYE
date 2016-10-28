@@ -46,7 +46,7 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     @Override
-    public Group findGroupById(Long id) {
+    public Group findById(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("Id can't be null");
         }
@@ -54,17 +54,17 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     @Override
-    public List<User> findAllGroups() {
+    public List<Group> findAll() {
         return em.createQuery("SELECT g FROM Group g").getResultList();
     }
 
     @Override
-    public boolean isUserInGroup(Group group, User user) {
-        return findGroupById(group.getId()).getUsers().contains(user);
+    public boolean isUserInGroup(User user, Group group) {
+        return findById(group.getId()).getUsers().contains(user);
     }
 
     @Override
-    public Set<User> getAllGroupUsers(Group group) {
-        return findGroupById(group.getId()).getUsers();
+    public Set<User> getAllUsers(Group group) {
+        return findById(group.getId()).getUsers();
     }
 }

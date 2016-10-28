@@ -10,47 +10,48 @@ import java.util.Set;
  */
 public interface GroupDao {
     /**
-     *
-     * @param group
+     * Create Group in database
+     * @param group Group to create
      */
     void create(Group group);
 
     /**
-     *
-     * @param group
+     * Update Group in database
+     * @param group Group to be updated
      */
     void update(Group group);
 
     /**
-     *
-     * @param group
+     * Delete group in database
+     * @param group Group to be deleted
      */
     void delete(Group group);
 
     /**
-     *
-     * @param id
-     * @return
+     * Find Group by Id
+     * @param id Id of the Group to be found
+     * @return Found Group if exists in database, null otherwise
      */
-    Group findGroupById(Long id);
+    Group findById(Long id);
 
     /**
-     *
-     * @return
+     * Find all Groups
+     * @return List<Group> of all Groups
      */
-    List<User> findAllGroups();
+    List<Group> findAll();
 
     /**
-     *
-     * @param user
-     * @return
+     * Check if User is in Group
+     * @param user User to be found
+     * @param group Group to be found in
+     * @return True if found, else otherwise
      */
-    boolean isUserInGroup(Group group, User user);
+    boolean isUserInGroup(User user, Group group);
 
     /**
-     *
-     * @param group
-     * @return
+     * Get all Users of Group
+     * @param group Group we want Users of
+     * @return Set of all Users in Group
      */
-    Set<User> getAllGroupUsers(Group group);
+    Set<User> getAllUsers(Group group);
 }
