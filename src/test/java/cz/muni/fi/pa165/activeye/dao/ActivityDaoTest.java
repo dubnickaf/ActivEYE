@@ -9,6 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import static org.junit.Assert.fail;
 
 /**
  * @author Branislav Bajuzik; 445772
@@ -19,17 +20,21 @@ public class ActivityDaoTest {
     private static Activity activity;
 
     @BeforeClass
-    public static void setUp() {
+    public static void setUpClass() {
         ApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class, PersistenceContext.class);
         aDao = applicationContext.getBean(ActivityDao.class);
+    }
+
+    @Before
+    public void setUp() {
         activity = new Activity();
         activity.setName("Sport");
         activity.setCaloriesRatio(BigDecimal.TEN);
     }
 
-    @AfterClass
-    public static void tearDown() {
+    @After
+    public  void tearDown() {
         for (Activity a : aDao.findAll()) {
             aDao.delete(a);
         }
@@ -39,6 +44,7 @@ public class ActivityDaoTest {
     public void nullCreate() {
         try {
             aDao.create(null);
+            fail("Activity can't be null!");
         } catch (IllegalArgumentException ex) { /*ok*/ }
         activity.setName(null);
         activity.setCaloriesRatio(null);
@@ -52,6 +58,7 @@ public class ActivityDaoTest {
         activity.setCaloriesRatio(BigDecimal.ZERO);
         try {
             aDao.create(activity);
+            fail("Activity name or caloriesRatio was invalid: " + activity);
         } catch (IllegalArgumentException ex) { /*ok*/ }
         activity.setCaloriesRatio(BigDecimal.valueOf(-42.0));
         aDao.create(activity);
@@ -79,6 +86,7 @@ public class ActivityDaoTest {
     public void nullUpdate() {
         try {
             aDao.update(null);
+            fail("Activity can't be null");
         } catch (IllegalArgumentException ex) { /*ok*/ }
         activity.setName(null);
         activity.setCaloriesRatio(null);
@@ -92,6 +100,7 @@ public class ActivityDaoTest {
         activity.setCaloriesRatio(BigDecimal.ZERO);
         try {
             aDao.update(activity);
+            fail("Activity name or caloriesRatio was invalid: " + activity);
         } catch (IllegalArgumentException ex) { /*ok*/ }
         activity.setCaloriesRatio(BigDecimal.valueOf(-42.0));
         aDao.update(activity);
@@ -105,6 +114,7 @@ public class ActivityDaoTest {
         aDao.update(activity);
 
         Activity activity2 = new Activity();
+        activity2.setId(activity.getId());
         activity2.setName("Sport2");
         activity2.setCaloriesRatio(BigDecimal.ONE);
 
@@ -115,6 +125,7 @@ public class ActivityDaoTest {
     public void nullDelete() {
         try {
             aDao.delete(null);
+            fail("Activity cant be null!");
         } catch (IllegalArgumentException ex) { /*ok*/ }
         activity.setName(null);
         activity.setCaloriesRatio(null);
@@ -128,6 +139,7 @@ public class ActivityDaoTest {
         activity.setCaloriesRatio(BigDecimal.ZERO);
         try {
             aDao.delete(activity);
+            fail("Activity name or caloriesRatio was invalid: " + activity);
         } catch (IllegalArgumentException ex) { /*ok*/ }
         activity.setCaloriesRatio(BigDecimal.valueOf(-42.0));
         aDao.delete(activity);
@@ -145,9 +157,11 @@ public class ActivityDaoTest {
     public void FindById() {
         try {
             aDao.findById(null);
+            fail("Id can't be null!");
         } catch (IllegalArgumentException ex) { /*ok*/ }
         try {
             aDao.findById(0L);
+            fail("Id can't be < 1!");
         } catch (IllegalArgumentException ex) { /*ok*/ }
         aDao.findById(-1L);
 
@@ -157,11 +171,11 @@ public class ActivityDaoTest {
         activity2.setCaloriesRatio(BigDecimal.ONE);
         aDao.create(activity2);
 
-        Assert.assertTrue("Retrieved Activity != Activity!",
+        Assert.assertTrue("Retrieved " + activity + " != " + aDao.findById(activity.getId()) + "!",
                 deepEquals(activity, aDao.findById(activity.getId())));
-        Assert.assertTrue("Retrieved Activity != Activity retrieved by same id!",
+        Assert.assertTrue("Retrieved " + aDao.findById(activity.getId()) + " != " + aDao.findById(activity.getId()) + " retrieved by same id!",
                 deepEquals(aDao.findById(activity.getId()), aDao.findById(activity.getId())));
-        Assert.assertTrue("Retrieved Activity == Activity retrieved different id!",
+        Assert.assertFalse("Retrieved " + aDao.findById(activity.getId()) + " == " + aDao.findById(activity2.getId()) + " retrieved different id!",
                 deepEquals(aDao.findById(activity.getId()), aDao.findById(activity2.getId())));
     }
 
@@ -169,6 +183,7 @@ public class ActivityDaoTest {
     public void FindByName() {
         try {
             aDao.findByName(null);
+            fail("Name can't be null!");
         } catch (IllegalArgumentException ex) { /*ok*/ }
         aDao.findByName("");
 
@@ -178,11 +193,11 @@ public class ActivityDaoTest {
         activity2.setCaloriesRatio(BigDecimal.ONE);
         aDao.create(activity2);
 
-        Assert.assertTrue("Retrieved Activity != Activity!",
+        Assert.assertTrue("Retrieved " + activity + " != " + aDao.findByName(activity.getName()) + "!",
                 deepEquals(activity, aDao.findByName(activity.getName())));
-        Assert.assertTrue("Retrieved Activity != Activity retrieved by same name!",
+        Assert.assertTrue("Retrieved " + aDao.findByName(activity.getName()) + " != " + aDao.findByName(activity.getName()) + " retrieved by same name!",
                 deepEquals(aDao.findByName(activity.getName()), aDao.findByName(activity.getName())));
-        Assert.assertTrue("Retrieved Activity == Activity retrieved by different name!",
+        Assert.assertFalse("Retrieved " + aDao.findByName(activity.getName()) + " == " + aDao.findByName(activity2.getName()) + " retrieved by different name!",
                 deepEquals(aDao.findByName(activity.getName()), aDao.findByName(activity2.getName())));
     }
 
@@ -211,6 +226,6 @@ public class ActivityDaoTest {
         boolean ret = a1.equals(a2);
         ret = ret && a1.getId().equals(a2.getId());
         ret = ret && a1.getName().equals(a2.getName());
-        return ret && a1.getCaloriesRatio().equals(a2.getCaloriesRatio());
+        return ret && a1.getCaloriesRatio().compareTo(a2.getCaloriesRatio()) == 0;
     }
 }
