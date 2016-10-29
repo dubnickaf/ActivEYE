@@ -17,7 +17,7 @@ public class Group {
     @Column(name = "GROUP_ID")
     private Long id;
     private Long creatorsUserId;
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "groups")
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<User> users;
     @NotNull
     @Column(nullable = false)

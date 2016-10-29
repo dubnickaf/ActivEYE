@@ -40,9 +40,7 @@ public class GroupDaoImpl implements GroupDao{
         validateGroup(group);
         if (group.getId() == null)
             throw new IllegalArgumentException("Group's id can't be null");
-        if (em.contains(group)) {
-            em.remove(group);
-        }
+        em.remove(em.contains(group) ? group : em.merge(group));
     }
 
     @Override
