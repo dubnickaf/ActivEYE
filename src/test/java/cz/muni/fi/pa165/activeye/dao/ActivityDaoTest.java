@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.activeye.entities.Activity;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import javax.persistence.PersistenceException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +41,25 @@ public class ActivityDaoTest {
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = PersistenceException.class)
     public void nullCreate() {
         try {
             aDao.create(null);
             fail("Activity can't be null!");
         } catch (IllegalArgumentException ex) { /*ok*/ }
+        
         activity.setName(null);
+        try {
+            aDao.create(activity);
+            fail("Activity's name can't be null!");
+        } catch (IllegalArgumentException ex) { activity.setName("Sport"); }
+        
         activity.setCaloriesRatio(null);
+        try {
+            aDao.create(activity);
+            fail("Activity's caloriesRatio can't be null!");
+        } catch (IllegalArgumentException ex) { activity.setCaloriesRatio(BigDecimal.TEN); }
+        
         activity.setId(42L);
         aDao.create(activity);
     }
@@ -55,16 +67,22 @@ public class ActivityDaoTest {
     @Test(expected = IllegalArgumentException.class)
     public void illegalAttributesCreate() {
         activity.setName("");
+        try {
+            aDao.create(activity);
+            fail("Activity name was invalid: " + activity);
+        } catch (IllegalArgumentException ex) { activity.setName("Sport"); }
+        
         activity.setCaloriesRatio(BigDecimal.ZERO);
         try {
             aDao.create(activity);
-            fail("Activity name or caloriesRatio was invalid: " + activity);
+            fail("Activity caloriesRatio was invalid: " + activity);
         } catch (IllegalArgumentException ex) { /*ok*/ }
+        
         activity.setCaloriesRatio(BigDecimal.valueOf(-42.0));
         aDao.create(activity);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = PersistenceException.class)
     public void duplicateCreate() {
         aDao.create(activity);
         aDao.create(activity);
@@ -82,14 +100,25 @@ public class ActivityDaoTest {
         Assert.assertTrue("Activity was changed after creating!", deepEquals(activity, activity2));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void nullUpdate() {
         try {
             aDao.update(null);
             fail("Activity can't be null");
         } catch (IllegalArgumentException ex) { /*ok*/ }
+        
         activity.setName(null);
+        try {
+            aDao.update(activity);
+            fail("Activity's name can't be null");
+        } catch (IllegalArgumentException ex) { activity.setName("Sport"); }
+        
         activity.setCaloriesRatio(null);
+        try {
+            aDao.update(activity);
+            fail("Activity's caloriesRatio can't be null");
+        } catch (IllegalArgumentException ex) { activity.setCaloriesRatio(BigDecimal.TEN); }
+        
         activity.setId(null);
         aDao.update(activity);
     }
@@ -97,11 +126,17 @@ public class ActivityDaoTest {
     @Test(expected = IllegalArgumentException.class)
     public void illegalAttributesUpdate() {
         activity.setName("");
+        try {
+            aDao.update(activity);
+            fail("Activity name was invalid: " + activity);
+        } catch (IllegalArgumentException ex) { activity.setName("Sport"); }
+        
         activity.setCaloriesRatio(BigDecimal.ZERO);
         try {
             aDao.update(activity);
-            fail("Activity name or caloriesRatio was invalid: " + activity);
+            fail("Activity caloriesRatio was invalid: " + activity);
         } catch (IllegalArgumentException ex) { /*ok*/ }
+        
         activity.setCaloriesRatio(BigDecimal.valueOf(-42.0));
         aDao.update(activity);
     }
@@ -121,14 +156,25 @@ public class ActivityDaoTest {
         Assert.assertTrue("Activity wasn't changed after updating!", deepEquals(activity, activity2));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void nullDelete() {
         try {
             aDao.delete(null);
-            fail("Activity cant be null!");
+            fail("Activity can't be null!");
         } catch (IllegalArgumentException ex) { /*ok*/ }
+        
         activity.setName(null);
+        try {
+            aDao.delete(activity);
+            fail("Activity's name can't be null!");
+        } catch (IllegalArgumentException ex) { activity.setName("Sport"); }
+        
         activity.setCaloriesRatio(null);
+        try {
+            aDao.delete(activity);
+            fail("Activity's caloriesRatio can't be null!");
+        } catch (IllegalArgumentException ex) { activity.setCaloriesRatio(BigDecimal.TEN); }
+        
         activity.setId(null);
         aDao.delete(activity);
     }
@@ -136,10 +182,15 @@ public class ActivityDaoTest {
     @Test(expected = IllegalArgumentException.class)
     public void illegalAttributesDelete() {
         activity.setName("");
+        try {
+            aDao.delete(activity);
+            fail("Activity name was invalid: " + activity);
+        } catch (IllegalArgumentException ex) { activity.setName("Sport"); }
+
         activity.setCaloriesRatio(BigDecimal.ZERO);
         try {
             aDao.delete(activity);
-            fail("Activity name or caloriesRatio was invalid: " + activity);
+            fail("Activity caloriesRatio was invalid: " + activity);
         } catch (IllegalArgumentException ex) { /*ok*/ }
         activity.setCaloriesRatio(BigDecimal.valueOf(-42.0));
         aDao.delete(activity);

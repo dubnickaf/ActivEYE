@@ -11,7 +11,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
+import javax.persistence.PersistenceException;
 import java.util.*;
 
 /**
@@ -53,7 +53,7 @@ public class GroupDaoTest {
         groupDao.create(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = PersistenceException.class)
     public void testCreateExisting(){
         Group group = new Group();
         group.setName("Fesaci");

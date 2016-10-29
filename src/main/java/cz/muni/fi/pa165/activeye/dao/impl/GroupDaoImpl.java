@@ -73,6 +73,7 @@ public class GroupDaoImpl implements GroupDao{
 
     @Override
     public void addUser(User user, Group group) {
+        validateGroup(group);
         group.addUser(user);
         update(group);
     }

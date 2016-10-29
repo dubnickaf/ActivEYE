@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,8 +28,6 @@ public class ActivityDaoImpl implements ActivityDao {
     @Override
     public void create(Activity a) {
         validateActivity(a);
-        if (a == null)
-            throw new IllegalArgumentException("Activity should not be null.");
         // No need to check if id == null, @GeneratedValue is called during the insert process on db level. The JPA provider will ensure that the entity is updated afterwards! (this means I can set id to whatever, it will be overriden???)
 
         em.persist(a);
@@ -37,8 +36,6 @@ public class ActivityDaoImpl implements ActivityDao {
     @Override
     public void update(Activity a) {
         validateActivity(a);
-        if (a == null)
-            throw new IllegalArgumentException("Activity should not be null.");
 
         em.merge(a);
     }
@@ -46,8 +43,6 @@ public class ActivityDaoImpl implements ActivityDao {
     @Override
     public void delete(Activity a) {
         validateActivity(a);
-        if (a == null)
-            throw new IllegalArgumentException("Activity should not be null.");
 
         //em.remove(a);
         em.remove(em.contains(a) ? a : em.merge(a));
@@ -85,11 +80,15 @@ public class ActivityDaoImpl implements ActivityDao {
         if (activity == null)
             throw new IllegalArgumentException("Activity can't be null.");
         if (activity.getId() != null && activity.getId() < 1)
-            throw new IllegalArgumentException("Activity id can't be < 1 or null.");
+            throw new IllegalArgumentException("Activity id can't be < 1.");
         if (activity.getName() == null)
             throw new IllegalArgumentException("Activity name can't be null.");
         if (activity.getName().isEmpty())
             throw new IllegalArgumentException("Activity name can't be empty.");
+        if (activity.getCaloriesRatio() == null)
+            throw new IllegalArgumentException("Activity caloriesRatio can't be null");
+        if (activity.getCaloriesRatio().compareTo(BigDecimal.ZERO) <= 0)
+            throw new IllegalArgumentException("Activity caloriesRatio can't be <= 0");
     }
 
 }
