@@ -83,11 +83,14 @@ public class Group {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Group)) return false;
+        if (!(o instanceof Group))
+            return false;
 
         Group group = (Group) o;
 
-        return getId().equals(group.getId());
+        return getCreatorsUserId().equals(group.getCreatorsUserId()) &&
+               getUsers().equals(group.getUsers()) &&
+               getName().equals(group.getName());
 
     }
 
