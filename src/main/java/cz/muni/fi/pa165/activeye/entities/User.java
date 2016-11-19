@@ -109,7 +109,7 @@ public class User {
         if (o == null) return false;
         if (! (o instanceof User)) return false;
         User user = (User) o;
-        return emailAddress.equals(user.emailAddress);
+        return getEmailAddress().equals(user.getEmailAddress());
 
     }
 
@@ -119,7 +119,7 @@ public class User {
     }
 
     public Set<Record> getActivityRecords() {
-        return (activityRecords);
+        return activityRecords;
     }
 
     public void setActivityRecords(Set<Record> activityRecords) {
@@ -129,11 +129,11 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", bornDate=" + bornDate +
-                ", gender=" + gender +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", emailAddress='" + getEmailAddress() + '\'' +
+                ", bornDate=" + getBornDate() +
+                ", gender=" + getGender() +
                 '}';
     }
 }
