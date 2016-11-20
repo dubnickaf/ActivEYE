@@ -19,7 +19,10 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import cz.muni.fi.pa165.activeye.dao.UserDao;
 
-
+/**
+ * In memory Derby database bean configuration
+ * @author dubnickaf@gmail.com [445647]
+ */
 @Configuration
 public class InMemoryDatabaseSpring {
 

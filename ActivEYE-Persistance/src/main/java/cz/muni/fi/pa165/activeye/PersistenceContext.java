@@ -17,7 +17,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import javax.sql.DataSource;
 
 /**
- * Created by dubnickaf@gmail.com [445647] on windows user "Toshiba" on 24.10.2016.
+ * JPA´s PersistenceContext´s beans configuration
+ * @author dubnickaf@gmail.com [445647]
  */
 @Configuration
 @EnableTransactionManagement
