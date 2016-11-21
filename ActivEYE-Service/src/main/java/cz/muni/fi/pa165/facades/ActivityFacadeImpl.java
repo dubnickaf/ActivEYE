@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.activeye.facades.ActivityFacade;
 import cz.muni.fi.pa165.mapping.BeanMappingService;
 import cz.muni.fi.pa165.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -16,7 +18,8 @@ import java.util.List;
  * @version 1.0
  * @since   20-11-2016
  */
-
+@Service
+@Transactional
 public class ActivityFacadeImpl implements ActivityFacade {
 
     @Inject
