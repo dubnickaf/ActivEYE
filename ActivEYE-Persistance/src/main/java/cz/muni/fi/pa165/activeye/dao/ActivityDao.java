@@ -17,40 +17,40 @@ public interface ActivityDao {
      * @param a Activity to be created
      * @return void
      */
-    public void create(Activity a);
+    void create(Activity a);
 
     /**
      * Updates an Activity
      * @param a Activity to be updated
      * @return void
      */
-    public void update(Activity a);
+    void update(Activity a);
 
     /**
      * Deletes an Activity
      * @param a Activity to be deleted
      * @return void
      */
-    public void delete(Activity a);
+    void delete(Activity a);
 
     /**
      * Returns Activity with given id
      * @param id id of required Activity
      * @return Activity with given id
      */
-    public Activity findById(Long id);
+    Activity findById(Long id);
 
     /**
      * Returns Activity with given name
      * @param name name of required Activity
      * @return Activity with given name
      */
-    public Activity findByName(String name);
+    Activity findByName(String name);
 
     /**
      * Returns List of all Activities
      * @return List of all Activities
      */
-    public List<Activity> findAll();
+    List<Activity> findAll();
 
 }
