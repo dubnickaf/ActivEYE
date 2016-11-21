@@ -159,12 +159,12 @@
             <version>1.2.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.mindrot/jbcrypt &ndash;&gt;
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.3m</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
