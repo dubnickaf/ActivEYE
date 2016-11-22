@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityExistsException;
 import javax.persistence.PersistenceException;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -140,8 +141,11 @@ public class RecordDaoTest {
         record.setActivity(activity);
         record.setUser(user);
         record.setBurnedCalories(new BigDecimal("14.15"));
-        record.setTime(15l);
-
+        Calendar now = Calendar.getInstance();
+        record.setStartDate(now);
+        Calendar after15sec = Calendar.getInstance();
+        after15sec.setTimeInMillis(now.getTimeInMillis());
+        record.setEndDate(after15sec);
         recordDao.createRecord(record);
 
         Record find = recordDao.getRecord(record.getId());

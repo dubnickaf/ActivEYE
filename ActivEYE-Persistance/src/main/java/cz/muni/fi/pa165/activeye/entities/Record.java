@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.activeye.entities;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 /**
  * Created by dubnickaf@gmail.com [445647] on windows user "Toshiba" on 24.10.2016.
@@ -25,8 +26,11 @@ public class Record {
 
     private BigDecimal burnedCalories;
 
-    //Duration of in miliseconds
-    private Long time;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar startDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar endDate;
 
 
     public User getUser() {
@@ -53,17 +57,10 @@ public class Record {
         this.burnedCalories = burnedCalories;
     }
 
-    public void setTime(long time){
-        this.time = time;
-    }
-
     public Long getId(){
         return id;
     }
 
-    public Long getTime(){
-        return time;
-    }
 
     @Override
     public String toString(){
@@ -71,7 +68,8 @@ public class Record {
                 "user: " + user + ", " +
                 "activity: " + activity + ", " +
                 "burnedCalories: " + burnedCalories + ", " +
-                "time: " + time + "]";
+                "startDate: " + startDate.getTime() +  ", " +
+                "endDate:" + endDate.getTime() + "]";
     }
 
     @Override
@@ -89,6 +87,12 @@ public class Record {
         if (!(activity.equals(other.getActivity()))){
             return false;
         }
+        if (!(startDate.equals(other.getStartDate()))){
+            return false;
+        }
+        if(!(endDate.equals(other.getEndDate()))){
+            return false;
+        }
         return burnedCalories.equals(other.getBurnedCalories());
     }
 
@@ -97,7 +101,24 @@ public class Record {
         int result = user.hashCode();
         result = 31 * result + activity.hashCode();
         result = 31 * result + (burnedCalories != null ? burnedCalories.hashCode() : 0);
-        result = 31 * result + (time != null ? time.hashCode() : 0);
+        result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
+        result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         return result;
+    }
+
+    public Calendar getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Calendar endDate) {
+        this.endDate = endDate;
+    }
+
+    public Calendar getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Calendar startDate) {
+        this.startDate = startDate;
     }
 }

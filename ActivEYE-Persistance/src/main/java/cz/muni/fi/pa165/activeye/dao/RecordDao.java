@@ -10,14 +10,35 @@ import java.util.List;
  */
 public interface RecordDao {
 
-    public List<Record> getAllRecords();
+    /**
+     * Gets all Record entities from DB
+     * @return List of all Record entity
+     */
+    List<Record> getAllRecords();
 
-    public void createRecord(Record record);
+    /**
+     * Creates Record entity in DB
+     * @param record
+     */
+    void createRecord(Record record);
 
-    public Record getRecord(Long id);
+    /**
+     * Fetches Record with given ID from DB
+     * @param id ID of Record entity to be fetched
+     * @return Record entity to be fetched
+     */
+    Record getRecord(Long id);
 
-    public void deleteRecord(Record record);
+    /**
+     * Deletes record entity from DB
+     * @param record Record entity to be deleted
+     */
+    void deleteRecord(Record record);
 
-    public void updateRecord(Record record);
+    /**
+     * Updates Record entity in DB
+     * @param record Record entity to be updated
+     */
+    void updateRecord(Record record);
 
 }
