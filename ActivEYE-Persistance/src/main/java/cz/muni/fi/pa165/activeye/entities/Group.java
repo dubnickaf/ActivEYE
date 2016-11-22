@@ -12,16 +12,23 @@ import java.util.Set;
 @Entity
 @Table(name = "Groups")
 public class Group {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GROUP_ID")
     private Long id;
+
+    @NotNull
+    @Column(nullable = false)
     private Long creatorsUserId;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<User> users;
+    private Set<User> users = new HashSet<User>();
+
     @NotNull
     @Column(nullable = false)
     private String name;
+
 
     public Long getId() {
         return id;
@@ -63,13 +70,9 @@ public class Group {
         if (user == null)
             throw new IllegalArgumentException("User can't be null");
         Set<User> users = getUsers();
-        if (users == null) {
-            users = new HashSet<User>();
+        if (users.add(user)) {
+            setUsers(users);
         }
-        if (users.contains(user))
-            throw new IllegalArgumentException("User is already in group");
-        users.add(user);
-        setUsers(users);
     }
 
     @Override
@@ -82,13 +85,17 @@ public class Group {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Group))
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Group)) {
             return false;
+        }
 
-        Group group = (Group) o;
-
-        return getCreatorsUserId().equals(group.getCreatorsUserId()) &&
+        final Group group = (Group) o;
+        
+        return getId().equals(group.getId()) &&
+               getCreatorsUserId().equals(group.getCreatorsUserId()) &&
                getUsers().equals(group.getUsers()) &&
                getName().equals(group.getName());
 
@@ -96,9 +103,10 @@ public class Group {
 
     @Override
     public int hashCode() {
-        int result = creatorsUserId.hashCode();
-        result = 31 * result + users.hashCode();
-        result = 31 * result + name.hashCode();
-        return result;
+        int result = 11;
+        result *= 31 + (getId() != null ? getId().hashCode() : 0);
+        result *= 31 + (getCreatorsUserId() != null ? getCreatorsUserId().hashCode() : 0);
+        result *= 31 + (getUsers() != null ? getUsers().hashCode() : 0);
+        return result * 31 + (getName() != null ? getName().hashCode() : 0);
     }
 }
