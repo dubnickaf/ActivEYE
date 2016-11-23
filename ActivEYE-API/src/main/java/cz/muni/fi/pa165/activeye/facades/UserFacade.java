@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.dto.NotAuthenticatedUserDTO;
+import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
 
 import java.util.Collection;
@@ -57,4 +58,12 @@ public interface UserFacade {
      */
     Collection<UserDTO> getAllUsers();
 
+    /**
+     * Returns stats for given user.
+     *
+     * @param u users DTO
+     * @return statistics DTO, be careful cos some of the attributes can be null if user does not have any record.
+     * @throws IllegalArgumentException   if userDTO is null
+     */
+    StatisticsOfUserDTO getStatistics(UserDTO u);
 }

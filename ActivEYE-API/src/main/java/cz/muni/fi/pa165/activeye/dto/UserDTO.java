@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.activeye.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 import cz.muni.fi.pa165.activeye.enums.Gender;
 
@@ -68,5 +69,31 @@ public class UserDTO {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof UserDTO)) return false;
+
+        UserDTO userDTO = (UserDTO) o;
+
+        return getEmailAddress().equals(userDTO.getEmailAddress());
+    }
+
+    @Override
+    public int hashCode() {
+        return getEmailAddress().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + getId() +
+                ", name='" + getName() + '\'' +
+                ", emailAddress='" + getEmailAddress() + '\'' +
+                ", bornDate=" + getBornDate() +
+                ", gender=" + getGender() +
+                '}';
     }
 }

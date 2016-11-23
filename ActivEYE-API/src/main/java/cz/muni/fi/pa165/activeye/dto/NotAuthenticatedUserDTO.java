@@ -23,4 +23,30 @@ public class NotAuthenticatedUserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof NotAuthenticatedUserDTO)) return false;
+
+        NotAuthenticatedUserDTO that = (NotAuthenticatedUserDTO) o;
+
+        if (!getEmail().equals(that.getEmail())) return false;
+        return getPassword().equals(that.getPassword());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getEmail().hashCode();
+        result = 31 * result + getPassword().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "NotAuthenticatedUserDTO{" +
+                "email='" + email + '\'' +
+                '}';
+    }
 }
