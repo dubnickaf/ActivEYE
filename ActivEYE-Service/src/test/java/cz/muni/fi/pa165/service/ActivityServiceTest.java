@@ -1,13 +1,12 @@
-package cz.muni.fi.pa165.facade;
+package cz.muni.fi.pa165.service;
 
-import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
 import org.testng.annotations.Test;
 
 /**
  * Tests for ActivityFacade
  * @author Filip Dubnička [445647]
  */
-public class ActivityFacadeTest {
+public class ActivityServiceTest {
     @Test
     public void testCreateActivity(){
 
@@ -37,5 +36,4 @@ public class ActivityFacadeTest {
     public void testFindAll(){
 
     }
-
 }

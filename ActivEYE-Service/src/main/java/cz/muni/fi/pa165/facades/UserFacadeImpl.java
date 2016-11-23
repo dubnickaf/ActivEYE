@@ -39,6 +39,12 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public void registerUser(UserDTO u, String password) {
+        if (u == null) {
+            throw new IllegalArgumentException("Cannot register inserted null UserDTO.");
+        }
+        if (password == null) {
+            throw new IllegalArgumentException("Cannot register user with inserted null password.");
+        }
         User user = beanMappingService.mapTo(u, User.class);
         userService.registerUser(user, password);
         u.setId(user.getId());
@@ -46,30 +52,48 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public boolean authenticate(NotAuthenticatedUserDTO u) {
+        if (u == null) {
+            throw new IllegalArgumentException("Cannot authenticate inserted null NotAuthenticatedUserDTO.");
+        }
         User user = userService.findUserByEmail(u.getEmail());
         return userService.authenticate(user, u.getPassword());
     }
 
     @Override
     public void updateUser(UserDTO u) {
+        if (u == null) {
+            throw new IllegalArgumentException("Cannot update inserted null UserDTO.");
+        }
         User user = beanMappingService.mapTo(u, User.class);
         userService.updateUser(user);
     }
 
     @Override
     public void deleteUser(UserDTO u) {
+        if (u == null) {
+            throw new IllegalArgumentException("Cannot update inserted null user.");
+        }
+        if (u.getId() == null) {
+            throw new IllegalArgumentException("User has not been successfully persisted yet");
+        }
         User user = beanMappingService.mapTo(u, User.class);
         userService.deleteUser(user);
     }
 
     @Override
     public UserDTO findUserById(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("Cannot find user with null id.");
+        }
         User user = userService.findUserById(userId);
         return (user == null) ? null : beanMappingService.mapTo(user, UserDTO.class);
     }
 
     @Override
     public UserDTO findUserByEmail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException("Cannot find user with null email.");
+        }
         User user = userService.findUserByEmail(email);
         return (user == null) ? null : beanMappingService.mapTo(user, UserDTO.class);
     }
