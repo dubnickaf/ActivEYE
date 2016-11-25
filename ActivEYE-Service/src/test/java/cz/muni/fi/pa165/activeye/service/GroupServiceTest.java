@@ -84,10 +84,9 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
         verify(groupDao).create(group1);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void updateNullTest() {
-        //groupService.update(null);
-        throw new NullPointerException();
+        groupService.update(null);
     }
 
     @Test
@@ -96,10 +95,9 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
         verify(groupDao).update(group1);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void deleteNullTest() {
-        //groupService.delete(null);
-        throw new NullPointerException();
+        groupService.delete(null);
     }
 
     @Test
@@ -108,10 +106,9 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
         verify(groupDao).delete(group1);
     }
 
-    @Test(expectedExceptions = NullPointerException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByIdNullTest() {
-        //groupService.findById(null);
-        throw new NullPointerException();
+        groupService.findById(null);
     }
 
     @Test
