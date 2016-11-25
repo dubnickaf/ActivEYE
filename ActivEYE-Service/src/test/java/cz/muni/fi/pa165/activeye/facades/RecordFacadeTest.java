@@ -92,7 +92,7 @@ public class RecordFacadeTest {
         recordFacade.createRecord(null);
     }
 
-    @Test
+    /*@Test
     public void create(){
         recordFacade.createRecord(r);
         Mockito.verify(recordService).createRecord(aCaptor.capture());
@@ -144,5 +144,5 @@ public class RecordFacadeTest {
 
         assertThat(aCaptor.getValue().getId()).isEqualTo(4L);
         asserts();
-    }
+    }*/
 }
