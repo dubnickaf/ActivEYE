@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.activeye.dao.GroupDao;
 import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
+import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.Collection;
@@ -61,11 +62,16 @@ public class GroupServiceImpl implements GroupService {
         if (id == null) {
             throw new IllegalArgumentException("Can't Group of Id null");
         }
+        Group g;
         try {
-            return groupDao.findById(id);
+            g = groupDao.findById(id);
         } catch (Exception e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
+        if(g == null) {
+            throw new NoSuchEntityFoundException("No Group with id " + id + " found");
+        }
+        return g;
     }
 
     @Override

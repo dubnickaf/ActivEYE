@@ -22,11 +22,16 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
+/**
+ * @author Branislav Bajuzik; 442772
+ */
 @ContextConfiguration(classes = ServiceConfiguration.class)
 @ComponentScan(basePackages = "cz.muni.fi.pa165.activeye")
 public class RecordFacadeTest extends AbstractTestNGSpringContextTests{
@@ -102,6 +107,11 @@ public class RecordFacadeTest extends AbstractTestNGSpringContextTests{
         asserts();
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void updateNull() {
+        recordFacade.updateRecord(null);
+    }
+
     @Test
     public void update(){
         r.setId(3L);
@@ -130,6 +140,11 @@ public class RecordFacadeTest extends AbstractTestNGSpringContextTests{
         assertThat(recordDTO.getActivity()).isEqualTo(a);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void deleteNull() {
+        recordFacade.deleteRecord(null);
+    }
+
     @Test
     public void delete(){
         r.setId(4L);
@@ -145,4 +160,56 @@ public class RecordFacadeTest extends AbstractTestNGSpringContextTests{
         asserts();
     }
 
+    @Test
+    public void testFindAll(){
+        List<Record> records = new ArrayList<>();
+        records.add(beanMappingService.mapTo(r, Record.class));
+        records.add(r2());
+
+        when(recordService.getAllRecords()).thenReturn(records);
+
+        List<RecordDTO> records2 = recordFacade.getAllRecords();
+        assertThat(records2.size()).isEqualTo(records.size());
+
+        for (int i = 0; i < records.size(); i++) {
+            Record original = records.get(i);
+            RecordDTO original2 = records2.get(i);
+
+            assertThat(original.getId()).isEqualTo(original2.getId());
+            assertThat(original.getActivity()).isEqualTo(beanMappingService.mapTo(original2.getActivity(), Activity.class));
+            assertThat(original.getBurnedCalories()).isEqualTo(original2.getBurnedCalories());
+            assertThat(original.getEndDate()).isEqualTo(original2.getEndDate());
+            assertThat(original.getStartDate()).isEqualTo(original2.getStartDate());
+            assertThat(original.getUser()).isEqualTo(beanMappingService.mapTo(original2.getUser(), User.class));
+        }
+    }
+
+    private Record r2() {
+        int i;
+        Activity a = new Activity();
+        a.setCaloriesRatio(BigDecimal.ONE);
+        a.setId(4L);
+        a.setName("Quick jog in NY ");
+
+        User u = new User();
+        u.setName("Jet Fuel ");
+        u.setEmailAddress("cant_@melt.steel");
+        u.setPasswordHash("beams ");
+        u.setBornDate(Calendar.getInstance().getTime());
+        u.setGender(Gender.FEMALE);
+        u.setId(5L);
+
+        Record r = new Record();
+        calS = Calendar.getInstance();
+        calE = Calendar.getInstance();
+        r.setActivity(a);
+        r.setUser(u);
+        calS.set(2002, 9, 11, 8, 46);
+        r.setStartDate(calS);
+        calE.set(2002, 9, 11, 8, 50);
+        r.setEndDate(calE);
+        r.setBurnedCalories(BigDecimal.valueOf(11.9));
+        r.setId(6L);
+        return r;
+    }
 }
