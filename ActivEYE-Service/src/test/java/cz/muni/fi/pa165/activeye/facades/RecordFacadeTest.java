@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.activeye.facades;
 
-<<<<<<< HEAD
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
@@ -8,10 +7,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 import javax.inject.Inject;
 
-
-public class RecordFacadeTest extends AbstractTestNGSpringContextTests{
-
-=======
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
 import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
 import cz.muni.fi.pa165.activeye.dto.RecordDTO;
@@ -154,5 +149,5 @@ public class RecordFacadeTest extends AbstractTestNGSpringContextTests{
         assertThat(captor.getValue().getId()).isEqualTo(4L);
         asserts();
     }
->>>>>>> 792d0e21ff1744f226feccfe0116334293b4a7c8
+
 }
