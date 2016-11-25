@@ -20,7 +20,6 @@ import org.testng.annotations.Test;
 import javax.inject.Inject;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 
 import static org.mockito.Mockito.verify;
