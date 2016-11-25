@@ -7,6 +7,7 @@ import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeMistakeInCalculationException;
+import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -99,11 +100,14 @@ public class UserServiceImpl implements UserService {
         if (userId == null) {
             throw new IllegalArgumentException("Cannot find user with null id.");
         }
+        User user;
         try{
-           return userDao.findUserById(userId);
+            user = userDao.findUserById(userId);
         } catch (Exception e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
+        if(user == null) throw new NoSuchEntityFoundException("No user with user id" + userId + "found");
+        return user;
     }
 
     @Override
@@ -111,20 +115,26 @@ public class UserServiceImpl implements UserService {
         if (email == null) {
             throw new IllegalArgumentException("Cannot find user with null email.");
         }
+        User user;
         try{
-            return userDao.findUserByEmail(email);
+            user = userDao.findUserByEmail(email);
         } catch (Exception e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
+        if(user == null) throw new NoSuchEntityFoundException("No user with email" + email + "found");
+        return user;
     }
 
     @Override
     public Collection<User> getAllUsers() {
+        Collection<User> users;
         try{
-            return userDao.findAll();
+            users = userDao.findAll();
         } catch (Exception e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
+        if(users == null) throw new NoSuchEntityFoundException("No users found");
+        return users;
     }
 
     @Override
