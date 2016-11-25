@@ -17,6 +17,14 @@ public class RecordDTO {
     private Calendar startDate;
     private Calendar endDate;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public UserDTO getUser() {
         return user;
     }
