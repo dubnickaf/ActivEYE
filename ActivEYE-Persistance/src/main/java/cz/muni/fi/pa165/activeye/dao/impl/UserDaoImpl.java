@@ -34,7 +34,13 @@ public class UserDaoImpl implements UserDao{
         }
 
         if(user.getId() != null){
-            throw new IllegalArgumentException("");
+            throw new IllegalArgumentException("User can´t have already set id");
+        }
+        if (user.getEmailAddress() == null){
+            throw new IllegalArgumentException("User´s email must be set.");
+        }
+        if(user.getPasswordHash() == null){
+            throw new IllegalArgumentException("User´s password hash can´t be null");
         }
         //if(user.getGroups() == null)user.setGroups(new HashSet<Group>());
         entityManager.persist(user);

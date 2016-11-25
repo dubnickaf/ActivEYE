@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.facade;
+package cz.muni.fi.pa165.facades;
 
 import org.testng.annotations.Test;
 

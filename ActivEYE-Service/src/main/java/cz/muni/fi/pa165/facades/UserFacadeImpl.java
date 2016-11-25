@@ -42,6 +42,9 @@ public class UserFacadeImpl implements UserFacade {
         if (u == null) {
             throw new IllegalArgumentException("Cannot register inserted null UserDTO.");
         }
+        if (u.getEmailAddress() == null){
+            throw new IllegalArgumentException("Cannot register user with inserted null email address.");
+        }
         if (password == null) {
             throw new IllegalArgumentException("Cannot register user with inserted null password.");
         }
@@ -54,6 +57,9 @@ public class UserFacadeImpl implements UserFacade {
     public boolean authenticate(NotAuthenticatedUserDTO u) {
         if (u == null) {
             throw new IllegalArgumentException("Cannot authenticate inserted null NotAuthenticatedUserDTO.");
+        }
+        if (u.getEmail() == null){
+            throw new IllegalArgumentException("Cannot register user with inserted null email address.");
         }
         User user = userService.findUserByEmail(u.getEmail());
         return userService.authenticate(user, u.getPassword());

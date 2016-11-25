@@ -56,6 +56,8 @@ public class GroupServiceTest {
 
         user1.setEmailAddress("Arnnost@lol.com");
         user2.setEmailAddress("Belzebub@lol.com");
+        user1.setPasswordHash("password");
+        user2.setPasswordHash("password");
 
         Set<User> users = new HashSet<User>();
         users.add(user1);

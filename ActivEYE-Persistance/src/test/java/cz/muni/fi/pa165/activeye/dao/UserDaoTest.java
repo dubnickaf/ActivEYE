@@ -48,6 +48,7 @@ public class UserDaoTest {
         User toCreate = new User();
         toCreate.setName("Jozko");
         toCreate.setEmailAddress("jozko@mail.com");
+        toCreate.setPasswordHash("password");
         userDao.create(toCreate);
         userDao.create(toCreate);
     }
@@ -56,6 +57,7 @@ public class UserDaoTest {
         User user = new User();
         user.setName("Martin");
         user.setEmailAddress("lalala");
+        user.setPasswordHash("password");
         userDao.create(user);
     }
     @Test(expected = ConstraintViolationException.class)
@@ -63,6 +65,7 @@ public class UserDaoTest {
         User user = new User();
         user.setName("Jozko");
         user.setEmailAddress("j@j.com");
+        user.setPasswordHash("password");
         Calendar now = Calendar.getInstance();
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.setTimeInMillis(now.getTimeInMillis() + (1000 * 60 * 60 * 24));
@@ -75,12 +78,14 @@ public class UserDaoTest {
         User user = new User();
         user.setName("Jozko");
         user.setEmailAddress("jozko@gmail.com");
+        user.setPasswordHash("password");
         user.setGender(Gender.MALE);
         userDao.create(user);
         Assert.assertNotNull(user);
         Assert.assertNotNull(user.getId());
         Assert.assertEquals("Jozko",user.getName());
         Assert.assertEquals("jozko@gmail.com",user.getEmailAddress());
+        Assert.assertEquals("password",user.getPasswordHash());
         Assert.assertEquals(Gender.MALE,user.getGender());
         Assert.assertTrue(1 == userDao.findAll().size());
     }
@@ -92,6 +97,7 @@ public class UserDaoTest {
         User user = new User();
         user.setName(name);
         user.setEmailAddress(email);
+        user.setPasswordHash("password");
         User sameUser = user;
         userDao.create(user);
         User fromDB = userDao.findUserById(user.getId());

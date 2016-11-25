@@ -137,6 +137,7 @@ public class RecordDaoTest {
         activity.setName("name for my activity");
         user.setName("name for my user");
         user.setEmailAddress("e@mail.com");
+        user.setPasswordHash("password");
 
         record.setActivity(activity);
         record.setUser(user);

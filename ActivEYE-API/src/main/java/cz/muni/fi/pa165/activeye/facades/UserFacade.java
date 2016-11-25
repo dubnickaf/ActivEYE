@@ -7,7 +7,7 @@ import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import java.util.Collection;
 
 /**
- * User´s facade
+ * User´s facades
  * @author Filip Dubnička [445647]
  */
 public interface UserFacade {

@@ -8,10 +8,7 @@ import cz.muni.fi.pa165.facades.UserFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 
 import cz.muni.fi.pa165.activeye.PersistenceContext;
 
@@ -23,6 +20,7 @@ import java.util.List;
  * @author dubnickaf@gmail.com [445647]
  */
 @Configuration
+@EnableAspectJAutoProxy
 @Import(PersistenceContext.class)
 @ComponentScan(basePackageClasses={UserFacadeImpl.class, GroupFacadeImpl.class, ActivityFacadeImpl.class ,RecordFacadeImpl.class})
 public class ServiceConfiguration {
@@ -30,13 +28,13 @@ public class ServiceConfiguration {
 
     @Bean
     public Mapper dozer(){
-        // should be needed to support Java 8 time api with Dozer
         List<String> mappingFiles = new ArrayList();
         mappingFiles.add("dozerJdk8Converters.xml");
 
         DozerBeanMapper dozer = new DozerBeanMapper();
+        dozer.setMappingFiles(mappingFiles);
 
-
+        if (dozer == null) throw new NullPointerException("Created dozer is null");
         return dozer;
     }
 

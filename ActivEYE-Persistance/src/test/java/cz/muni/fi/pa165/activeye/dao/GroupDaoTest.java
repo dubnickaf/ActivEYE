@@ -14,6 +14,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import javax.persistence.PersistenceException;
 import java.util.*;
 
+
+
 /**
  * Created by dubnickaf@gmail.com [445647] on windows user "Toshiba" on 24.10.2016.
  * @author Filip Dubnička [445647]
@@ -36,6 +38,7 @@ public class GroupDaoTest {
         User user = new User();
         user.setName("Matko");
         user.setEmailAddress("matko@gmail.com");
+        user.setPasswordHash("password");
         user.setGender(Gender.MALE);
         userDao.create(user);
         return user;
@@ -133,6 +136,7 @@ public class GroupDaoTest {
         User user2 = new User();
         user2.setName("Branko");
         user2.setEmailAddress("branko@gmail.com");
+        user2.setPasswordHash("password");
         user2.setGender(Gender.MALE);
         userDao.create(user2);
 
@@ -158,12 +162,14 @@ public class GroupDaoTest {
         User user2 = new User();
         user2.setName("Ferko");
         user2.setEmailAddress("ferko@gmail.com");
+        user2.setPasswordHash("password");
         user2.setGender(Gender.MALE);
         userDao.create(user2);
 
         User user3 = new User();
         user3.setName("Vratko");
         user3.setEmailAddress("vratko@gmail.com");
+        user3.setPasswordHash("password");
         user3.setGender(Gender.MALE);
         userDao.create(user3);
 

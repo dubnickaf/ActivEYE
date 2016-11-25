@@ -9,7 +9,6 @@ import java.util.List;
  * @version 1.0
  * @since   20-11-2016
  */
-
 public interface ActivityService {
 
     /**

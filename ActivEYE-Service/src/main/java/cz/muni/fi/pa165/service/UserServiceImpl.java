@@ -4,6 +4,8 @@ import cz.muni.fi.pa165.activeye.dao.RecordDao;
 import cz.muni.fi.pa165.activeye.dao.UserDao;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
+import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -28,17 +30,27 @@ public class UserServiceImpl implements UserService {
         if (u == null) {
             throw new IllegalArgumentException("Cannot register inserted null user.");
         }
+        if (u.getEmailAddress() == null){
+            throw new IllegalArgumentException("Cannot register user with inserted null email address.");
+        }
         if (password == null) {
             throw new IllegalArgumentException("Cannot register user with inserted null password.");
         }
         u.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
-        userDao.create(u);
+        try {
+            userDao.create(u);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
     public boolean authenticate(User u, String password) {
         if (u == null) {
             throw new IllegalArgumentException("Cannot authenticate inserted null user.");
+        }
+        if (u.getEmailAddress() == null){
+            throw new IllegalArgumentException("Cannot register user with inserted null email address.");
         }
         if (password == null) {
             throw new IllegalArgumentException("Cannot authenticate user with inserted null password.");
@@ -51,7 +63,11 @@ public class UserServiceImpl implements UserService {
         if (u == null) {
             throw new IllegalArgumentException("Cannot update inserted null user.");
         }
-        userDao.update(u);
+        try{
+            userDao.update(u);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
@@ -63,9 +79,17 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("User has not been successfully persisted yet");
         }
         for (Record record : u.getActivityRecords()){
-            recordDao.deleteRecord(record);
+            try{
+                recordDao.deleteRecord(record);
+            } catch (Exception e) {
+                throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+            }
         }
-        userDao.delete(u);
+        try{
+            userDao.delete(u);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
@@ -73,7 +97,11 @@ public class UserServiceImpl implements UserService {
         if (userId == null) {
             throw new IllegalArgumentException("Cannot find user with null id.");
         }
-        return userDao.findUserById(userId);
+        try{
+           return userDao.findUserById(userId);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
@@ -81,11 +109,19 @@ public class UserServiceImpl implements UserService {
         if (email == null) {
             throw new IllegalArgumentException("Cannot find user with null email.");
         }
-        return userDao.findUserByEmail(email);
+        try{
+            return userDao.findUserByEmail(email);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
     public Collection<User> getAllUsers() {
-        return userDao.findAll();
+        try{
+            return userDao.findAll();
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 }

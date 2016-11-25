@@ -6,18 +6,26 @@ import java.util.List;
 
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.SchedulingException;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 /**
  * Implementation of BeanMappingService
  * @author dubnickaf@gmail.com [445647]
  */
+@Service
 public class BeanMappingServiceImpl implements BeanMappingService{
 
-    @Autowired
+    @Inject
     private Mapper dozer;
 
+    @Override
     public  <T> List<T> mapTo(Collection<?> objects, Class<T> mapToClass) {
+        if (objects == null) throw new IllegalArgumentException("null object inserted into mapTo");
+        if (dozer == null)throw new NullPointerException("injected dozer is null");
+
         List<T> mappedCollection = new ArrayList<T>();
         for (Object object : objects) {
             mappedCollection.add(dozer.map(object, mapToClass));
@@ -25,11 +33,15 @@ public class BeanMappingServiceImpl implements BeanMappingService{
         return mappedCollection;
     }
 
+    @Override
     public  <T> T mapTo(Object u, Class<T> mapToClass)
     {
-        return dozer.map(u,mapToClass);
+        if (u == null) throw new IllegalArgumentException("null object inserted into mapTo");
+        if (dozer == null)throw new NullPointerException("injected dozer is null");
+        return dozer.map(u, mapToClass);
     }
 
+    @Override
     public Mapper getMapper(){
         return dozer;
     }

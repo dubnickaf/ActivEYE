@@ -38,6 +38,7 @@ public class User {
 
     private Gender gender;
 
+    @NotNull
     private String passwordHash;
 
     @ManyToMany(fetch = FetchType.EAGER)

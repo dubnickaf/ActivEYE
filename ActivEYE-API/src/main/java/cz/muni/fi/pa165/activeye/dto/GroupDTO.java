@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.activeye.dto;
 
-import cz.muni.fi.pa165.activeye.entities.User;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +10,7 @@ public class GroupDTO {
 
     private Long id;
     private Long creatorsUserId;
-    private Set<User> users;
+    private Set<UserDTO> users;
     private String name;
 
     public Long getId() {
@@ -30,11 +29,11 @@ public class GroupDTO {
         this.creatorsUserId = creatorsUserId;
     }
 
-    public Set<User> getUsers() {
+    public Set<UserDTO> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<UserDTO> users) {
         this.users = users;
     }
 

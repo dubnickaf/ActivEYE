@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.activeye.dto;
 
-import cz.muni.fi.pa165.activeye.entities.Activity;
-import cz.muni.fi.pa165.activeye.entities.User;
+
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -12,25 +11,25 @@ import java.util.Calendar;
  */
 public class RecordDTO {
     private Long id;
-    private User user;
-    private Activity activity;
+    private UserDTO user;
+    private ActivityDTO activity;
     private BigDecimal burnedCalories;
     private Calendar startDate;
     private Calendar endDate;
 
-    public User getUser() {
+    public UserDTO getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDTO user) {
         this.user = user;
     }
 
-    public Activity getActivity() {
+    public ActivityDTO getActivity() {
         return activity;
     }
 
-    public void setActivity(Activity activity) {
+    public void setActivity(ActivityDTO activity) {
         this.activity = activity;
     }
 
