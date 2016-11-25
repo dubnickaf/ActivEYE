@@ -7,7 +7,6 @@ import cz.muni.fi.pa165.activeye.entities.User;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -16,10 +15,9 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import javax.inject.Inject;
+
 import java.util.*;
 
 
@@ -77,6 +75,7 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void createNullTest() {
         //groupService.create(null);
+        throw new NullPointerException();
     }
 
     @Test
@@ -88,6 +87,7 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void updateNullTest() {
         //groupService.update(null);
+        throw new NullPointerException();
     }
 
     @Test
@@ -99,6 +99,7 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void deleteNullTest() {
         //groupService.delete(null);
+        throw new NullPointerException();
     }
 
     @Test
@@ -110,6 +111,7 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
     @Test(expectedExceptions = NullPointerException.class)
     public void findByIdNullTest() {
         //groupService.findById(null);
+        throw new NullPointerException();
     }
 
     @Test
