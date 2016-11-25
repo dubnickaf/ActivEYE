@@ -1,16 +1,10 @@
-package cz.muni.fi.pa165.config;
+package cz.muni.fi.pa165.activeye.config;
 
-
-import cz.muni.fi.pa165.facades.ActivityFacadeImpl;
-import cz.muni.fi.pa165.facades.GroupFacadeImpl;
-import cz.muni.fi.pa165.facades.RecordFacadeImpl;
-import cz.muni.fi.pa165.facades.UserFacadeImpl;
-import org.dozer.DozerBeanMapper;
-import org.dozer.Mapper;
-import org.dozer.loader.api.BeanMappingBuilder;
-import org.springframework.context.annotation.*;
 
 import cz.muni.fi.pa165.activeye.PersistenceContext;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
+import org.springframework.context.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +16,7 @@ import java.util.List;
 @Configuration
 @EnableAspectJAutoProxy
 @Import(PersistenceContext.class)
-@ComponentScan(basePackageClasses={UserFacadeImpl.class, GroupFacadeImpl.class, ActivityFacadeImpl.class ,RecordFacadeImpl.class})
+@ComponentScan(basePackages="cz.muni.fi.pa165.activeye")
 public class ServiceConfiguration {
 
 

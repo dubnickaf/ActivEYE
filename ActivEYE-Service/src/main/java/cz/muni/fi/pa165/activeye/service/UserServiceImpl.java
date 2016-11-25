@@ -1,16 +1,18 @@
-package cz.muni.fi.pa165.service;
+package cz.muni.fi.pa165.activeye.service;
 
 import cz.muni.fi.pa165.activeye.dao.RecordDao;
 import cz.muni.fi.pa165.activeye.dao.UserDao;
+import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
-import org.springframework.dao.DataAccessException;
+import cz.muni.fi.pa165.activeye.exceptions.ActiveyeMistakeInCalculationException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Collection;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * User´s service implementation
@@ -123,5 +125,93 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
+    }
+
+    @Override
+    public BigDecimal calculateTotalCaloriesBurned(User user) {
+        if(user.getActivityRecords() == null)return null;
+        BigDecimal totalCaloriesBurned = BigDecimal.ZERO;
+        for (Record record : user.getActivityRecords()) {
+            totalCaloriesBurned.add(record.getBurnedCalories());
+        }
+        return totalCaloriesBurned;
+    }
+
+    @Override
+    public BigDecimal calculateCaloriesBurnedToday(User user) {
+        if(user.getActivityRecords() == null)return null;
+        Calendar todaysMidnight = getTodaysMidnight();
+        Calendar now = getNow();
+
+        BigDecimal caloriesBurnedToday = BigDecimal.ZERO;
+        for (Record record : user.getActivityRecords()) {
+            if(record.getEndDate().after(todaysMidnight) && record.getEndDate().before(now)){
+                caloriesBurnedToday.add(record.getBurnedCalories());
+            }
+        }
+        return caloriesBurnedToday;
+    }
+
+    @Override
+    public Integer calculateRecordsToday(User user) {
+        if(user.getActivityRecords() == null)return null;
+        Calendar todaysMidnight = getTodaysMidnight();
+        Calendar now = getNow();
+        int recordsToday = 0;
+        for (Record record : user.getActivityRecords()) {
+            if(record.getEndDate().after(todaysMidnight) && record.getEndDate().before(now)){
+                recordsToday++;
+            }
+        }
+        return recordsToday;
+    }
+
+    @Override
+    public BigDecimal calculateAverageBurnedCaloriesPerRecord(User user) {
+        if(user.getActivityRecords() == null)return null;
+        BigDecimal averageBurnedCaloriesPerRecord = BigDecimal.ZERO;
+        return calculateTotalCaloriesBurned(user).divide(new BigDecimal(user.getActivityRecords().size()));
+    }
+
+    @Override
+    public Integer getTotalRecords(User user) {
+        if(user.getActivityRecords() == null)return null;
+        return user.getActivityRecords().size();
+    }
+
+    @Override
+    public Activity calculateMostUsedActivity(User user) {
+        if(user.getActivityRecords() == null || getTotalRecords(user) == 0)return null;
+        Map<Activity,Integer> activityAndSumOfItsRecords = new HashMap();
+        for (Record record : user.getActivityRecords()) {
+            Activity activity = record.getActivity();
+            if (activityAndSumOfItsRecords.containsKey(activity)){
+                int oldNum = activityAndSumOfItsRecords.get(activity);
+                activityAndSumOfItsRecords.remove(activity);
+                activityAndSumOfItsRecords.put(activity,oldNum + 1);
+            } else {
+                activityAndSumOfItsRecords.put(activity, 1);
+            }
+        }
+        int maxValueInMap=(Collections.max(activityAndSumOfItsRecords.values()));  // This will return max value in the Hashmap
+        for (Map.Entry<Activity, Integer> entry : activityAndSumOfItsRecords.entrySet()) {  // Itrate through hashmap
+            if (entry.getValue()==maxValueInMap) {
+                return entry.getKey();  // returning first with most, even if there are more activities with same number.
+            }
+        }
+        throw new ActiveyeMistakeInCalculationException("Calculation of most used activity was not successful");
+    }
+
+    private static Calendar getTodaysMidnight(){
+        Calendar todaysMidnight =new GregorianCalendar();
+        // reset hour, minutes, seconds and millis
+        todaysMidnight.set(Calendar.HOUR_OF_DAY, 0);
+        todaysMidnight.set(Calendar.MINUTE, 0);
+        todaysMidnight.set(Calendar.SECOND, 0);
+        todaysMidnight.set(Calendar.MILLISECOND, 0);
+        return todaysMidnight;
+    }
+    private static Calendar getNow(){
+        return new GregorianCalendar();
     }
 }

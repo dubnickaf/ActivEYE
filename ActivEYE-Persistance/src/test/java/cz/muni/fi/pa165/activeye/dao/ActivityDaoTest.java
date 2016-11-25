@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.activeye.dao;
 
-import cz.muni.fi.pa165.activeye.InMemoryDatabaseSpring;
 import cz.muni.fi.pa165.activeye.PersistenceContext;
+import cz.muni.fi.pa165.activeye.InMemoryDatabaseSpring;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;

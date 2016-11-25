@@ -2,9 +2,10 @@ package cz.muni.fi.pa165.activeye.dao;
 
 import cz.muni.fi.pa165.activeye.InMemoryDatabaseSpring;
 import cz.muni.fi.pa165.activeye.PersistenceContext;
+import cz.muni.fi.pa165.activeye.enums.Gender;
 import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
-import cz.muni.fi.pa165.activeye.enums.Gender;
+import org.assertj.core.api.Assertions;
 import org.junit.After;
 import static org.assertj.core.api.Assertions.*;
 import org.junit.BeforeClass;
@@ -98,7 +99,7 @@ public class GroupDaoTest {
         groupDao.create(group);
         group.setName("Plavci");
         groupDao.update(group);
-        assertThat(groupDao.findById(group.getId()).getName()).isEqualTo("Plavci");
+        Assertions.assertThat(groupDao.findById(group.getId()).getName()).isEqualTo("Plavci");
     }
 
     @Test

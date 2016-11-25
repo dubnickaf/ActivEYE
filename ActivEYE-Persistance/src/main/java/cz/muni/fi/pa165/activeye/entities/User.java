@@ -1,9 +1,7 @@
 package cz.muni.fi.pa165.activeye.entities;
 
 import cz.muni.fi.pa165.activeye.enums.Gender;
-import org.hibernate.annotations.Fetch;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import javax.persistence.*;

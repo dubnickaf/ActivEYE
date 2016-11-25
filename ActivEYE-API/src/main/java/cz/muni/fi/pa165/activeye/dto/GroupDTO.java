@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.activeye.dto;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**

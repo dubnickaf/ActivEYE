@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.activeye.dto;
 
 import java.util.Date;
-import java.util.Objects;
 
 import cz.muni.fi.pa165.activeye.enums.Gender;
 

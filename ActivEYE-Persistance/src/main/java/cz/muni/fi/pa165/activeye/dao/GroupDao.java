@@ -1,7 +1,8 @@
 package cz.muni.fi.pa165.activeye.dao;
 
-import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
+import cz.muni.fi.pa165.activeye.entities.Group;
+
 import java.util.List;
 import java.util.Set;
 

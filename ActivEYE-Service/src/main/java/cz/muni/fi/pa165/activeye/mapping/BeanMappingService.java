@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.mapping;
+package cz.muni.fi.pa165.activeye.mapping;
 
 import org.dozer.Mapper;
 

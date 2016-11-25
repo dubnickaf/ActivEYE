@@ -1,12 +1,11 @@
-package cz.muni.fi.pa165.facades;
+package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.dto.GroupDTO;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
-import cz.muni.fi.pa165.activeye.facades.GroupFacade;
-import cz.muni.fi.pa165.mapping.BeanMappingService;
-import cz.muni.fi.pa165.service.GroupService;
+import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
+import cz.muni.fi.pa165.activeye.service.GroupService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;

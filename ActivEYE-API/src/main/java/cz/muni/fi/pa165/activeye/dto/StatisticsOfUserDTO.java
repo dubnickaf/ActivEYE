@@ -15,9 +15,9 @@ public class StatisticsOfUserDTO {
 
     private BigDecimal averageBurnedCaloriesPerRecord;//null if totalRecords = 0
 
-    private int totalRecords;
+    private Integer totalRecords;
 
-    private int recordsToday;
+    private Integer recordsToday;
 
     private ActivityDTO mostUsedActivity;//null if totalRecords = 0
 

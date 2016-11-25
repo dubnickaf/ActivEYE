@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.activeye.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 

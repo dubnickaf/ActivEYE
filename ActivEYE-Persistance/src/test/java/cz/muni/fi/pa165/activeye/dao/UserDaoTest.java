@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.activeye.dao;
 
-import cz.muni.fi.pa165.activeye.InMemoryDatabaseSpring;
 import cz.muni.fi.pa165.activeye.PersistenceContext;
+import cz.muni.fi.pa165.activeye.InMemoryDatabaseSpring;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.enums.Gender;
 import org.junit.After;
@@ -12,9 +12,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import javax.validation.ConstraintViolationException;
 import java.util.Calendar;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by dubnickaf@gmail.com [445647] on windows user "Toshiba" on 24.10.2016.

@@ -1,11 +1,10 @@
-package cz.muni.fi.pa165.facades;
+package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFound;
-import cz.muni.fi.pa165.activeye.facades.ActivityFacade;
-import cz.muni.fi.pa165.mapping.BeanMappingService;
-import cz.muni.fi.pa165.service.ActivityService;
+import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
+import cz.muni.fi.pa165.activeye.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

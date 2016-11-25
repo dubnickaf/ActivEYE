@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.service;
+package cz.muni.fi.pa165.activeye.service;
 
 import cz.muni.fi.pa165.activeye.entities.Activity;
 
