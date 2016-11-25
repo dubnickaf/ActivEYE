@@ -22,13 +22,10 @@ public class ServiceConfiguration {
 
     @Bean
     public Mapper dozer(){
-        List<String> mappingFiles = new ArrayList();
+        List<String> mappingFiles = new ArrayList<String>();
         mappingFiles.add("dozerJdk8Converters.xml");
-
         DozerBeanMapper dozer = new DozerBeanMapper();
         dozer.setMappingFiles(mappingFiles);
-
-        if (dozer == null) throw new NullPointerException("Created dozer is null");
         return dozer;
     }
 

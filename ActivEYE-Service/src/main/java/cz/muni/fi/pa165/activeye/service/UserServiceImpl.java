@@ -132,7 +132,7 @@ public class UserServiceImpl implements UserService {
         if(user.getActivityRecords() == null)return null;
         BigDecimal totalCaloriesBurned = BigDecimal.ZERO;
         for (Record record : user.getActivityRecords()) {
-            totalCaloriesBurned.add(record.getBurnedCalories());
+            totalCaloriesBurned = totalCaloriesBurned.add(record.getBurnedCalories());
         }
         return totalCaloriesBurned;
     }
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
         BigDecimal caloriesBurnedToday = BigDecimal.ZERO;
         for (Record record : user.getActivityRecords()) {
             if(record.getEndDate().after(todaysMidnight) && record.getEndDate().before(now)){
-                caloriesBurnedToday.add(record.getBurnedCalories());
+                caloriesBurnedToday = caloriesBurnedToday.add(record.getBurnedCalories());
             }
         }
         return caloriesBurnedToday;
@@ -170,7 +170,7 @@ public class UserServiceImpl implements UserService {
     public BigDecimal calculateAverageBurnedCaloriesPerRecord(User user) {
         if(user.getActivityRecords() == null)return null;
         BigDecimal averageBurnedCaloriesPerRecord = BigDecimal.ZERO;
-        return calculateTotalCaloriesBurned(user).divide(new BigDecimal(user.getActivityRecords().size()));
+        return calculateTotalCaloriesBurned(user).divide(new BigDecimal(user.getActivityRecords().size()),BigDecimal.ROUND_UNNECESSARY);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Activity calculateMostUsedActivity(User user) {
         if(user.getActivityRecords() == null || getTotalRecords(user) == 0)return null;
-        Map<Activity,Integer> activityAndSumOfItsRecords = new HashMap();
+        Map<Activity,Integer> activityAndSumOfItsRecords = new HashMap<>();
         for (Record record : user.getActivityRecords()) {
             Activity activity = record.getActivity();
             if (activityAndSumOfItsRecords.containsKey(activity)){

@@ -145,7 +145,6 @@ public class GroupDaoTest {
         group.addUser(user1);
         group.setCreatorsUserId(userMatko.getId());
         group.setName("Programatori");
-        System.out.println(group);
         Set<User> users = new HashSet<User>();
         users.add(user1);
 

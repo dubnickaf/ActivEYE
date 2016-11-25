@@ -23,7 +23,8 @@ public class RecordDaoImpl implements RecordDao{
 
     @Override
     public List<Record> getAllRecords() {
-        return em.createQuery("SELECT r FROM Record r").getResultList();
+
+        return em.createQuery("SELECT r FROM Record r",Record.class).getResultList();
     }
 
     @Override
