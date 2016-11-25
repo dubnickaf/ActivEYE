@@ -28,6 +28,7 @@ public class User {
             +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
             +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
             message="{invalid.email}")
+    @Column(unique=true)
     private String emailAddress;
 
     @Temporal(TemporalType.DATE)
