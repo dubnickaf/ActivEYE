@@ -117,11 +117,11 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         recordService.updateRecord(null);
     }
 
-    /*@Test
+    @Test
     public void findById() {
         r.setId(3L);
 
-        when(recordDao.getRecord(1L)).thenReturn(r);
+        when(recordDao.getRecord(3L)).thenReturn(r);
 
         Record record = recordService.findById(3L);
 
@@ -131,7 +131,7 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         assertThat(record.getEndDate()).isEqualTo(calE);
         assertThat(record.getStartDate()).isEqualTo(calS);
         assertThat(record.getUser()).isEqualTo(u);
-    }*/
+    }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNullId() {
