@@ -12,18 +12,21 @@ public interface UserDao {
     /**
      * Creates a new User in DB
      * @param user User to be created
+     * @throws IllegalArgumentException if wrong argument is given
      */
     public void create(User user);
 
     /**
      * Updates a User in DB
      * @param user User to be updated
+     * @throws IllegalArgumentException if wrong argument is given
      */
     public void update(User user);
 
     /**
      * Deletes a User in DB
      * @param user User to be deleted
+     * @throws IllegalArgumentException if wrong argument is given
      */
     public void delete(User user);
 
@@ -31,6 +34,7 @@ public interface UserDao {
      * Finds a User in DB by id
      * @param id id of User to be found
      * @return user with chosen id
+     * @throws IllegalArgumentException if wrong argument is given
      */
     public User findUserById(Long id);
 
@@ -38,6 +42,7 @@ public interface UserDao {
      * Finds a User in DB by email
      * @param email email of User to be found
      * @return user with chosen email
+     * @throws IllegalArgumentException if wrong argument is given
      */
     public User findUserByEmail(String email);
 
