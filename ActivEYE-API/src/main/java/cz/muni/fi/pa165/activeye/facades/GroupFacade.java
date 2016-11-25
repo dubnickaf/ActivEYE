@@ -9,8 +9,17 @@ import java.util.Collection;
  */
 public interface GroupFacade {
 
+    /**
+     * Create Group from GroupDTO
+     * @param group group to be created
+     * @throws IllegalArgumentException when group is null
+     */
     void create(GroupDTO group);
 
+    /**
+     *
+     * @param group
+     */
     void update(GroupDTO group);
 
     void delete(GroupDTO group);
