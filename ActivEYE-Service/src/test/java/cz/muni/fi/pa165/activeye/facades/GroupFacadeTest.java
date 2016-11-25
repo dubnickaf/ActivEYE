@@ -41,7 +41,7 @@ public class GroupFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Spy
     @Inject
-    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+    private BeanMappingService beanMappingService;
 
     private Group group;
     private User user1;

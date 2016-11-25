@@ -65,7 +65,7 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
     public void testCreateActivity(){
 
         ActivityDTO activityDTO = new ActivityDTO();
-        String name = new String("dancing");
+        String name = "dancing";
         activityDTO.setName(name);
         BigDecimal ratio = BigDecimal.valueOf(20);
         activityDTO.setCaloriesRatio(ratio);
@@ -87,7 +87,7 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
         ActivityDTO activityDTO = new ActivityDTO();
         Long id = 1L;
         activityDTO.setId(id);
-        String name = new String("dancing");
+        String name = "dancing";
         activityDTO.setName(name);
         BigDecimal ratio = BigDecimal.valueOf(20);
         activityDTO.setCaloriesRatio(ratio);
@@ -106,7 +106,7 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
         Activity activity = new Activity();
         Long id = 1L;
         activity.setId(id);
-        String name = new String("dancing");
+        String name = "dancing";
         activity.setName(name);
         BigDecimal ratio = BigDecimal.valueOf(20);
         activity.setCaloriesRatio(ratio);
@@ -123,7 +123,7 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testDeleteActivity(){
         Long id = 1L;
-        String name = new String("dancing");
+        String name = "dancing";
         BigDecimal ratio = BigDecimal.valueOf(20);
 
         Activity activity = new Activity();
@@ -149,7 +149,7 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
         Activity activity = new Activity();
         Long id = 1L;
         activity.setId(id);
-        String name = new String("dancing");
+        String name = "dancing";
         activity.setName(name);
         BigDecimal ratio = BigDecimal.valueOf(20);
         activity.setCaloriesRatio(ratio);
