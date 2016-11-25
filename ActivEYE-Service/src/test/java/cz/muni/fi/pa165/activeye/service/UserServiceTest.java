@@ -2,12 +2,15 @@ package cz.muni.fi.pa165.activeye.service;
 
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
 import cz.muni.fi.pa165.activeye.dao.UserDao;
+import cz.muni.fi.pa165.activeye.entities.Activity;
+import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.enums.Gender;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -15,15 +18,17 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
 
 /**
  * Created by spriadka on 11/25/16.
- * @author spriadka 
+ * @author spriadka
  */
 
 @ContextConfiguration(classes = ServiceConfiguration.class)
@@ -58,7 +63,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testCreate(){
+    public void testRegister(){
         userService.registerUser(trump,userPassword);
         Mockito.verify(userDao).create(trump);
     }
@@ -107,13 +112,20 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     }
 
+    @Test
+    public void testAuthenticate(){
+        trump.setPasswordHash(BCrypt.hashpw("WINNER",BCrypt.gensalt()));
+        Assert.assertFalse(userService.authenticate(trump,"LOSER"));
+        Assert.assertTrue(userService.authenticate(trump,"WINNER"));
+    }
+
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testCreateNull(){
+    public void testRegisterNull(){
         userService.registerUser(null,"0000");
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testCreateWithNullPassword(){
+    public void testRegisterWithNullPassword(){
         userService.registerUser(trump,null);
     }
 
@@ -121,5 +133,26 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     public void testUpdateNull(){
         userService.updateUser(null);
     }
+
+
+    @Test
+    public void testCalculateTotalCaloriesBurned(){
+        Activity running = new Activity();
+        running.setName("run");
+        Record run = new Record();
+        run.setBurnedCalories(new BigDecimal("2000"));
+        run.setUser(trump);
+        run.setActivity(running);
+        Activity biking = new Activity();
+        biking.setName("bike");
+        Record bike = new Record();
+        bike.setBurnedCalories(new BigDecimal("250"));
+        bike.setUser(trump);
+        bike.setActivity(biking);
+        trump.setActivityRecords(new HashSet<Record>(Arrays.asList(run,bike)));
+        Assert.assertEquals(new BigDecimal("2250"),userService.calculateTotalCaloriesBurned(trump));
+    }
+
+
 
 }
