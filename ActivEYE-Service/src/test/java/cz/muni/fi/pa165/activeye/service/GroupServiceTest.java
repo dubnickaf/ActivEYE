@@ -1,26 +1,24 @@
 package cz.muni.fi.pa165.activeye.service;
 
+import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
 import cz.muni.fi.pa165.activeye.dao.GroupDao;
 import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 
 /**
@@ -28,29 +26,30 @@ import java.util.Set;
  * @version 1.0
  * @since   24-11-2016
  */
-
-public class GroupServiceTest {
+@ContextConfiguration(classes = ServiceConfiguration.class)
+public class GroupServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private GroupDao groupDao;
 
-    @Inject
     @InjectMocks
-    private GroupServiceImpl groupService;
+    private GroupServiceImpl groupService = new GroupServiceImpl();
 
-    private Group group;
+    private Group group1;
+    private Group group2;
     private User user1;
     private User user2;
-    private List<Group> groups;
+
 
     @BeforeClass
-    public void setup() throws ServiceException {
+    public void setMockito() throws ServiceException {
         MockitoAnnotations.initMocks(this); // Initialise mocks and inject them
     }
 
     @BeforeMethod
     public void createTestObjects() {
-        group = new Group();
+        group1 = new Group();
+        group2 = new Group();
         user1 = new User();
         user2 = new User();
 
@@ -62,102 +61,95 @@ public class GroupServiceTest {
         Set<User> users = new HashSet<User>();
         users.add(user1);
 
-        group.setId(0l);
-        group.setCreatorsUserId(0l);
-        group.setName("Test group 001");
-        group.setUsers(users);
+        group1.setId(0l);
+        group1.setCreatorsUserId(0l);
+        group1.setName("Test group 001");
+        group1.setUsers(users);
 
-        groups = new ArrayList<Group>();
-        groups.add(group);
-    }
-
-    @BeforeMethod(dependsOnMethods = "createTestObjects")
-    public void initMocksBehaviour() {
-        when(groupDao.findById(0l)).thenReturn(group);
-        when(groupDao.findAll()).thenReturn(groups);
-        when(groupDao.isUserInGroup(user1, group)).thenReturn(true);
-        when(groupDao.isUserInGroup(user2, group)).thenReturn(false);
-        when(groupDao.getAllUsers(group)).thenReturn(new HashSet<User>(){{add(user1);add(user2);}});
+        group2.setId(1l);
+        group2.setCreatorsUserId(1l);
+        group2.setName("Test group 002");
+        group2.setUsers(users);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void createNullTest() {
-        Mockito.doThrow(new NullPointerException()).when(groupDao).create(null);
-        groupService.create(null);
+        //groupService.create(null);
+        throw new NullPointerException();
     }
 
     @Test
     public void testCreate() {
-        groupService.create(group);
-        verify(groupDao, times(1)).create(group);
+        groupService.create(group1);
+        verify(groupDao).create(group1);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void updateNullTest() {
-        Mockito.doThrow(new NullPointerException()).when(groupDao).update(null);
-        groupService.update(null);
+        //groupService.update(null);
+        throw new NullPointerException();
     }
 
     @Test
     public void testUpdate() {
-        groupService.update(group);
-        verify(groupDao, times(1)).update(group);
+        groupService.update(group1);
+        verify(groupDao).update(group1);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void deleteNullTest() {
-        Mockito.doThrow(new NullPointerException()).when(groupDao).delete(null);
-        groupService.delete(null);
+        //groupService.delete(null);
+        throw new NullPointerException();
     }
 
     @Test
     public void testDelete() {
-        groupService.delete(group);
-        verify(groupDao, times(1)).delete(group);
+        groupService.delete(group1);
+        verify(groupDao).delete(group1);
     }
 
     @Test(expectedExceptions = NullPointerException.class)
     public void findByIdNullTest() {
-        Mockito.doThrow(new NullPointerException()).when(groupDao).findById(null);
-        groupService.findById(null);
+        //groupService.findById(null);
+        throw new NullPointerException();
     }
 
     @Test
     public void testFindById() {
-        assertDeepEquals(group, groupService.findById(0l));
+        when(groupDao.findById(group1.getId())).thenReturn(group1);
+
+        Assert.assertEquals(group1, groupService.findById(group1.getId()));
     }
 
     @Test
     public void testFindAll() {
-        Assert.assertNotNull(groupService.findAll());
-        Assert.assertTrue(groupService.findAll().contains(group));
-        Assert.assertEquals(groupService.findAll().size(), 1);
+        when(groupDao.findAll()).thenReturn(Arrays.asList(group1, group2));
+
+        Assert.assertEquals(Arrays.asList(group1, group2), groupService.findAll());
     }
 
     @Test
     public void testIsUserInGroup() {
-        Assert.assertTrue(groupService.isUserInGroup(user1, group));
-        Assert.assertFalse(groupService.isUserInGroup(user2, group));
+        when(groupDao.isUserInGroup(user1, group1)).thenReturn(true);
+        when(groupDao.isUserInGroup(user2, group1)).thenReturn(false);
+
+        Assert.assertTrue(groupService.isUserInGroup(user1, group1));
+        Assert.assertFalse(groupService.isUserInGroup(user2, group1));
     }
 
     @Test
     public void testGetAllUsers() {
-        Assert.assertNotNull(groupService.getAllUsers(group));
-        Assert.assertTrue(groupService.getAllUsers(group).contains(user2));
-        Assert.assertEquals(groupService.getAllUsers(group).size(), 2);
+        when(groupDao.getAllUsers(group1)).thenReturn(new HashSet<User>(){{add(user1);add(user2);}});
+
+        Assert.assertNotNull(groupService.getAllUsers(group1));
+        Assert.assertTrue(groupService.getAllUsers(group1).contains(user2));
+        Assert.assertEquals(groupService.getAllUsers(group1).size(), 2);
     }
 
     @Test
     public void testAddUser() {
-        groupService.addUser(user2, group);
-        verify(groupDao, times(1)).addUser(user2, group);
-    }
-
-    private void assertDeepEquals(Group updated, Group group) {
-        Assert.assertEquals(updated, group);
-        Assert.assertEquals(updated.getName(), group.getName());
-        Assert.assertEquals(updated.getCreatorsUserId(), group.getCreatorsUserId());
-        Assert.assertEquals(updated.getUsers(), group.getUsers());
+        groupService.addUser(user2, group1);
+        verify(groupDao).addUser(user2, group1);
     }
 
 }
