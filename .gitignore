@@ -4,6 +4,6 @@ ActivEYE.iml
 ActivEYE-API.iml
 ActivEYE-*/target/*
 
-ActivEYE-API/api.iml
-ActivEYE-Persistance/persistance.iml
-ActivEYE-Service/service.iml
+ActivEYE-API/ActivEYE-API.iml
+ActivEYE-Persistance/ActivEYE-Persistance.iml
+ActivEYE-Service/ActivEYE-Service.iml
