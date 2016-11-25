@@ -1,18 +1,15 @@
 package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
-import cz.muni.fi.pa165.activeye.dao.UserDao;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
-import cz.muni.fi.pa165.activeye.mapping.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.activeye.service.UserService;
 import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;

@@ -25,7 +25,6 @@ import java.util.List;
  * @author Filip Dubnička [445647]
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-@ComponentScan(basePackages = "cz.muni.fi.pa165.activeye")
 public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock

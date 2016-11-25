@@ -4,9 +4,7 @@ import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-
 import javax.inject.Inject;
-
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
 import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
 import cz.muni.fi.pa165.activeye.dto.RecordDTO;
@@ -15,17 +13,14 @@ import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.enums.Gender;
-import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.activeye.service.RecordService;
 import org.mockito.*;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
