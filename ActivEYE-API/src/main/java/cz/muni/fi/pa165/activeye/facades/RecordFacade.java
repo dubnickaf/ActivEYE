@@ -25,7 +25,7 @@ public interface RecordFacade {
      * @param id ID of RecordDTO to be fetched
      * @return RecordDTO with given ID
      */
-    RecordDTO findById(long id);
+    RecordDTO findById(Long id);
 
     /**
      * Deletes RecordDTO

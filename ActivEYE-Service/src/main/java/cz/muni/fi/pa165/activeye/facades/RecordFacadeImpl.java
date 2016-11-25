@@ -27,24 +27,36 @@ public class RecordFacadeImpl implements RecordFacade{
 
     @Override
     public void createRecord(RecordDTO recordDTO) {
+        if (recordDTO == null){
+            throw new IllegalArgumentException("Record to be created cannot be null");
+        }
         Record record = beanMappingService.mapTo(recordDTO,Record.class);
         recordService.createRecord(record);
     }
 
     @Override
     public void updateRecord(RecordDTO recordDTO) {
+        if (recordDTO == null){
+            throw new IllegalArgumentException("Record to be created cannot be null");
+        }
         Record record = beanMappingService.mapTo(recordDTO,Record.class);
         recordService.updateRecord(record);
     }
 
     @Override
-    public RecordDTO findById(long id) {
+    public RecordDTO findById(Long id) {
+        if (id == null){
+            throw new IllegalArgumentException("Record to be created cannot be null");
+        }
         Record record = recordService.findById(id);
         return (record == null) ? null : beanMappingService.mapTo(record,RecordDTO.class);
     }
 
     @Override
     public void deleteRecord(RecordDTO recordDTO) {
+        if (recordDTO == null){
+            throw new IllegalArgumentException("Record to be created cannot be null");
+        }
         Record record = beanMappingService.mapTo(recordDTO,Record.class);
         recordService.deleteRecord(record);
     }

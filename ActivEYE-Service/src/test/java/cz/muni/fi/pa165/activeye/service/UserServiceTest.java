@@ -19,10 +19,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static org.mockito.Mockito.when;
 
@@ -134,9 +131,7 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         userService.updateUser(null);
     }
 
-
-    @Test
-    public void testCalculateTotalCaloriesBurned(){
+    private void loadActivities(){
         Activity running = new Activity();
         running.setName("run");
         Record run = new Record();
@@ -150,8 +145,27 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
         bike.setUser(trump);
         bike.setActivity(biking);
         trump.setActivityRecords(new HashSet<Record>(Arrays.asList(run,bike)));
+    }
+
+    @Test
+    public void testCalculateTotalCaloriesBurned(){
+        loadActivities();
         Assert.assertEquals(new BigDecimal("2250"),userService.calculateTotalCaloriesBurned(trump));
     }
+
+    @Test
+    public void testCalculateAverageCalories(){
+        loadActivities();
+        Assert.assertEquals(userService.calculateAverageBurnedCaloriesPerRecord(trump),new BigDecimal("1125"));
+    }
+
+    @Test
+    public void testGetTotalRecords(){
+        loadActivities();
+        Assert.assertTrue(2 == userService.getTotalRecords(trump));
+    }
+
+
 
 
 
