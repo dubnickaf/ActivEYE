@@ -80,8 +80,11 @@ public class Record {
         if (o == null){
             return true;
         }
+        if (!(o instanceof Record)){
+            return false;
+        }
         final Record other = (Record)o;
-        if (!(user instanceof User)){
+        if (!(user.equals(((Record) o).getUser()))){
             return false;
         }
         if (!(activity.equals(other.getActivity()))){

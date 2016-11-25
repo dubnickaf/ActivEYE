@@ -1,5 +1,13 @@
 package cz.muni.fi.pa165.activeye.facades;
 
-public class RecordFacadeTest {
-    // Implement simple unit tests for facades layer. Just one simple test per method is enough. This is mainly so that it’s easy to verify the Facade layer works;
+import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
+import org.mockito.InjectMocks;
+import org.mockito.Spy;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+
+import javax.inject.Inject;
+
+
+public class RecordFacadeTest extends AbstractTestNGSpringContextTests{
+
 }

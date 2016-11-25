@@ -21,6 +21,7 @@ import javax.inject.Inject;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -51,7 +52,7 @@ public class GroupFacadeTest extends AbstractTestNGSpringContextTests {
     private UserDTO user1DTO;
     private UserDTO user2DTO;
 
-    private HashSet<User> users = new HashSet<User>();
+    private Set<User> users = new HashSet<User>();
 
     @BeforeClass
     public void setupMockito() {
