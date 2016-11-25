@@ -2,9 +2,6 @@ package cz.muni.fi.pa165.activeye.service;
 
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
 import cz.muni.fi.pa165.activeye.dao.RecordDao;
-import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
-import cz.muni.fi.pa165.activeye.dto.RecordDTO;
-import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
@@ -99,10 +96,10 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         asserts();
     }
 
-    /*@Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void createNull() {
         recordService.createRecord(null);
-    }*/
+    }
 
     @Test
     public void update() {
@@ -115,10 +112,10 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         assertThat(aCaptor.getValue().getId()).isEqualTo(3L);
     }
 
-    /*@Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void updateNull() {
         recordService.updateRecord(null);
-    }*/
+    }
 
     /*@Test
     public void findById() {
@@ -136,10 +133,10 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         assertThat(record.getUser()).isEqualTo(u);
     }*/
 
-    /*@Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void findByNullId() {
         recordService.findById(null);
-    }*/
+    }
 
     /*@Test(expectedExceptions = NoSuchEntityFoundException.class)
     public void findByNotUsedId() {
@@ -158,10 +155,10 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         asserts();
     }
 
-    /*@Test(expectedExceptions = IllegalArgumentException.class)
+    @Test(expectedExceptions = IllegalArgumentException.class)
     public void deleteNull() {
         recordService.deleteRecord(null);
-    }*/
+    }
 
     @Test
     public void getAllRecords(){
