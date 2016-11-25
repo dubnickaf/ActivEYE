@@ -20,26 +20,59 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public void create(Activity a) {
+        if (a == null) {
+            throw new IllegalArgumentException("Activity cannot be null.");
+        }
+        if (a.getId() == null) {
+            throw new IllegalArgumentException("Activity's id cannot be null.");
+        }
+        if (a.getName() == null) {
+            throw new IllegalArgumentException("Activity's name cannot be null.");
+        }
+
         activityDao.create(a);
     }
 
     @Override
     public void update(Activity a) {
+        if (a == null) {
+            throw new IllegalArgumentException("Activity cannot be null.");
+        }
+        if (a.getId() == null) {
+            throw new IllegalArgumentException("Activity's id cannot be null.");
+        }
+        if (a.getName() == null) {
+            throw new IllegalArgumentException("Activity's name cannot be null.");
+        }
         activityDao.update(a);
     }
 
     @Override
     public void delete(Activity a) {
+        if (a == null) {
+            throw new IllegalArgumentException("Activity cannot be null.");
+        }
+        if (a.getId() == null) {
+            throw new IllegalArgumentException("Activity's id cannot be null.");
+        }
+
         activityDao.delete(a);
     }
 
     @Override
     public Activity findById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Cannot find activity with id null.");
+        }
         return activityDao.findById(id);
     }
 
     @Override
     public Activity findByName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Cannot find activity with name null.");
+        }
+
         return activityDao.findByName(name);
     }
 
