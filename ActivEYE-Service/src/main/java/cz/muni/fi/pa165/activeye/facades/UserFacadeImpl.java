@@ -88,7 +88,7 @@ public class UserFacadeImpl implements UserFacade {
             throw new IllegalArgumentException("Cannot find user with null id.");
         }
         User user = userService.findUserById(userId);
-        if(user == null) throw new NoSuchEntityFoundException("No user with user id" + userId + "found");
+        if(user == null) throw new NoSuchEntityFoundException("No user with user id " + userId + " found");
         return beanMappingService.mapTo(user, UserDTO.class);
     }
 
@@ -98,7 +98,7 @@ public class UserFacadeImpl implements UserFacade {
             throw new IllegalArgumentException("Cannot find user with null email.");
         }
         User user = userService.findUserByEmail(email);
-        if(user == null) throw new NoSuchEntityFoundException("No user with email" + email + "found");
+        if(user == null) throw new NoSuchEntityFoundException("No user with email " + email + " found");
         return beanMappingService.mapTo(user, UserDTO.class);
     }
 

@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.activeye.service;
 
 import cz.muni.fi.pa165.activeye.dao.ActivityDao;
 import cz.muni.fi.pa165.activeye.entities.Activity;
+import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -22,9 +23,6 @@ public class ActivityServiceImpl implements ActivityService {
     public void create(Activity a) {
         if (a == null) {
             throw new IllegalArgumentException("Activity cannot be null.");
-        }
-        if (a.getId() == null) {
-            throw new IllegalArgumentException("Activity's id cannot be null.");
         }
         if (a.getName() == null) {
             throw new IllegalArgumentException("Activity's name cannot be null.");
@@ -64,7 +62,11 @@ public class ActivityServiceImpl implements ActivityService {
         if (id == null) {
             throw new IllegalArgumentException("Cannot find activity with id null.");
         }
-        return activityDao.findById(id);
+        Activity activity = activityDao.findById(id);
+        if (activity == null){
+            throw new NoSuchEntityFoundException("Cannot find activity with id " + id);
+        }
+        return activity;
     }
 
     @Override
@@ -72,8 +74,11 @@ public class ActivityServiceImpl implements ActivityService {
         if (name == null) {
             throw new IllegalArgumentException("Cannot find activity with name null.");
         }
-
-        return activityDao.findByName(name);
+        Activity activity = activityDao.findByName(name);
+        if (activity == null){
+            throw new NoSuchEntityFoundException("Cannot find activity with name " + name);
+        }
+        return activity;
     }
 
     @Override

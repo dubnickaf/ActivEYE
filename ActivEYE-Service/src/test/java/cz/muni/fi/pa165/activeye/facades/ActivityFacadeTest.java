@@ -28,15 +28,6 @@ import java.util.List;
 @ComponentScan(basePackages = "cz.muni.fi.pa165.activeye")
 public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
 
-
-    private Activity swimming;
-
-    private Activity squatting;
-
-    private Activity running;
-
-    private Activity jumping;
-
     @Mock
     private ActivityService activityService;
 
@@ -51,7 +42,7 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Spy
     @Inject
-    private final BeanMappingService beanMappingService = new BeanMappingServiceImpl();
+    private BeanMappingService beanMappingService;
 
     @InjectMocks
     private final ActivityFacade activityFacade = new ActivityFacadeImpl();
@@ -78,7 +69,7 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void createNullActivityTest() {
+    public void testCreateNullActivity() {
         activityFacade.createActivity(null);
     }
 
@@ -98,7 +89,11 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
         assertThat(argumentCaptor.getValue().getId()).isEqualTo(id);
         assertThat(argumentCaptor.getValue().getName()).isEqualTo(name);
         assertThat(argumentCaptor.getValue().getCaloriesRatio()).isEqualTo(ratio);
+    }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testUpdateNullActivity() {
+        activityFacade.updateActivity(null);
     }
 
     @Test
@@ -118,6 +113,11 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
         assertThat(activityDTO.getId()).isEqualTo(id);
         assertThat(activityDTO.getName()).isEqualTo(name);
         assertThat(activityDTO.getCaloriesRatio()).isEqualTo(ratio);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testFindActivityByNullId() {
+        activityFacade.findById(null);
     }
 
     @Test
@@ -144,6 +144,11 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
         assertThat(argumentCaptor.getValue().getCaloriesRatio()).isEqualTo(ratio);
     }
 
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testDeleteNullActivity() {
+        activityFacade.deleteActivity(null);
+    }
+
     @Test
     public void testFindByName(){
         Activity activity = new Activity();
@@ -161,6 +166,11 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
         assertThat(activityDTO.getId()).isEqualTo(id);
         assertThat(activityDTO.getName()).isEqualTo(name);
         assertThat(activityDTO.getCaloriesRatio()).isEqualTo(ratio);
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testFindActivityByNullName() {
+        activityFacade.findByName(null);
     }
 
     @Test
@@ -181,22 +191,22 @@ public class ActivityFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     private List<Activity> exampleActivities() {
-        swimming = new Activity();
+        Activity swimming = new Activity();
         swimming.setName("swimming");
         swimming.setCaloriesRatio(BigDecimal.valueOf(10));
         swimming.setId(1L);
 
-        squatting = new Activity();
+        Activity squatting = new Activity();
         squatting.setName("squatting");
         squatting.setCaloriesRatio(BigDecimal.valueOf(5));
         squatting.setId(2L);
 
-        running = new Activity();
+        Activity running = new Activity();
         running.setName("running");
         running.setCaloriesRatio(BigDecimal.valueOf(2.5));
         running.setId(3L);
 
-        jumping = new Activity();
+        Activity jumping = new Activity();
         jumping.setName("jumping");
         jumping.setCaloriesRatio(BigDecimal.valueOf(1.25));
         jumping.setId(4L);
