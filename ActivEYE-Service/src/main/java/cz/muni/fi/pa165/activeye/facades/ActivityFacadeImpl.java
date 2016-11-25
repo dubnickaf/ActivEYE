@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
 import cz.muni.fi.pa165.activeye.entities.Activity;
-import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFound;
+import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
 import cz.muni.fi.pa165.activeye.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class ActivityFacadeImpl implements ActivityFacade {
         Activity mappedActivity = beanMappingService.mapTo(activityDTO, Activity.class);
 
         if (activityService.findById(mappedActivity.getId()) == null) {
-            throw new NoSuchEntityFound("Required Activity doesn't exist.");
+            throw new NoSuchEntityFoundException("Required Activity doesn't exist.");
         }
 
         activityService.update(mappedActivity);
@@ -62,7 +62,7 @@ public class ActivityFacadeImpl implements ActivityFacade {
         Activity a = activityService.findById(id);
 
         if (a == null) {
-            throw new NoSuchEntityFound("Required Activity doesn't exist.");
+            throw new NoSuchEntityFoundException("Required Activity doesn't exist.");
         }
 
         activityService.delete(a);
@@ -77,7 +77,7 @@ public class ActivityFacadeImpl implements ActivityFacade {
         Activity a = activityService.findById(id);
 
         if (a == null) {
-            throw new NoSuchEntityFound("Required Activity doesn't exist.");
+            throw new NoSuchEntityFoundException("Required Activity doesn't exist.");
         }
 
         return beanMappingService.mapTo(a, ActivityDTO.class);
@@ -92,7 +92,7 @@ public class ActivityFacadeImpl implements ActivityFacade {
         Activity a = activityService.findByName(name);
 
         if (a == null) {
-            throw new NoSuchEntityFound("Required Activity doesn't exist.");
+            throw new NoSuchEntityFoundException("Required Activity doesn't exist.");
         }
 
         return beanMappingService.mapTo(a, ActivityDTO.class);

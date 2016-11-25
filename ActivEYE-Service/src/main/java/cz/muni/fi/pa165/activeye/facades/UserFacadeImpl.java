@@ -5,7 +5,7 @@ import cz.muni.fi.pa165.activeye.dto.NotAuthenticatedUserDTO;
 import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import cz.muni.fi.pa165.activeye.entities.User;
-import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFound;
+import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
 import cz.muni.fi.pa165.activeye.service.RecordService;
 import cz.muni.fi.pa165.activeye.service.UserService;
@@ -88,7 +88,8 @@ public class UserFacadeImpl implements UserFacade {
             throw new IllegalArgumentException("Cannot find user with null id.");
         }
         User user = userService.findUserById(userId);
-        return (user == null) ? null : beanMappingService.mapTo(user, UserDTO.class);
+        if(user == null) throw new NoSuchEntityFoundException("No user with user id" + userId + "found");
+        return beanMappingService.mapTo(user, UserDTO.class);
     }
 
     @Override
@@ -97,13 +98,15 @@ public class UserFacadeImpl implements UserFacade {
             throw new IllegalArgumentException("Cannot find user with null email.");
         }
         User user = userService.findUserByEmail(email);
-        return (user == null) ? null : beanMappingService.mapTo(user, UserDTO.class);
+        if(user == null) throw new NoSuchEntityFoundException("No user with email" + email + "found");
+        return beanMappingService.mapTo(user, UserDTO.class);
     }
 
     @Override
     public Collection<UserDTO> getAllUsers() {
         Collection<User> users = userService.getAllUsers();
-        return (users == null) ? null : beanMappingService.mapTo(users, UserDTO.class);
+        if(users == null) throw new NoSuchEntityFoundException("No users found");
+        return beanMappingService.mapTo(users, UserDTO.class);
     }
 
     @Override
@@ -113,7 +116,7 @@ public class UserFacadeImpl implements UserFacade {
         }
         User user = userService.findUserById(u.getId());
         if (user == null) {
-            throw new NoSuchEntityFound("User does not exist");
+            throw new NoSuchEntityFoundException("User does not exist");
         }
         StatisticsOfUserDTO statisticsDTO = new StatisticsOfUserDTO();
         statisticsDTO.setUserDTO(beanMappingService.mapTo(user, UserDTO.class));

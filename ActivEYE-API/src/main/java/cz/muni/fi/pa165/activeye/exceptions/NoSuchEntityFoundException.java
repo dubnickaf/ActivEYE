@@ -6,13 +6,13 @@ package cz.muni.fi.pa165.activeye.exceptions;
  * @since   21-11-2016
  */
 
-public class NoSuchEntityFound extends RuntimeException {
+public class NoSuchEntityFoundException extends RuntimeException {
 
-    public NoSuchEntityFound(String msg) {
+    public NoSuchEntityFoundException(String msg) {
         super(msg);
     }
 
-    public NoSuchEntityFound(String msg, Throwable thr) {
+    public NoSuchEntityFoundException(String msg, Throwable thr) {
         super(msg, thr);
     }
 
