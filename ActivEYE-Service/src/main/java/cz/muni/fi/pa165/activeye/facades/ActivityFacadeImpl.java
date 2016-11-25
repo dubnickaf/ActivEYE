@@ -59,10 +59,9 @@ public class ActivityFacadeImpl implements ActivityFacade {
             throw new IllegalArgumentException("Activity's ID can't be null.");
         }
 
-        Activity a = new Activity();
-        a.setId(id);
+        Activity a = activityService.findById(id);
 
-        if (activityService.findById(a.getId()) == null) {
+        if (a == null) {
             throw new NoSuchEntityFound("Required Activity doesn't exist.");
         }
 
