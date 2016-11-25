@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.activeye.service;
 
 import cz.muni.fi.pa165.activeye.dao.ActivityDao;
 import cz.muni.fi.pa165.activeye.entities.Activity;
+import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
 import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,11 @@ public class ActivityServiceImpl implements ActivityService {
             throw new IllegalArgumentException("Activity's name cannot be null.");
         }
 
-        activityDao.create(a);
+        try {
+            activityDao.create(a);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
@@ -42,7 +47,12 @@ public class ActivityServiceImpl implements ActivityService {
         if (a.getName() == null) {
             throw new IllegalArgumentException("Activity's name cannot be null.");
         }
-        activityDao.update(a);
+
+        try {
+            activityDao.update(a);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
@@ -54,7 +64,12 @@ public class ActivityServiceImpl implements ActivityService {
             throw new IllegalArgumentException("Activity's id cannot be null.");
         }
 
-        activityDao.delete(a);
+
+        try {
+            activityDao.delete(a);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
@@ -62,10 +77,19 @@ public class ActivityServiceImpl implements ActivityService {
         if (id == null) {
             throw new IllegalArgumentException("Cannot find activity with id null.");
         }
-        Activity activity = activityDao.findById(id);
+
+        Activity activity;
+
+        try {
+            activity = activityDao.findById(id);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
+
         if (activity == null){
             throw new NoSuchEntityFoundException("Cannot find activity with id " + id);
         }
+
         return activity;
     }
 
@@ -74,10 +98,19 @@ public class ActivityServiceImpl implements ActivityService {
         if (name == null) {
             throw new IllegalArgumentException("Cannot find activity with name null.");
         }
-        Activity activity = activityDao.findByName(name);
+
+        Activity activity;
+
+        try {
+            activity = activityDao.findByName(name);
+        } catch (Exception e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
+
         if (activity == null){
             throw new NoSuchEntityFoundException("Cannot find activity with name " + name);
         }
+
         return activity;
     }
 
