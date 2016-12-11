@@ -1,19 +1,24 @@
 package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
+import cz.muni.fi.pa165.activeye.dao.UserDao;
+import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
+import cz.muni.fi.pa165.activeye.mapping.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.activeye.service.UserService;
 import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import static org.mockito.Mockito.when;
@@ -94,6 +99,7 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
         when(userService.findUserByEmail(jankoEmailAdress)).thenReturn(shouldReturn);
         UserDTO fromFacade = userFacade.findUserByEmail(jankoEmailAdress);
         Assert.assertEquals(beanMappingService.mapTo(fromFacade,User.class),shouldReturn);
+
     }
 
     @Test
@@ -149,7 +155,25 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
         userFacade.registerUser(userDTO,"0000");
     }
 
+    @Test
+    public void testUserStatistics(){
 
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(22L);
+        userDTO.setEmailAddress("johny@john.com");
+        StatisticsOfUserDTO statisticsOfUserDTO = new StatisticsOfUserDTO();
+        statisticsOfUserDTO.setRecordsToday(1);
+        statisticsOfUserDTO.setCaloriesBurnedToday(new BigDecimal("0"));
+        statisticsOfUserDTO.setAverageBurnedCaloriesPerRecord(new BigDecimal("0"));
+        User user = beanMappingService.mapTo(userDTO,User.class);
+        when(userService.findUserById(22L)).thenReturn(user);
+        when(userService.calculateAverageBurnedCaloriesPerRecord(user)).thenReturn(new BigDecimal("0"));
+        when(userService.calculateCaloriesBurnedToday(user)).thenReturn(new BigDecimal("0"));
+        when(userService.calculateRecordsToday(user)).thenReturn(1);
+        when(userService.calculateMostUsedActivity(user)).thenReturn(new ActivityDTO());
+        Assert.assertEquals(userFacade.getStatistics(userDTO),statisticsOfUserDTO);
+
+    }
 
 
 }

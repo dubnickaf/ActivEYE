@@ -1,0 +1,22 @@
+{
+  "name": "ActivEYE-Webapp",
+  "homepage": "https://github.com/dubnickaf/ActivEYE",
+  "authors": [
+    "spriadka <spriadka@github.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.0",
+    "angular-patternfly": "^3.16.0",
+    "angular-ui-router": "1.0.0-beta.3"
+  }
+}
