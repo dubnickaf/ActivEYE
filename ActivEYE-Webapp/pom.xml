@@ -11,11 +11,12 @@
   <artifactId>ActivEYE-Webapp</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>ActivEYE-Webapp Maven Webapp</name>
+  <name>ActivEYE-cz.muni.fi.pa165.activeye.Webapp Maven cz.muni.fi.pa165.activeye.Webapp</name>
   <url>http://maven.apache.org</url>
   <properties>
     <jersey2.version>2.19</jersey2.version>
     <jaxrs.version>2.0.1</jaxrs.version>
+    <javax.servlet.version>3.0.1</javax.servlet.version>
   </properties>
 
   <dependencies>
@@ -24,6 +25,13 @@
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>${javax.servlet.version}</version>
+      <scope>provided</scope>
     </dependency>
 
     <!-- JAX-RS -->
@@ -49,6 +57,45 @@
       <version>${jersey2.version}</version>
     </dependency>
 
+
+    <dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-servlet-core</artifactId>
+      <version>${jersey.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.glassfish.hk2.external</groupId>
+          <artifactId>javax.inject</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.jersey.ext</groupId>
+      <artifactId>jersey-spring3</artifactId>
+      <version>${jersey2.version}</version>
+      <exclusions>
+      <exclusion>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-core</artifactId>
+      </exclusion>
+      <exclusion>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+      </exclusion>
+      <exclusion>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-beans</artifactId>
+      </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-json-jackson</artifactId>
+      <version>${jersey2.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>cz.muni.fi.pa165.activeye</groupId>
       <artifactId>service</artifactId>
@@ -56,7 +103,7 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>ActivEYE-Webapp</finalName>
+    <finalName>ActivEYE-cz.muni.fi.pa165.activeye.Webapp</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
