@@ -13,7 +13,6 @@ import java.util.Collection;
  * User´s service
  * @author Filip Dubnička [445647]
  */
-@Service
 public interface UserService {
     /**
      * This method registers the given user with given password
