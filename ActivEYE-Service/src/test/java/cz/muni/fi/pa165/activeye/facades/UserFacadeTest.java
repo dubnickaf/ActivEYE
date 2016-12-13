@@ -1,12 +1,8 @@
 package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
-<<<<<<< HEAD
-=======
-import cz.muni.fi.pa165.activeye.dao.UserDao;
 import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
 import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
->>>>>>> 8b08d24aa87da56bfe0619268d7a9685a7cc2c0d
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.User;
@@ -20,6 +16,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -158,8 +155,6 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
         userFacade.registerUser(userDTO,"0000");
     }
 
-<<<<<<< HEAD
-=======
     @Test
     public void testUserStatistics(){
 
@@ -188,6 +183,5 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
 
     }
 
->>>>>>> 8b08d24aa87da56bfe0619268d7a9685a7cc2c0d
 
 }
