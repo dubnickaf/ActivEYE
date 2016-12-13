@@ -21,8 +21,8 @@ public class UserRESTService {
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response authenticate(NotAuthenticatedUserDTO user){
-            return userFacade.authenticate(user) ? Response.ok().build() : Response.status(Response.Status.FORBIDDEN).build();
+    public boolean authenticate(NotAuthenticatedUserDTO user){
+        return userFacade.authenticate(user);
     }
 
     @POST
