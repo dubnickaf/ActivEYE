@@ -17,7 +17,7 @@ import java.util.Collection;
 @Path("/users")
 public class UserRESTService {
     @Inject
-    private UserFacade userFacade
+    private UserFacade userFacade;
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
