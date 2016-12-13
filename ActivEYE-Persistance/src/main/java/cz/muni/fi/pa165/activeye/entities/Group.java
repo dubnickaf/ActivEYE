@@ -28,6 +28,17 @@ public class Group {
     @Column(nullable = false)
     private String name;
 
+    public Group() {
+    }
+
+    public Group(Long creatorsUserId, Set<User> users, String name) {
+        this.creatorsUserId = creatorsUserId;
+        this.name = name;
+
+        for (User u : users) {
+            this.addUser(u);
+        }
+    }
 
     public Long getId() {
         return id;

@@ -46,6 +46,15 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Record> activityRecords;
 
+    public User() {
+    }
+
+    public User(String name, String emailAddress, Date bornDate, Gender gender) {
+        this.name = name;
+        this.emailAddress = emailAddress;
+        this.bornDate = bornDate;
+        this.gender = gender;
+    }
 
     public Long getId() {
         return id;

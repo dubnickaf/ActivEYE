@@ -48,6 +48,14 @@ public class Activity {
         this.caloriesRatio = caloriesRatio;
     }
 
+    public Activity() {
+    }
+
+    public Activity(String name, BigDecimal caloriesRatio) {
+        this.name = name;
+        this.caloriesRatio = caloriesRatio;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;

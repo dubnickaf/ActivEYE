@@ -65,6 +65,16 @@ public class Record {
         this.id = id;
     }
 
+    public Record() {
+    }
+
+    public Record(User user, Activity activity, Calendar startDate, Calendar endDate) {
+        this.user = user;
+        this.activity = activity;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString(){
         return "Record: [id:" + id + ", " +

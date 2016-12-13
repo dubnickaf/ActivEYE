@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.samples.facade;
 
+import cz.muni.fi.pa165.activeye.entities.Activity;
+import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.enums.Gender;
 import cz.muni.fi.pa165.activeye.service.ActivityService;
@@ -10,9 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Created by spriadka on 12/13/16.
@@ -30,32 +31,46 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
     @Inject
     private RecordService recordService;
 
+    @Inject
     private GroupService groupService;
 
-    private Map<String,User> users;
+    private List<Activity> activities;
+    private Set<User> users = new HashSet<User>();
+    private Set<Record> records = new HashSet<Record>();
 
     @Override
     public void loadData() {
-        createUsers();
-    }
+        //Create Activities
+        Activity[] a = {new Activity("Running", BigDecimal.valueOf(654)),
+                new Activity("Swimming", BigDecimal.valueOf(572)),
+                new Activity("Football", BigDecimal.valueOf(654)),
+                new Activity("Cycling", BigDecimal.valueOf(490))};
+        for (Activity ac : a) {
+            activityService.create(ac);
+        }
+        activities = activityService.findAll();
 
-    private void createUsers(){
-        users = new HashMap<String, User>();
-        users.put("Johny Bravo",user("Johny Bravo","johny@bravo.com",Gender.MALE,"1-1-1990"));
-        userService.registerUser(users.get("Johny Bravo"),"bravo");
-    }
+        //Create Users
+        for (int i = 0; i<10; i++) {
+            Calendar cal = Calendar.getInstance();
+            cal.set(2000+i,1,1);
+            Gender gender = i%2 == 0 ? Gender.MALE : Gender.FEMALE;
+            User u = new User("user"+i, "user"+i+"@mail.com", cal.getTime(), gender);
+            userService.registerUser(u, "user"+i);
+        }
+        users.addAll(userService.getAllUsers());
 
-    private User user(String name, String email, Gender gender, String dateString){
-        User newUser = new User();
-        newUser.setName(name);
-        newUser.setEmailAddress(email);
-        newUser.setGender(gender);
-        Calendar date = Calendar.getInstance();
-        String[] tokens = dateString.split("-");
-        date.set(Calendar.DAY_OF_MONTH,Integer.valueOf(tokens[0]));
-        date.set(Calendar.MONTH,Integer.valueOf(tokens[1]));
-        date.set(Calendar.YEAR,Integer.valueOf(tokens[2]));
-        newUser.setBornDate(date.getTime());
-        return newUser;
+        List<User> userList = new ArrayList<User>(users);
+        for (int i = 0; i<10; i++) {
+            Calendar start = Calendar.getInstance();
+            start.set(2016,1,1,12,10+i);
+            Calendar end = Calendar.getInstance();
+            end.set(2016,1,1,12,20+i);
+            Record r = new Record(userList.get(i%10), activities.get(i%4),start, end);
+            recordService.createRecord(r);
+        }
+        records.addAll(recordService.getAllRecords());
+
+
     }
 }
