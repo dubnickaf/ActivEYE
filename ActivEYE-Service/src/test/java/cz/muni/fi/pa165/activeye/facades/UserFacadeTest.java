@@ -1,7 +1,14 @@
 package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
+<<<<<<< HEAD
+=======
+import cz.muni.fi.pa165.activeye.dao.UserDao;
+import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
+import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
+>>>>>>> 8b08d24aa87da56bfe0619268d7a9685a7cc2c0d
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
+import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
 import cz.muni.fi.pa165.activeye.service.UserService;
@@ -151,5 +158,36 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
         userFacade.registerUser(userDTO,"0000");
     }
 
+<<<<<<< HEAD
+=======
+    @Test
+    public void testUserStatistics(){
+
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(22L);
+        userDTO.setEmailAddress("johny@john.com");
+        StatisticsOfUserDTO statisticsOfUserDTO = new StatisticsOfUserDTO();
+        statisticsOfUserDTO.setUserDTO(userDTO);
+        statisticsOfUserDTO.setRecordsToday(1);
+        statisticsOfUserDTO.setCaloriesBurnedToday(new BigDecimal("0"));
+        statisticsOfUserDTO.setAverageBurnedCaloriesPerRecord(new BigDecimal("0"));
+        
+        Activity activity = new Activity();
+        activity.setName("sport");
+        ActivityDTO favActivity = beanMappingService.mapTo(activity, ActivityDTO.class);
+        statisticsOfUserDTO.setMostUsedActivity(favActivity);
+
+        
+        User user = beanMappingService.mapTo(userDTO,User.class);
+        when(userService.findUserById(22L)).thenReturn(user);
+        when(userService.calculateAverageBurnedCaloriesPerRecord(user)).thenReturn(new BigDecimal("0"));
+        when(userService.calculateCaloriesBurnedToday(user)).thenReturn(new BigDecimal("0"));
+        when(userService.calculateRecordsToday(user)).thenReturn(1);
+        when(userService.calculateMostUsedActivity(user)).thenReturn(activity);
+        Assert.assertEquals(userFacade.getStatistics(userDTO),statisticsOfUserDTO);
+
+    }
+
+>>>>>>> 8b08d24aa87da56bfe0619268d7a9685a7cc2c0d
 
 }
