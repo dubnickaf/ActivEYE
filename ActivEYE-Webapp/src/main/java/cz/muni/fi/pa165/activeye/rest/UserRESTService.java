@@ -17,20 +17,19 @@ import java.util.Collection;
 @Path("/users")
 public class UserRESTService {
     @Inject
-    private UserFacade userService;
-
+    private UserFacade userFacade
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response authenticate(NotAuthenticatedUserDTO user){
-            return userService.authenticate(user) ? Response.ok().build() : Response.status(Response.Status.FORBIDDEN).build();
+            return userFacade.authenticate(user) ? Response.ok().build() : Response.status(Response.Status.FORBIDDEN).build();
     }
 
     @POST
     @Path("/register/{password}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response register(UserDTO userDTO,@PathParam("password")String password){
-        userService.registerUser(userDTO,password);
+        userFacade.registerUser(userDTO,password);
         return Response.ok().build();
     }
 
@@ -38,7 +37,7 @@ public class UserRESTService {
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<UserDTO> getAllUsers(){
-        return userService.getAllUsers();
+        return userFacade.getAllUsers();
     }
 
 }
