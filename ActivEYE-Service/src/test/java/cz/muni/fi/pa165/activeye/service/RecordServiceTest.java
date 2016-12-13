@@ -77,12 +77,12 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         r.setStartDate(calS);
         calE.set(2001, 9, 11, 8, 50);
         r.setEndDate(calE);
-        r.setBurnedCalories(BigDecimal.valueOf(9.11));
+        //r.setBurnedCalories(BigDecimal.valueOf(9.11));
     }
 
     private void asserts() {
         assertThat(aCaptor.getValue().getActivity()).isEqualTo(a);
-        assertThat(aCaptor.getValue().getBurnedCalories()).isEqualTo(BigDecimal.valueOf(9.11));
+        assertThat(aCaptor.getValue().getBurnedCalories()).isEqualTo(BigDecimal.valueOf(0.07));
         assertThat(aCaptor.getValue().getEndDate()).isEqualTo(calE);
         assertThat(aCaptor.getValue().getStartDate()).isEqualTo(calS);
         assertThat(aCaptor.getValue().getUser()).isEqualTo(u);
@@ -127,7 +127,7 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
 
         assertThat(record.getId()).isEqualTo(3L);
         assertThat(record.getActivity()).isEqualTo(a);
-        assertThat(record.getBurnedCalories()).isEqualTo(BigDecimal.valueOf(9.11));
+        //assertThat(record.getBurnedCalories()).isEqualTo(BigDecimal.valueOf(9.11));
         assertThat(record.getEndDate()).isEqualTo(calE);
         assertThat(record.getStartDate()).isEqualTo(calS);
         assertThat(record.getUser()).isEqualTo(u);
@@ -152,7 +152,11 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         Mockito.verify(recordDao).deleteRecord(aCaptor.capture());
 
         assertThat(aCaptor.getValue().getId()).isEqualTo(3L);
-        asserts();
+        assertThat(aCaptor.getValue().getActivity()).isEqualTo(a);
+        //assertThat(aCaptor.getValue().getBurnedCalories()).isEqualTo(BigDecimal.valueOf(0.07));
+        assertThat(aCaptor.getValue().getEndDate()).isEqualTo(calE);
+        assertThat(aCaptor.getValue().getStartDate()).isEqualTo(calS);
+        assertThat(aCaptor.getValue().getUser()).isEqualTo(u);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
@@ -208,7 +212,7 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         r.setStartDate(calS);
         calE.set(2002, 9, 11, 8, 50);
         r.setEndDate(calE);
-        r.setBurnedCalories(BigDecimal.valueOf(11.9));
+        //r.setBurnedCalories(BigDecimal.valueOf(11.9));
         r.setId(6L);
         return r;
     }

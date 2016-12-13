@@ -27,11 +27,12 @@ public class RecordServiceImpl implements RecordService {
         if (record == null){
             throw new IllegalArgumentException("Record null");
         }
+        record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
         try {
             recordDao.createRecord(record);
         }
         catch (Exception e){
-            throw new ActiveyeDataAccessException("Error occured when creating record");
+            throw new ActiveyeDataAccessException("Error occured when creating record",e);
         }
     }
 
@@ -40,11 +41,12 @@ public class RecordServiceImpl implements RecordService {
         if (record == null){
             throw new IllegalArgumentException("Record null");
         }
+        record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
         try {
             recordDao.updateRecord(record);
         }
         catch(Exception e){
-            throw new ActiveyeDataAccessException("Error occured when updating record");
+            throw new ActiveyeDataAccessException("Error occured when updating record",e);
         }
     }
 
@@ -65,7 +67,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<Record> getAllRecords(){
+    public List<Record> getAllRecords() {
         return recordDao.getAllRecords();
     }
 }

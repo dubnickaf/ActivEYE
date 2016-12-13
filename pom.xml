@@ -12,7 +12,7 @@
         <module>ActivEYE-Service</module>
     <module>ActivEYE-Webapp</module>
     <module>ActivEYE-SampleData</module>
-  </modules>
+    </modules>
     <parent>
         <groupId>io.spring.platform</groupId>
         <artifactId>platform-bom</artifactId>

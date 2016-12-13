@@ -99,14 +99,13 @@ public class Record {
         if(!(endDate.equals(other.getEndDate()))){
             return false;
         }
-        return burnedCalories.equals(other.getBurnedCalories());
+        return true;
     }
 
     @Override
     public int hashCode() {
         int result = user.hashCode();
         result = 31 * result + activity.hashCode();
-        result = 31 * result + (burnedCalories != null ? burnedCalories.hashCode() : 0);
         result = 31 * result + (startDate != null ? startDate.hashCode() : 0);
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         return result;
@@ -126,5 +125,9 @@ public class Record {
 
     public void setStartDate(Calendar startDate) {
         this.startDate = startDate;
+    }
+    
+    public BigDecimal getHoursSpent() {
+        return BigDecimal.valueOf(getEndDate().getTimeInMillis() - getStartDate().getTimeInMillis()).divide(BigDecimal.valueOf(3600000), 2, BigDecimal.ROUND_HALF_UP);
     }
 }

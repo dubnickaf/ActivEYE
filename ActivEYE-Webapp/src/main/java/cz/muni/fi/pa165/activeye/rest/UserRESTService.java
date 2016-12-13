@@ -39,5 +39,12 @@ public class UserRESTService {
     public Collection<UserDTO> getAllUsers(){
         return userFacade.getAllUsers();
     }
-
+    
+    @GET
+    @Path("/byId/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public UserDTO findUserById(@PathParam("id")String id){
+        return userFacade.findUserById(Long.valueOf(id));
+    }
+    
 }
