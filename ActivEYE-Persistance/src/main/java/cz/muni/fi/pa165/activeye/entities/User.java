@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.activeye.entities;
 import cz.muni.fi.pa165.activeye.enums.Gender;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -41,10 +42,10 @@ public class User {
     private String passwordHash;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Group> groups;
+    private Set<Group> groups = new HashSet<Group>();
 
     @OneToMany(mappedBy = "user")
-    private Set<Record> activityRecords;
+    private Set<Record> activityRecords = new HashSet<Record>();
 
     public User() {
     }

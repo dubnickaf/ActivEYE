@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.samples.facade;
 
 import cz.muni.fi.pa165.activeye.entities.Activity;
+import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.enums.Gender;
@@ -35,8 +36,9 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
     private GroupService groupService;
 
     private List<Activity> activities;
-    private Set<User> users = new HashSet<User>();
-    private Set<Record> records = new HashSet<Record>();
+    private List<User> users = new ArrayList<User>();
+    private List<Record> records = new ArrayList<Record>();
+    private List<Group> groups = new ArrayList<Group>();
 
     @Override
     public void loadData() {
@@ -60,17 +62,48 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
         }
         users.addAll(userService.getAllUsers());
 
-        List<User> userList = new ArrayList<User>(users);
+        //Create Records
         for (int i = 0; i<10; i++) {
             Calendar start = Calendar.getInstance();
             start.set(2016,1,1,12,10+i);
             Calendar end = Calendar.getInstance();
             end.set(2016,1,1,12,20+i);
-            Record r = new Record(userList.get(i%10), activities.get(i%4),start, end);
+            Record r = new Record(users.get(i%9), activities.get(i%4),start, end);
             recordService.createRecord(r);
         }
         records.addAll(recordService.getAllRecords());
+        for (int i = 0; i<10; i++) {
+            users.get(i%9).getActivityRecords().add(records.get(i));
+            userService.updateUser(users.get(i%9));
+        }
 
+        //Create Groups
+        Set<User> temp = new HashSet<User>(Arrays.asList(users.get(0), users.get(4), users.get(8)));
+        groups.add(new Group(users.get(0).getId(), temp, "Runners"));
+
+        temp = new HashSet<User>(Arrays.asList(users.get(1), users.get(5), users.get(0)));
+        groups.add(new Group(users.get(1).getId(), temp, "Swimmers"));
+
+        temp = new HashSet<User>(Arrays.asList(users.get(2), users.get(6)));
+        groups.add(new Group(users.get(2).getId(), temp, "Footballers"));
+
+        temp = new HashSet<User>(Arrays.asList(users.get(3), users.get(7)));
+        groups.add(new Group(users.get(3).getId(), temp, "Cyclers"));
+
+        temp = new HashSet<User>(Arrays.asList(users.get(1), users.get(3), users.get(5), users.get(7)));
+        groups.add(new Group(users.get(1).getId(), temp, "Friends"));
+
+        for (Group g : groups) {
+            for (User u : g.getUsers()) {
+                u.getGroups().add(g);
+                userService.updateUser(u);
+            }
+            groupService.create(g);
+        }
+        //Next 2 lines needed to update fields, but not needed now, because everything is created.
+        //Uncomment them if you add code below them.
+        //groups = new ArrayList<Group>(groupService.findAll());
+        //users = new ArrayList<User>(userService.getAllUsers());
 
     }
 }
