@@ -1,19 +1,15 @@
-angular.module('mainApp')
-    .factory('UserService', function ($http) {
-        return {
-            /**
-             * authenticates user
-             * @author dubnickaf@gmail.com
-             */
-            authenticateUser: function (nauDto) {
+/**
+ * authenticates user
+ * @author dubnickaf@gmail.com
+ */
 
-                return $http.get('users/login', {
-                    params: {
-                        nauDto:nauDto
-                    }
-                }).then(function (response) {
-                    return response;
-                });
-            }
-        }
-    });
+angular.module('activeye.services')
+    .service('UserService', ['$resource',function ($resource) {
+        return $resource('/rest/users',null,{
+                query: {
+                    method : 'GET',
+                    url: 'rest/users/all',
+                    isArray: true
+                }
+        });
+    }]);

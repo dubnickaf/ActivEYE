@@ -6,10 +6,8 @@ import cz.muni.fi.pa165.activeye.facades.UserFacade;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
 
@@ -23,39 +21,54 @@ public class UserRESTService {
     @Inject
     private UserFacade userFacade;
 
-    @RequestMapping(value = "/login/{nauDto}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public final boolean authenticate(NotAuthenticatedUserDTO user){
         return userFacade.authenticate(user);
     }
 
-    @RequestMapping(value = "/register/{password}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void register(UserDTO userDTO,@PathParam("password")String password){
+    @POST
+    @Path("/register")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public final void register(UserDTO userDTO,@QueryParam("password") String password){
         userFacade.registerUser(userDTO,password);
     }
 
-    @RequestMapping(value = "/all",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/all")
     public final Collection<UserDTO> getAllUsers(){
         return userFacade.getAllUsers();
     }
 
-    @RequestMapping(value = "/byId/{id}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final UserDTO findUserById(@PathParam("id")String id){
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/get/{userId}")
+    public final UserDTO findUserById(@PathParam("userId") String id){
         return userFacade.findUserById(Long.valueOf(id));
     }
 
-    @RequestMapping(value = "/byEmail/{email}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final UserDTO findUserByEmail(@PathParam("email")String email){
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/get")
+    public final UserDTO findUserByEmail(@QueryParam("email")String email){
         return userFacade.findUserByEmail(email);
     }
 
-    @RequestMapping(value = "/update/{user}",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
-     public final void updateUser(@PathParam("user")UserDTO userDTO){
+    @PUT
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+     public final void updateUser(UserDTO userDTO){
         userFacade.updateUser(userDTO);
 
     }
 
-    @RequestMapping(value = "/update/{user}",method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public final void deleteUser(@PathParam("user")UserDTO userDTO){
+    @DELETE
+    @Path("/delete")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public final void deleteUser(UserDTO userDTO){
         userFacade.deleteUser(userDTO);
     }
 }
