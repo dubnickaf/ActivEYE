@@ -28,9 +28,15 @@
     <script src="bower_components/d3/d3.min.js"></script>
 
     <!-- APP -->
+    <!-- Controllers -->
     <script src="js/app.js"></script>
     <script src="js/controller/DemoCtrl.js"></script>
     <script src="js/controller/LoginValidationController.js"></script>
+    <script src="js/controller/UpdateUserController.js"></script>
+    <script src="js/controller/DashboardController.js"></script>
+
+    <!-- Servicies -->
+    <script src="js/service/UserService.js"></script>
 
     <link rel="stylesheet" href="css/app.css">
     <link rel="import" href="pages/login.html">

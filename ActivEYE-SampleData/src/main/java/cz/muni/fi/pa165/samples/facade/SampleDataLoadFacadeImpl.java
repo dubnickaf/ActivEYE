@@ -94,11 +94,11 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
         groups.add(new Group(users.get(1).getId(), temp, "Friends"));
 
         for (Group g : groups) {
+            groupService.create(g);
             for (User u : g.getUsers()) {
                 u.getGroups().add(g);
                 userService.updateUser(u);
             }
-            groupService.create(g);
         }
         //Next 2 lines needed to update fields, but not needed now, because everything is created.
         //Uncomment them if you add code below them.

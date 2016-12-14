@@ -103,10 +103,8 @@ public class Group {
         }
 
         final Group group = (Group) o;
-        
-        return getId().equals(group.getId()) &&
-               getCreatorsUserId().equals(group.getCreatorsUserId()) &&
-               getUsers().equals(group.getUsers()) &&
+        if (getName() == null || group.getName() == null) return true;
+        return //getUsers().equals(group.getUsers()) &&
                getName().equals(group.getName());
 
     }
@@ -114,9 +112,7 @@ public class Group {
     @Override
     public int hashCode() {
         int result = 11;
-        result *= 31 + (getId() != null ? getId().hashCode() : 0);
-        result *= 31 + (getCreatorsUserId() != null ? getCreatorsUserId().hashCode() : 0);
-        result *= 31 + (getUsers() != null ? getUsers().hashCode() : 0);
+        //result *= 31 + (getUsers() != null ? getUsers().hashCode() : 0);
         return result * 31 + (getName() != null ? getName().hashCode() : 0);
     }
 }
