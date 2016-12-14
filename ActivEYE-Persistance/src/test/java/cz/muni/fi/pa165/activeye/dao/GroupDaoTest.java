@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.activeye.PersistenceContext;
 import cz.muni.fi.pa165.activeye.enums.Gender;
 import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
+import cz.muni.fi.pa165.activeye.enums.UserRole;
 import org.assertj.core.api.Assertions;
 import org.junit.After;
 import static org.assertj.core.api.Assertions.*;
@@ -41,6 +42,7 @@ public class GroupDaoTest {
         user.setEmailAddress("matko@gmail.com");
         user.setPasswordHash("password");
         user.setGender(Gender.MALE);
+        user.setRole(UserRole.USER);
         userDao.create(user);
         return user;
     }
@@ -139,6 +141,7 @@ public class GroupDaoTest {
         user2.setEmailAddress("branko@gmail.com");
         user2.setPasswordHash("password");
         user2.setGender(Gender.MALE);
+        user2.setRole(UserRole.USER);
         userDao.create(user2);
 
         Group group = new Group();
@@ -164,6 +167,7 @@ public class GroupDaoTest {
         user2.setEmailAddress("ferko@gmail.com");
         user2.setPasswordHash("password");
         user2.setGender(Gender.MALE);
+        user2.setRole(UserRole.USER);
         userDao.create(user2);
 
         User user3 = new User();
@@ -171,6 +175,7 @@ public class GroupDaoTest {
         user3.setEmailAddress("vratko@gmail.com");
         user3.setPasswordHash("password");
         user3.setGender(Gender.MALE);
+        user3.setRole(UserRole.USER);
         userDao.create(user3);
 
 

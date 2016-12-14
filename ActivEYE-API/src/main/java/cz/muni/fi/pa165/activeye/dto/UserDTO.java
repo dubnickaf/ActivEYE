@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.activeye.dto;
 import java.util.Date;
 
 import cz.muni.fi.pa165.activeye.enums.Gender;
+import cz.muni.fi.pa165.activeye.enums.UserRole;
 
 /**
  * DTO representing user.
@@ -19,6 +20,8 @@ public class UserDTO {
     private Date bornDate;
 
     private Gender gender;
+
+    private UserRole role;
 
     private String passwordHash;
 
@@ -60,6 +63,14 @@ public class UserDTO {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public String getPasswordHash() {

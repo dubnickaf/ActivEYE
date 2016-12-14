@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.enums.Gender;
+import cz.muni.fi.pa165.activeye.enums.UserRole;
 import cz.muni.fi.pa165.activeye.service.ActivityService;
 import cz.muni.fi.pa165.activeye.service.GroupService;
 import cz.muni.fi.pa165.activeye.service.RecordService;
@@ -57,7 +58,7 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
             Calendar cal = Calendar.getInstance();
             cal.set(2000+i,1,1);
             Gender gender = i%2 == 0 ? Gender.MALE : Gender.FEMALE;
-            User u = new User("user"+i, "user"+i+"@mail.com", cal.getTime(), gender);
+            User u = new User("user"+i, "user"+i+"@mail.com", cal.getTime(), gender, UserRole.USER);
             userService.registerUser(u, "user"+i);
         }
         users.addAll(userService.getAllUsers());

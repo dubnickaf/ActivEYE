@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.activeye.PersistenceContext;
 import cz.muni.fi.pa165.activeye.InMemoryDatabaseSpring;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.enums.Gender;
+import cz.muni.fi.pa165.activeye.enums.UserRole;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -46,6 +47,7 @@ public class UserDaoTest {
         toCreate.setName("Jozko");
         toCreate.setEmailAddress("jozko@mail.com");
         toCreate.setPasswordHash("password");
+        toCreate.setRole(UserRole.USER);
         userDao.create(toCreate);
         userDao.create(toCreate);
     }
@@ -77,6 +79,7 @@ public class UserDaoTest {
         user.setEmailAddress("jozko@gmail.com");
         user.setPasswordHash("password");
         user.setGender(Gender.MALE);
+        user.setRole(UserRole.USER);
         userDao.create(user);
         Assert.assertNotNull(user);
         Assert.assertNotNull(user.getId());
@@ -95,6 +98,7 @@ public class UserDaoTest {
         user.setName(name);
         user.setEmailAddress(email);
         user.setPasswordHash("password");
+        user.setRole(UserRole.USER);
         User sameUser = user;
         userDao.create(user);
         User fromDB = userDao.findUserById(user.getId());

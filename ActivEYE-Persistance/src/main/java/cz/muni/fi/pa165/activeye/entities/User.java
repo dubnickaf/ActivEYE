@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.activeye.entities;
 
 import cz.muni.fi.pa165.activeye.enums.Gender;
+import cz.muni.fi.pa165.activeye.enums.UserRole;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -39,6 +40,9 @@ public class User {
     private Gender gender;
 
     @NotNull
+    private UserRole role;
+
+    @NotNull
     private String passwordHash;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -50,11 +54,12 @@ public class User {
     public User() {
     }
 
-    public User(String name, String emailAddress, Date bornDate, Gender gender) {
+    public User(String name, String emailAddress, Date bornDate, Gender gender, UserRole role) {
         this.name = name;
         this.emailAddress = emailAddress;
         this.bornDate = bornDate;
         this.gender = gender;
+        this.role = role;
     }
 
     public Long getId() {
@@ -95,6 +100,14 @@ public class User {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public String getPasswordHash() {

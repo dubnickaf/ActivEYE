@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.activeye.PersistenceContext;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
+import cz.muni.fi.pa165.activeye.enums.UserRole;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -138,6 +139,7 @@ public class RecordDaoTest {
         user.setName("name for my user");
         user.setEmailAddress("e@mail.com");
         user.setPasswordHash("password");
+        user.setRole(UserRole.USER);
 
         record.setActivity(activity);
         record.setUser(user);
