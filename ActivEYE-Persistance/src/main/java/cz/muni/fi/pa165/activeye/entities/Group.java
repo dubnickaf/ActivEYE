@@ -103,7 +103,6 @@ public class Group {
         }
 
         final Group group = (Group) o;
-        if (getName() == null || group.getName() == null) return true;
         return //getUsers().equals(group.getUsers()) &&
                getName().equals(group.getName());
 
