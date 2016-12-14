@@ -7,7 +7,7 @@ angular.module('mainApp')
              */
             authenticateUser: function (nauDto) {
 
-                return $http.get('api/login', {
+                return $http.get('users/login', {
                     params: {
                         nauDto:nauDto
                     }

@@ -28,7 +28,7 @@ public class UserRESTService {
         return userFacade.authenticate(user);
     }
 
-    @RequestMapping(value = "/registrate",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/register/{password}",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void register(UserDTO userDTO,@PathParam("password")String password){
         userFacade.registerUser(userDTO,password);
     }
