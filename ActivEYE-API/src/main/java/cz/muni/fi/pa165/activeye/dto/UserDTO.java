@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.activeye.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.muni.fi.pa165.activeye.enums.Gender;
 import cz.muni.fi.pa165.activeye.enums.UserRole;
 
@@ -73,6 +74,7 @@ public class UserDTO {
         this.role = role;
     }
 
+    @JsonIgnore
     public String getPasswordHash() {
         return passwordHash;
     }
