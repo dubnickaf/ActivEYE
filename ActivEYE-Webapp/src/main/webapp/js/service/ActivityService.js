@@ -15,10 +15,10 @@ function ActivityService($http) {
     vm.update = function () {
         return $http.put('/pa165/rest/activities/update')
     };
-    vm.delete = function () {
+    vm.delete = function (activityId) {
         return $http.delete('/pa165/rest/activities/delete/:activityId')
     };
-    vm.findById = function () {
+    vm.findById = function (activityId) {
         return $http.get('/pa165/rest/activities/get/:activityId')
     };
     vm.findByName = function (name){

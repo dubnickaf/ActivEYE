@@ -1,24 +1,24 @@
-/**
- * @author Branislav Bajuzik; 442772
- */
 
 angular.module('activeye.services').factory('RecordService', RecordService);
 
-RecordService.$inject = ['$http'];
+UserService.$inject = ['$http'];
 
 function RecordService($http) {
     var vm = this;
-    vm.create = function () {
-        return $http.get('/pa165/rest/records/create')
+
+    vm.create = function (record){
+        return $http.post('/pa165/rest/records/login',record);
     };
-    vm.update = function () {
-        return $http.put('/pa165/rest/records/update')
+    vm.update = function (user){
+        return $http.put('/pa165/rest/records/update',user);
     };
-    vm.delete = function () {
-        return $http.delete('/pa165/rest/records/delete/:recordId')
+    vm.delete = function (id){
+        return $http.delete('/pa165/rest/records/delete',id);
     };
-    vm.findById = function () {
-        return $http.get('/pa165/rest/records/get/:recordId')
+    vm.findById = function (id){
+        return $http.get('/pa165/rest/records/get',{
+            params: {id: id}
+        });
     };
     vm.findAll = function () {
         return $http.get('/pa165/rest/records/get/all')
