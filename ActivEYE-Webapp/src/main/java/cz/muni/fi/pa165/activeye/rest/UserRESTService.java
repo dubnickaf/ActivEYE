@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.activeye.rest;
 
 import cz.muni.fi.pa165.activeye.dto.NotAuthenticatedUserDTO;
+import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import cz.muni.fi.pa165.activeye.dto.UserWithRecordsDTO;
 import cz.muni.fi.pa165.activeye.facades.UserFacade;
@@ -85,5 +86,13 @@ public class UserRESTService {
     @Consumes(MediaType.APPLICATION_JSON)
     public final void deleteUser(UserDTO userDTO){
         userFacade.deleteUser(userDTO);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getStats")
+    public final StatisticsOfUserDTO getStatistics(@QueryParam("email")String id){
+        UserDTO userDTO = userFacade.findUserById(Long.parseLong(id));
+        return userFacade.getStatistics(userDTO);
     }
 }

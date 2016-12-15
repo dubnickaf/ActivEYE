@@ -21,7 +21,7 @@ function RecordService($http) {
         });
     };
     vm.findAll = function () {
-        return $http.get('/pa165/rest/records/get/all')
+        return $http.get('/pa165/rest/records/get/all');
     };
     return vm;
 }

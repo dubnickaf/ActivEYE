@@ -38,7 +38,12 @@ function UserService($http) {
         });
     };
     vm.getAll = function () {
-        return $http.get('/pa165/rest/users/all')
+        return $http.get('/pa165/rest/users/all');
+    };
+    vm.getStatistics = function (i) {
+        return $http.get('/pa165/rest/users/getStats',{
+            params: {id: id}
+        });
     };
     vm.initialize = function(){
         console.log('registered');
