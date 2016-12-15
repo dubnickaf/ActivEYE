@@ -1,148 +1,41 @@
 <html class="layout-pf layout-pf-fixed"  ng-controller="DashboardController">
-<script src="../bower_components/c3/c3.js"></script>
-<script src="../bower_components/d3/d3.min.js"></script>
-<script src="../bower_components/matchHeight/jquery.matchHeight-min.js"></script>
-<script src="../bower_components/jquery/dist/jquery.js"></script>
-<nav class="navbar navbar-default navbar-pf" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/">
-            <img src="/assets/img/brand.svg" alt="ActiveEYE" />
-        </a>
-    </div>
-    <div class="collapse navbar-collapse navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-utility">
-            <li>
-                <a href="#">You´re online!</a>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="pficon pficon-user"></span>
-                    Brian Johnson <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a href="#">Link</a>
-                    </li>
-                    <li>
-                        <a href="#">Another link</a>
-                    </li>
-                    <li>
-                        <a href="#">Something else here</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li class="dropdown-submenu">
-                        <a tabindex="-1" href="#">More options</a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Another link</a>
-                            </li>
-                            <li>
-                                <a href="#">Something else here</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li>
-                                <a href="#">Separated link</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">One more separated link</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">One more separated link</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-primary">
-            <li>
-                <a href="#">Dashboard</a>
-            </li>
-            <li class="active">
-                <a href="#">My records</a>
-            </li>
-            <li>
-                <a href="#">Activities</a>
-            </li>
-            <li>
-                <a href="#">Groups</a>
-            </li>
-            <li>
-                <a href="#">Support</a>
-            </li>
-            <li>
-                <a href="#">Last One</a>
-            </li>
-        </ul>
-    </div>
-</nav>
 <div class="container-fluid container-cards-pf">
     <div class="row row-cards-pf">
         <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
-        <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="col-xs-16 col-sm-9 col-md-4">
             <div class="card-pf card-pf-accented card-pf-aggregate-status">
                 <h2 class="card-pf-title">
-                    <span class="fa fa-shield"></span><span class="card-pf-aggregate-status-count">0</span> Ipsum
+                    <a href="#!/records"><span class="fa fa-shield"></span>You already have <span class="card-pf-aggregate-status-count">69</span> Records</a>
                 </h2>
                 <div class="card-pf-body">
                     <p class="card-pf-aggregate-status-notifications">
-                        <span class="card-pf-aggregate-status-notification"><a href="#" class="add" data-toggle="tooltip" data-placement="top" title="Add Ipsum"><span class="pficon pficon-add-circle-o"></span></a></span>
+                        <button class="btn btn-primary btn-lg " type="button">Add new record</button>
                     </p>
                 </div>
             </div>
 
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="col-xs-16 col-sm-9 col-md-4">
             <div class="card-pf card-pf-accented card-pf-aggregate-status">
                 <h2 class="card-pf-title">
-                    <a href="#"><span class="fa fa-shield"></span><span class="card-pf-aggregate-status-count">20</span> Amet</a>
+                    <a href="#!/groups"><span class="fa fa-shield"></span>You are part of <span class="card-pf-aggregate-status-count">69</span> groups</a>
                 </h2>
                 <div class="card-pf-body">
                     <p class="card-pf-aggregate-status-notifications">
-                        <span class="card-pf-aggregate-status-notification"><a href="#"><span class="pficon pficon-error-circle-o"></span>4</a></span>
-                        <span class="card-pf-aggregate-status-notification"><a href="#"><span class="pficon pficon-warning-triangle-o"></span>1</a></span>
+                        <button class="btn btn-primary btn-lg " type="button">Create new group</button>
                     </p>
                 </div>
             </div>
+        </div>
+        <div class="col-xs-16 col-sm-9 col-md-4">
+            <div class="card-pf card-pf-accented card-pf-aggregate-status">
+                <div class="card-pf-body">
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Edit profile</button>
+                    <button type="button" class="btn btn-primary btn-lg btn-block">Log out</button>
+                </div>
+            </div>
+        </div>
 
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="card-pf card-pf-accented card-pf-aggregate-status">
-                <h2 class="card-pf-title">
-                    <a href="#"><span class="fa fa-shield"></span><span class="card-pf-aggregate-status-count">9</span> Adipiscing</a>
-                </h2>
-                <div class="card-pf-body">
-                    <p class="card-pf-aggregate-status-notifications">
-                        <span class="card-pf-aggregate-status-notification"><span class="pficon pficon-ok"></span></span>
-                    </p>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <div class="card-pf card-pf-accented card-pf-aggregate-status">
-                <h2 class="card-pf-title">
-                    <a href="#"><span class="fa fa-shield"></span><span class="card-pf-aggregate-status-count">12</span> Lorem</a>
-                </h2>
-                <div class="card-pf-body">
-                    <p class="card-pf-aggregate-status-notifications">
-                        <a href="#"><span class="card-pf-aggregate-status-notification"><span class="pficon pficon-error-circle-o"></span>1</span></a>
-                    </p>
-                </div>
-            </div>
-        </div>
     </div><!-- /row -->
     <div class="row row-cards-pf">
         <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
@@ -150,11 +43,11 @@
             <div class="card-pf card-pf-accented card-pf-aggregate-status card-pf-aggregate-status-mini">
                 <h2 class="card-pf-title">
                     <span class="fa fa-rebel"></span>
-                    <span class="card-pf-aggregate-status-count">0</span> Ipsum
+                    Total <span class="card-pf-aggregate-status-count">69</span> calories burned.
                 </h2>
                 <div class="card-pf-body">
                     <p class="card-pf-aggregate-status-notifications">
-                        <span class="card-pf-aggregate-status-notification"><a href="#" class="add" data-toggle="tooltip" data-placement="top" title="Add Ipsum"><span class="pficon pficon-add-circle-o"></span></a></span>
+
                     </p>
                 </div>
             </div>
@@ -163,14 +56,12 @@
         <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="card-pf card-pf-accented card-pf-aggregate-status card-pf-aggregate-status-mini">
                 <h2 class="card-pf-title">
-                    <a href="#">
-                        <span class="fa fa-paper-plane"></span>
-                        <span class="card-pf-aggregate-status-count">20</span> Amet
-                    </a>
+                    <span class="fa fa-paper-plane"></span>
+                    Today <span class="card-pf-aggregate-status-count">69</span> calories burned.
                 </h2>
                 <div class="card-pf-body">
                     <p class="card-pf-aggregate-status-notifications">
-                        <span class="card-pf-aggregate-status-notification"><a href="#"><span class="pficon pficon-error-circle-o"></span>4</a></span>
+
                     </p>
                 </div>
             </div>
@@ -179,14 +70,12 @@
         <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="card-pf card-pf-accented card-pf-aggregate-status card-pf-aggregate-status-mini">
                 <h2 class="card-pf-title">
-                    <a href="#">
-                        <span class="pficon pficon-cluster"></span>
-                        <span class="card-pf-aggregate-status-count">9</span> Adipiscing
-                    </a>
+                    <span class="pficon pficon-cluster"></span>
+                    Today <span class="card-pf-aggregate-status-count">69</span> records.
                 </h2>
                 <div class="card-pf-body">
                     <p class="card-pf-aggregate-status-notifications">
-                        <span class="card-pf-aggregate-status-notification"><span class="pficon pficon-ok"></span></span>
+
                     </p>
                 </div>
             </div>
@@ -195,14 +84,12 @@
         <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="card-pf card-pf-accented card-pf-aggregate-status card-pf-aggregate-status-mini">
                 <h2 class="card-pf-title">
-                    <a href="#">
-                        <span class="pficon pficon-image"></span>
-                        <span class="card-pf-aggregate-status-count">12</span> Lorem
-                    </a>
+                    <span class="pficon pficon-image"></span>
+                    Average burned <span class="card-pf-aggregate-status-count">69</span> calories per record.
                 </h2>
                 <div class="card-pf-body">
                     <p class="card-pf-aggregate-status-notifications">
-                        <a href="#"><span class="card-pf-aggregate-status-notification"><span class="pficon pficon-error-circle-o"></span>1</span></a>
+
                     </p>
                 </div>
             </div>
@@ -445,59 +332,6 @@
                                 var chart4 = c3.generate(sparklineConfig);
                             </script>
                         </div>
-                        <div class="col-xs-12 col-sm-4 col-md-4">
-                            <h3 class="card-pf-subtitle">Network</h3>
-                            <p class="card-pf-utilization-details">
-                                <span class="card-pf-utilization-card-details-count">200</span>
-            <span class="card-pf-utilization-card-details-description">
-              <span class="card-pf-utilization-card-details-line-1">Available</span>
-              <span class="card-pf-utilization-card-details-line-2">of 1300 Gbps</span>
-            </span>
-                            </p>
-                            <div id="chart-pf-donut-3"></div>
-                            <div class="chart-pf-sparkline" id="chart-pf-sparkline-3"></div>
-                            <script>
-                                var donutConfig = $().c3ChartDefaults().getDefaultDonutConfig('A');
-                                donutConfig.bindto = '#chart-pf-donut-3';
-                                donutConfig.color =  {
-                                    pattern: ["#EC7A08","#D1D1D1"]
-                                };
-                                donutConfig.data = {
-                                    type: "donut",
-                                    columns: [
-                                        ["Used", 85],
-                                        ["Available", 15]
-                                    ],
-                                    groups: [
-                                        ["used", "available"]
-                                    ],
-                                    order: null
-                                };
-                                donutConfig.tooltip = {
-                                    contents: function (d) {
-                                        return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
-                                                Math.round(d[0].ratio * 100) + '%' + ' Gbps ' + d[0].name +
-                                                '</span>';
-                                    }
-                                };
-
-                                var chart5 = c3.generate(donutConfig);
-                                var donutChartTitle = d3.select("#chart-pf-donut-3").select('text.c3-chart-arcs-title');
-                                donutChartTitle.text("");
-                                donutChartTitle.insert('tspan').text("1100").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
-                                donutChartTitle.insert('tspan').text("Gbps Used").classed('donut-title-small-pf', true).attr('dy', 20).attr('x', 0);
-
-                                var sparklineConfig = $().c3ChartDefaults().getDefaultSparklineConfig();
-                                sparklineConfig.bindto = '#chart-pf-sparkline-3';
-                                sparklineConfig.data = {
-                                    columns: [
-                                        ['%', 60, 55, 70, 44, 31, 67, 54, 46, 58, 75, 62, 68, 69, 88, 74, 88, 85],
-                                    ],
-                                    type: 'area'
-                                };
-                                var chart6 = c3.generate(sparklineConfig);
-                            </script>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -505,69 +339,7 @@
         </div>
     </div><!-- /row -->
     <div class="row row-cards-pf">
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div class="card-pf card-pf-utilization">
-                <h2 class="card-pf-title">
-                    Network
-                </h2>
-                <div class="card-pf-body">
-                    <p class="card-pf-utilization-details">
-                        <span class="card-pf-utilization-card-details-count">200</span>
-        <span class="card-pf-utilization-card-details-description">
-          <span class="card-pf-utilization-card-details-line-1">Available</span>
-          <span class="card-pf-utilization-card-details-line-2">of 1300 Gbps</span>
-        </span>
-                    </p>
-                    <div id="chart-pf-donut-4"></div>
-                    <div class="chart-pf-sparkline" id="chart-pf-sparkline-4"></div>
-                    <script>
-                        var c3ChartDefaults = $().c3ChartDefaults();
 
-                        var donutConfig = c3ChartDefaults.getDefaultDonutConfig('A');
-                        donutConfig.bindto = '#chart-pf-donut-4';
-                        donutConfig.color =  {
-                            pattern: ["#EC7A08","#D1D1D1"]
-                        };
-                        donutConfig.data = {
-                            type: "donut",
-                            columns: [
-                                ["Used", 85],
-                                ["Available", 15]
-                            ],
-                            groups: [
-                                ["used", "available"]
-                            ],
-                            order: null
-                        };
-                        donutConfig.tooltip = {
-                            contents: function (d) {
-                                return '<span class="donut-tooltip-pf" style="white-space: nowrap;">' +
-                                        Math.round(d[0].ratio * 100) + '%' + ' Gbps ' + d[0].name +
-                                        '</span>';
-                            }
-                        };
-
-                        var chart1 = c3.generate(donutConfig);
-                        var donutChartTitle = d3.select("#chart-pf-donut-4").select('text.c3-chart-arcs-title');
-                        donutChartTitle.text("");
-                        donutChartTitle.insert('tspan').text("1100").classed('donut-title-big-pf', true).attr('dy', 0).attr('x', 0);
-                        donutChartTitle.insert('tspan').text("Gbps Used").classed('donut-title-small-pf', true).attr('dy', 20).attr('x', 0);
-
-                        var sparklineConfig = c3ChartDefaults.getDefaultSparklineConfig();
-                        sparklineConfig.bindto = '#chart-pf-sparkline-4';
-                        sparklineConfig.data = {
-                            columns: [
-                                ['%', 60, 55, 70, 44, 31, 67, 54, 46, 58, 75, 62, 68, 69, 88, 74, 88, 85],
-                            ],
-                            type: 'area'
-                        };
-
-                        var chart2 = c3.generate(sparklineConfig);
-                    </script>
-                </div>
-            </div>
-
-        </div>
     </div><!-- /row -->
     <div class="row row-cards-pf">
         <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->

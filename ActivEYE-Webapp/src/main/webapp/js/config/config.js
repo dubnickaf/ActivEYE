@@ -13,7 +13,7 @@ function config($stateProvider, $urlRouterProvider) {
         url: '',
         redirectTo: 'login'
     })
-        .state({
+        .state('list',{
             name: 'login',
             url: '/login',
             controller: 'LoginController',
@@ -24,4 +24,22 @@ function config($stateProvider, $urlRouterProvider) {
             url: '/dashboard',
             controller: 'DashboardController',
             templateUrl: 'pages/dashboard.html'
+        })
+        .state({
+            name: 'records',
+            url: '/records',
+            controller: 'RecordsController',
+            templateUrl: 'pages/records.html'
+        })
+        .state({
+            name: 'groups',
+            url: '/groups',
+            controller: 'GroupsController',
+            templateUrl: 'pages/groups.html'
+        })
+        .state({
+            name: 'activities',
+            url: '/activities',
+            controller: 'ActivitiesController',
+            templateUrl: 'pages/activities.html'
         });}

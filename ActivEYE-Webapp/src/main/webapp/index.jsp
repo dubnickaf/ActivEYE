@@ -42,13 +42,19 @@
     <script src="js/controller/LoginValidationController.js"></script>
     <script src="js/controller/UpdateUserController.js"></script>
     <script src="js/controller/DashboardController.js"></script>
+    <script src="js/controller/GroupsController.js"></script>
+    <script src="js/controller/ActivitiesController.js"></script>
+    <script src="js/controller/RecordsController.js"></script>
+    <script src="js/AppController.js"></script>
     <link rel="stylesheet" href="css/app.css">
     <link rel="import" href="pages/login.html">
 
 
 
 </head>
-<body ng-app="mainApp">
+<body ng-app="mainApp" ng-controller="AppController as appController">
+    <div ng-if="appController.showHeader" ng-include="'pages/header.html'"></div>
+
     <ui-view></ui-view>
 </body>
 </html>

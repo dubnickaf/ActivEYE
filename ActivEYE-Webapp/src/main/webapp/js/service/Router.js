@@ -10,4 +10,13 @@ function Router($location,mediator){
     mediator.listen('router:dashboard').act(function(event,data){
         $location.path('/dashboard');
     })
+    mediator.listen('router:groups').act(function(event,data){
+        $location.path('/groups');
+    })
+    mediator.listen('router:records').act(function(event,data){
+        $location.path('/records');
+    })
+    mediator.listen('router:activities').act(function(event,data){
+        $location.path('/activities');
+    })
 }
