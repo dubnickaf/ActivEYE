@@ -7,11 +7,11 @@ Router.$inject = ['$location'];
 
 function Router($location) {
     var vm = this;
-    vm.redirect = function(url){
+    vm.redirect = function (url) {
         console.log("redirecting");
         $location.path(url);
     };
-    vm.initialize = function(){
+    vm.initialize = function () {
         console.log('Router initialized');
     };
     return vm;

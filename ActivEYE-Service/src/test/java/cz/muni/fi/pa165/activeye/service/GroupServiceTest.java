@@ -136,16 +136,17 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetAllUsers() {
-        when(groupDao.getAllUsers(group1)).thenReturn(new HashSet<User>(){{add(user1);add(user2);}});
+        when(groupDao.getAllUsers(group1.getId())).thenReturn(new HashSet<User>(){{add(user1);add(user2);}});
 
-        Assert.assertNotNull(groupService.getAllUsers(group1));
-        Assert.assertTrue(groupService.getAllUsers(group1).contains(user2));
-        Assert.assertEquals(groupService.getAllUsers(group1).size(), 2);
+        Assert.assertNotNull(groupService.getAllUsers(group1.getId()));
+        Assert.assertTrue(groupService.getAllUsers(group1.getId()).contains(user2));
+        Assert.assertEquals(groupService.getAllUsers(group1.getId()).size(), 2);
     }
 
     @Test
     public void testAddUser() {
-        groupService.addUser(user2, group1);
+        when(groupDao.findById(group1.getId())).thenReturn(group1);
+        groupService.addUser(user2, group1.getId());
         verify(groupDao).addUser(user2, group1);
     }
 

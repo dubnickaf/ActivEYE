@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.activeye.rest;
 
 import cz.muni.fi.pa165.activeye.dto.NotAuthenticatedUserDTO;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
+import cz.muni.fi.pa165.activeye.dto.UserWithRecordsDTO;
 import cz.muni.fi.pa165.activeye.facades.UserFacade;
 
 import javax.inject.Inject;
@@ -55,6 +56,20 @@ public class UserRESTService {
     @Path("/get")
     public final UserDTO findUserByEmail(@QueryParam("email")String email){
         return userFacade.findUserByEmail(email);
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getWRecords/{userId}")
+    public final UserWithRecordsDTO findUserWithRecordsById(@PathParam("userId") String id){
+        return userFacade.findUserWithRecordsById(Long.valueOf(id));
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/getWRecords")
+    public final UserWithRecordsDTO findUserWithRecordsByEmail(@QueryParam("email")String email){
+        return userFacade.findUserWithRecordsByEmail(email);
     }
 
     @PUT

@@ -51,10 +51,10 @@ public interface GroupDao {
 
     /**
      * Get all Users of Group
-     * @param group Group we want Users of
+     * @param id of Group we want Users of
      * @return Set of all Users in Group
      */
-    Set<User> getAllUsers(Group group);
+    Set<User> getAllUsers(Long id);
 
     /**
      * Adds user to Group

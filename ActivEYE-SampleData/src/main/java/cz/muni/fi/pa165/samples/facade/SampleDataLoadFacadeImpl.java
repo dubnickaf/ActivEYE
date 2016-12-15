@@ -22,7 +22,7 @@ import java.time.ZoneId;
 import java.util.*;
 
 /**
- * Created by spriadka on 12/13/16.
+ * Created Branislav Bajuzik; 442772
  */
 @Service
 @Transactional

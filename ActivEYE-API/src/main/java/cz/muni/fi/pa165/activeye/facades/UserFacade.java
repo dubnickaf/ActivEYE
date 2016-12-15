@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.activeye.facades;
 import cz.muni.fi.pa165.activeye.dto.NotAuthenticatedUserDTO;
 import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
+import cz.muni.fi.pa165.activeye.dto.UserWithRecordsDTO;
 import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 
 import java.util.Collection;
@@ -82,4 +83,21 @@ public interface UserFacade {
      * @throws NoSuchEntityFoundException if user does not exist
      */
     StatisticsOfUserDTO getStatistics(UserDTO u);
+
+    /**
+     * Returns User with given id \w records
+     * @param userId given id
+     * @return DTO of found user on success, null otherwise
+     * @throws IllegalArgumentException if wrong argument is given
+     * @throws NoSuchEntityFoundException if user with given email does not exist
+     */
+    UserWithRecordsDTO findUserWithRecordsById(Long userId);
+    /**
+     * Returns User with given email \w records
+     * @param email given email
+     * @return DTO of found user on success, null otherwise
+     * @throws IllegalArgumentException if wrong argument is given
+     * @throws NoSuchEntityFoundException if user with given email does not exist
+     */
+    UserWithRecordsDTO findUserWithRecordsByEmail(String email);
 }

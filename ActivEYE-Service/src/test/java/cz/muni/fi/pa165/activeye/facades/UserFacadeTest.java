@@ -1,13 +1,14 @@
 package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.config.ServiceConfiguration;
-import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
-import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
-import cz.muni.fi.pa165.activeye.dto.UserDTO;
+import cz.muni.fi.pa165.activeye.dto.*;
 import cz.muni.fi.pa165.activeye.entities.Activity;
+import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
+import cz.muni.fi.pa165.activeye.enums.Gender;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
 import cz.muni.fi.pa165.activeye.service.UserService;
+import org.assertj.core.api.Assertions;
 import org.mockito.*;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -17,9 +18,9 @@ import org.testng.annotations.Test;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static org.mockito.Mockito.when;
 
@@ -84,9 +85,10 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
         userById.setName(jankoName);
         User toReturn = beanMappingService.mapTo(userById,User.class);
         when(userService.findUserById(jankoId)).thenReturn(toReturn);
-        Assert.assertEquals(userById.getEmailAddress(),jankoEmailAdress);
-        Assert.assertEquals(userById.getName(),jankoName);
-        Assert.assertEquals(userById.getId(),jankoId);
+        UserDTO fromFacade = userFacade.findUserByEmail(jankoEmailAdress);
+        Assert.assertEquals(fromFacade.getEmailAddress(),jankoEmailAdress);
+        Assert.assertEquals(fromFacade.getName(),jankoName);
+        Assert.assertEquals(fromFacade.getId(),jankoId);
     }
 
     @Test
@@ -183,5 +185,63 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
 
     }
 
+    @Test
+    public void testFindWithRecordsById(){
+        UserWithRecordsDTO userById = new UserWithRecordsDTO();
+        userById.setId(jankoId);
+        userById.setEmailAddress(jankoEmailAdress);
+        userById.setName(jankoName);
+        Set<RecordDTO> records = new HashSet<>();
+        records.add(getRecord());
+        userById.setActivityRecords(records);
+        User toReturn = beanMappingService.mapTo(userById,User.class);
+        when(userService.findUserById(jankoId)).thenReturn(toReturn);
+        UserWithRecordsDTO returnedValue = userFacade.findUserWithRecordsById(jankoId);
+        Assert.assertEquals(returnedValue.getEmailAddress(),jankoEmailAdress);
+        Assert.assertEquals(returnedValue.getName(),jankoName);
+        Assert.assertEquals(returnedValue.getId(),jankoId);
+        Assert.assertEquals(returnedValue.getActivityRecords(),records);
+    }
 
+    @Test
+    public void testFindWithRecordsByEmail(){
+        UserWithRecordsDTO userDTO = new UserWithRecordsDTO();
+        userDTO.setId(jankoId);
+        userDTO.setEmailAddress(jankoEmailAdress);
+        userDTO.setName(jankoName);
+        Set<RecordDTO> records = new HashSet<>();
+        records.add(getRecord());
+        userDTO.setActivityRecords(records);
+        User shouldReturn = beanMappingService.mapTo(userDTO,User.class);
+        when(userService.findUserByEmail(jankoEmailAdress)).thenReturn(shouldReturn);
+        UserWithRecordsDTO fromFacade = userFacade.findUserWithRecordsByEmail(jankoEmailAdress);
+        Assert.assertEquals(fromFacade.getEmailAddress(),jankoEmailAdress);
+        Assert.assertEquals(fromFacade.getName(),jankoName);
+        Assert.assertEquals(fromFacade.getId(),jankoId);
+        Assertions.assertThat(fromFacade.getActivityRecords()).containsExactlyElementsOf(records);
+    }
+    private RecordDTO getRecord() {
+        int i;
+        ActivityDTO a = new ActivityDTO();
+        a.setCaloriesRatio(BigDecimal.ONE);
+        a.setId(4L);
+        a.setName("Quick jog in NY ");
+
+        UserDTO u = new UserDTO();
+        u.setName("Jet Fuel ");
+        u.setEmailAddress("cant_@melt.steel");
+        u.setPasswordHash("beams ");
+        u.setBornDate(LocalDate.now());
+        u.setGender(Gender.FEMALE);
+        u.setId(5L);
+
+        RecordDTO r = new RecordDTO();
+        r.setActivity(a);
+        r.setUser(u);
+        r.setStartDate(LocalDateTime.now().withYear(2002).withMonth(9).withHour(8).withMinute(46));
+        r.setEndDate(LocalDateTime.now().withYear(2001).withMonth(9).withHour(8).withMinute(50));
+        r.setBurnedCalories(BigDecimal.valueOf(11.9));
+        r.setId(6L);
+        return r;
+    }
 }

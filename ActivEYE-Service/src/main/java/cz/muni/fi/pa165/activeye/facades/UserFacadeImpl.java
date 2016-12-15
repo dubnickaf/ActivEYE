@@ -1,9 +1,6 @@
 package cz.muni.fi.pa165.activeye.facades;
 
-import cz.muni.fi.pa165.activeye.dto.ActivityDTO;
-import cz.muni.fi.pa165.activeye.dto.NotAuthenticatedUserDTO;
-import cz.muni.fi.pa165.activeye.dto.StatisticsOfUserDTO;
-import cz.muni.fi.pa165.activeye.dto.UserDTO;
+import cz.muni.fi.pa165.activeye.dto.*;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
@@ -131,5 +128,25 @@ public class UserFacadeImpl implements UserFacade {
         statisticsDTO.setMostUsedActivity(favActivity);
 
         return statisticsDTO;
+    }
+
+    @Override
+    public UserWithRecordsDTO findUserWithRecordsById(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("Cannot find user with null id.");
+        }
+        User user = userService.findUserById(userId);
+        if(user == null) throw new NoSuchEntityFoundException("No user with user id " + userId + " found");
+        return beanMappingService.mapTo(user, UserWithRecordsDTO.class);
+    }
+
+    @Override
+    public UserWithRecordsDTO findUserWithRecordsByEmail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException("Cannot find user with null email.");
+        }
+        User user = userService.findUserByEmail(email);
+        if(user == null) throw new NoSuchEntityFoundException("No user with email " + email + " found");
+        return beanMappingService.mapTo(user, UserWithRecordsDTO.class);
     }
 }

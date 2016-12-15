@@ -22,7 +22,7 @@ public class Group {
     private Long creatorsUserId;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<User> users = new HashSet<User>();
+    private Set<User> users = new HashSet<>();
 
     @NotNull
     @Column(nullable = false)

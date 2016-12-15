@@ -24,7 +24,6 @@ public class ActivityRESTService {
     @Consumes(MediaType.APPLICATION_JSON)
     public final void createActivity(ActivityDTO activityDTO) {
         activityFacade.createActivity(activityDTO);
-
     }
 
     @PUT

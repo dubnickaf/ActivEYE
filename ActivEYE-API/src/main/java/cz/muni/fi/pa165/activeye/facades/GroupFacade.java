@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.activeye.facades;
 
 import cz.muni.fi.pa165.activeye.dto.GroupDTO;
 import cz.muni.fi.pa165.activeye.dto.UserDTO;
+import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
+
 import java.util.Collection;
 
 /**
@@ -25,10 +27,11 @@ public interface GroupFacade {
 
     /**
      * Deletes Group
-     * @param group group to be deleted
-     * @throws IllegalArgumentException if group is null or wasn't persisted yet
+     * @param id od of group to be deleted
+     * @throws IllegalArgumentException if id is null
+     * @throws NoSuchEntityFoundException if there is no such entity
      */
-    void delete(GroupDTO group);
+    void delete(Long id);
 
     /**
      * Finds Group by id
@@ -56,16 +59,16 @@ public interface GroupFacade {
 
     /**
      * gets all users of group
-     * @param group Group to get Users of
+     * @param id of Group to get Users of
      * @return all users of the group
      * @throws cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException if there are no users in group
      */
-    Collection<UserDTO> getAllUsers(GroupDTO group);
+    Collection<UserDTO> getAllUsers(Long id);
 
     /**
      * Adds User to Group
      * @param user User to be added
-     * @param group Group to be added to
+     * @param id of Group to be added to
      */
-    void addUser(UserDTO user, GroupDTO group);
+    void addUser(UserDTO user, Long id);
 }

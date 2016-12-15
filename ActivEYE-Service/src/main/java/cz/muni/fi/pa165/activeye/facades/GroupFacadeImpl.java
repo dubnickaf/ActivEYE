@@ -45,15 +45,13 @@ public class GroupFacadeImpl implements GroupFacade {
     }
 
     @Override
-    public void delete(GroupDTO group) {
-        if (group == null) {
-            throw new IllegalArgumentException("Cannot delete null GroupDTO");
+    public void delete(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Cannot delete Group of id null");
         }
-        if (group.getId() == null) {
-            throw new IllegalArgumentException("Group has not been persisted yet");
-        }
-        Group gr = beanMappingService.mapTo(group, Group.class);
-        groupService.delete(gr);
+        Group group = groupService.findById(id);
+
+        groupService.delete(group);
     }
 
     @Override
@@ -62,9 +60,7 @@ public class GroupFacadeImpl implements GroupFacade {
             throw new IllegalArgumentException("Cannot find GroupDTO by null Id");
         }
         Group group =  groupService.findById(id);
-        if(group == null) {
-            throw new NoSuchEntityFoundException("No Group with id " + id + " found");
-        }
+
         return beanMappingService.mapTo(group, GroupDTO.class);
     }
 
@@ -84,8 +80,8 @@ public class GroupFacadeImpl implements GroupFacade {
     }
 
     @Override
-    public Collection<UserDTO> getAllUsers(GroupDTO group) {
-        Collection<User> users = groupService.getAllUsers(beanMappingService.mapTo(group, Group.class));
+    public Collection<UserDTO> getAllUsers(Long id) {
+        Collection<User> users = groupService.getAllUsers(id);
         if(users == null) {
             throw new NoSuchEntityFoundException("No Users found in Group");
         }
@@ -93,7 +89,7 @@ public class GroupFacadeImpl implements GroupFacade {
     }
 
     @Override
-    public void addUser(UserDTO user, GroupDTO group) {
-        groupService.addUser(beanMappingService.mapTo(user, User.class), beanMappingService.mapTo(group, Group.class));
+    public void addUser(UserDTO user, Long id) {
+        groupService.addUser(beanMappingService.mapTo(user, User.class), id);
     }
 }

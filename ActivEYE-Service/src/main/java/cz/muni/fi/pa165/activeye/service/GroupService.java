@@ -62,19 +62,19 @@ public interface GroupService {
 
     /**
      * gets all users of a group
-     * @param group group to search in
+     * @param id of group to search in
      * @return all users of a group
-     * @throws IllegalArgumentException if group is null
+     * @throws IllegalArgumentException if id is null
      * @throws cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException if there is error in DAO layer
      */
-    Collection<User> getAllUsers(Group group);
+    Collection<User> getAllUsers(Long id);
 
     /**
      * Adds User to Group
      * @param user User to be added
-     * @param group Group to be added to
-     * @throws IllegalArgumentException if group or user is null
+     * @param id of Group to be added to
+     * @throws IllegalArgumentException if id or user is null
      * @throws cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException if there is error in DAO layer
      */
-    void addUser(User user, Group group);
+    void addUser(User user, Long id);
 }
