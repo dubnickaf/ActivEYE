@@ -13,7 +13,7 @@ import java.util.Collection;
  * @author Branislav Bajuzik; 442772
  */
 @Path("/groups")
-public class GroupRESTSerice {
+public class GroupRESTService {
     @Inject
     private GroupFacade groupFacade;
 
