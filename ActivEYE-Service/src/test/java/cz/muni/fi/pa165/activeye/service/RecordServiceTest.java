@@ -15,6 +15,10 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -31,7 +35,7 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
     private Activity a;
     private User u;
     private Record r;
-    private Calendar calS, calE;
+    private LocalDateTime calS, calE;
 
     @Mock
     private RecordDao recordDao;
@@ -64,18 +68,16 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         u.setName("Jet Fuel");
         u.setEmailAddress("cant@melt.steel");
         u.setPasswordHash("beams");
-        u.setBornDate(Calendar.getInstance().getTime());
+        u.setBornDate(LocalDate.now());
         u.setGender(Gender.MALE);
         u.setId(2L);
 
         r = new Record();
-        calS = Calendar.getInstance();
-        calE = Calendar.getInstance();
         r.setActivity(a);
         r.setUser(u);
-        calS.set(2001, 9, 11, 8, 46);
+        calS = LocalDateTime.now().withYear(2001).withMonth(9).withDayOfYear(11).withHour(8).withMinute(46);
         r.setStartDate(calS);
-        calE.set(2001, 9, 11, 8, 50);
+        calE= LocalDateTime.now().withYear(2001).withMonth(9).withDayOfYear(11).withHour(8).withMinute(50);
         r.setEndDate(calE);
         //r.setBurnedCalories(BigDecimal.valueOf(9.11));
     }
@@ -199,18 +201,16 @@ public class RecordServiceTest extends AbstractTestNGSpringContextTests {
         u.setName("Jet Fuel ");
         u.setEmailAddress("cant_@melt.steel");
         u.setPasswordHash("beams ");
-        u.setBornDate(Calendar.getInstance().getTime());
+        u.setBornDate(LocalDate.now());
         u.setGender(Gender.FEMALE);
         u.setId(5L);
 
         Record r = new Record();
-        calS = Calendar.getInstance();
-        calE = Calendar.getInstance();
         r.setActivity(a);
         r.setUser(u);
-        calS.set(2002, 9, 11, 8, 46);
-        r.setStartDate(calS);
-        calE.set(2002, 9, 11, 8, 50);
+        calS= LocalDateTime.now().withYear(2002).withMonth(9).withDayOfYear(11).withHour(8).withMinute(46);
+        r.setStartDate(calE);
+        calE = LocalDateTime.now().withYear(2002).withMonth(9).withDayOfYear(11).withHour(8).withMinute(50);
         r.setEndDate(calE);
         //r.setBurnedCalories(BigDecimal.valueOf(11.9));
         r.setId(6L);

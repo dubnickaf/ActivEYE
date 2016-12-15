@@ -12,6 +12,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import javax.validation.ConstraintViolationException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 
 /**
@@ -68,7 +71,7 @@ public class UserDaoTest {
         Calendar now = Calendar.getInstance();
         Calendar tomorrow = Calendar.getInstance();
         tomorrow.setTimeInMillis(now.getTimeInMillis() + (1000 * 60 * 60 * 24));
-        user.setBornDate(tomorrow.getTime());
+        user.setBornDate(LocalDate.from(Instant.ofEpochMilli(tomorrow.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()));
         userDao.create(user);
     }
 

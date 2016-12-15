@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Configuration for service mapper (thru dozer)
+ * Configuration for service provider (thru dozer)
  * @author dubnickaf@gmail.com [445647]
  */
 @Configuration

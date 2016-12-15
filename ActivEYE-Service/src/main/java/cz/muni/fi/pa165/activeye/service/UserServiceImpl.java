@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
 /**
@@ -140,12 +144,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public BigDecimal calculateCaloriesBurnedToday(User user) {
         if(user.getActivityRecords() == null)return null;
-        Calendar todaysMidnight = getTodaysMidnight();
-        Calendar now = getNow();
 
         BigDecimal caloriesBurnedToday = BigDecimal.ZERO;
         for (Record record : user.getActivityRecords()) {
-            if(record.getEndDate().after(todaysMidnight) && record.getEndDate().before(now)){
+            if(record.getEndDate().isAfter(getTodaysMidnight())  && record.getEndDate().isBefore(LocalDateTime.now())){
                 caloriesBurnedToday = caloriesBurnedToday.add(record.getBurnedCalories());
             }
         }
@@ -155,11 +157,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer calculateRecordsToday(User user) {
         if(user.getActivityRecords() == null)return null;
-        Calendar todaysMidnight = getTodaysMidnight();
-        Calendar now = getNow();
         int recordsToday = 0;
         for (Record record : user.getActivityRecords()) {
-            if(record.getEndDate().after(todaysMidnight) && record.getEndDate().before(now)){
+            if(record.getEndDate().isAfter(getTodaysMidnight()) && record.getEndDate().isBefore(LocalDateTime.now())){
                 recordsToday++;
             }
         }
@@ -202,16 +202,7 @@ public class UserServiceImpl implements UserService {
         throw new ActiveyeMistakeInCalculationException("Calculation of most used activity was not successful");
     }
 
-    private static Calendar getTodaysMidnight(){
-        Calendar todaysMidnight =new GregorianCalendar();
-        // reset hour, minutes, seconds and millis
-        todaysMidnight.set(Calendar.HOUR_OF_DAY, 0);
-        todaysMidnight.set(Calendar.MINUTE, 0);
-        todaysMidnight.set(Calendar.SECOND, 0);
-        todaysMidnight.set(Calendar.MILLISECOND, 0);
-        return todaysMidnight;
-    }
-    private static Calendar getNow(){
-        return new GregorianCalendar();
+    private static LocalDateTime getTodaysMidnight(){
+        return LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
     }
 }

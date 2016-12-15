@@ -6,6 +6,7 @@
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/patternfly/dist/js/patternfly.min.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
 
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
@@ -31,14 +32,14 @@
     <!-- APP -->
     <!-- Controllers -->
     <script src="js/app.js"></script>
+    <script src="js/mediator/mediator.js"></script>
+    <script src="js/config/config.js"></script>
+    <script src="js/service/Services.js"></script>
+    <script src="js/service/UserService.js"></script>
     <script src="js/controller/DemoCtrl.js"></script>
     <script src="js/controller/LoginValidationController.js"></script>
     <script src="js/controller/UpdateUserController.js"></script>
     <script src="js/controller/DashboardController.js"></script>
-
-    <!-- Servicies -->
-    <script src="js/service/UserService.js"></script>
-
     <link rel="stylesheet" href="css/app.css">
     <link rel="import" href="pages/login.html">
 

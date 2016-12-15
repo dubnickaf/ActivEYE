@@ -6754,20 +6754,20 @@
      *   { 'user': 'pebbles', 'age': 1,  'active': false }
      * ];
      *
-     * var mapper = function(array) {
+     * var provider = function(array) {
      *   return _.pluck(array, 'user');
      * };
      *
      * // using the `_.matches` callback shorthand
-     * _.map(_.partition(users, { 'age': 1, 'active': false }), mapper);
+     * _.map(_.partition(users, { 'age': 1, 'active': false }), provider);
      * // => [['pebbles'], ['barney', 'fred']]
      *
      * // using the `_.matchesProperty` callback shorthand
-     * _.map(_.partition(users, 'active', false), mapper);
+     * _.map(_.partition(users, 'active', false), provider);
      * // => [['barney', 'pebbles'], ['fred']]
      *
      * // using the `_.property` callback shorthand
-     * _.map(_.partition(users, 'active'), mapper);
+     * _.map(_.partition(users, 'active'), provider);
      * // => [['fred'], ['barney', 'pebbles']]
      */
     var partition = createAggregator(function(result, value, key) {

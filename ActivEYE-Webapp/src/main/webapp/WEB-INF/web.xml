@@ -10,8 +10,6 @@
     <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
   </context-param>
 
-
-
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>cz.muni.fi.pa165.activeye.configuration.ApplicationConfiguration</param-value>
@@ -26,7 +24,7 @@
     <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
     <init-param>
       <param-name>jersey.config.server.provider.classnames</param-name>
-      <param-value>cz.muni.fi.pa165.activeye.rest.UserRESTService</param-value>
+      <param-value>cz.muni.fi.pa165.activeye.provider.ObjectMapperContextResolver;cz.muni.fi.pa165.activeye.rest.UserRESTService</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

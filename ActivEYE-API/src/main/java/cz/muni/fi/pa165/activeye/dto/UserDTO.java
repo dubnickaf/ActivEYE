@@ -1,8 +1,12 @@
 package cz.muni.fi.pa165.activeye.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import cz.muni.fi.pa165.activeye.enums.Gender;
 import cz.muni.fi.pa165.activeye.enums.UserRole;
 
@@ -18,7 +22,7 @@ public class UserDTO {
 
     private String emailAddress;
 
-    private Date bornDate;
+    private LocalDate bornDate;
 
     private Gender gender;
 
@@ -50,11 +54,12 @@ public class UserDTO {
         this.emailAddress = emailAddress;
     }
 
-    public Date getBornDate() {
+    @JsonSerialize(using = LocalDateSerializer.class)
+    public LocalDate getBornDate() {
         return bornDate;
     }
 
-    public void setBornDate(Date bornDate) {
+    public void setBornDate(LocalDate bornDate) {
         this.bornDate = bornDate;
     }
 

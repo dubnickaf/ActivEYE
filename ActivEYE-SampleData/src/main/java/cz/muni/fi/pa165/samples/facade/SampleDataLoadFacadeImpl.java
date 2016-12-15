@@ -15,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -58,17 +62,15 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
             Calendar cal = Calendar.getInstance();
             cal.set(2000+i,1,1);
             Gender gender = i%2 == 0 ? Gender.MALE : Gender.FEMALE;
-            User u = new User("user"+i, "user"+i+"@mail.com", cal.getTime(), gender, UserRole.USER);
+            User u = new User("user"+i, "user"+i+"@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), gender, UserRole.USER);
             userService.registerUser(u, "user"+i);
         }
         users.addAll(userService.getAllUsers());
 
         //Create Records
         for (int i = 0; i<10; i++) {
-            Calendar start = Calendar.getInstance();
-            start.set(2016,1,1,12,10+i);
-            Calendar end = Calendar.getInstance();
-            end.set(2016,1,1,12,20+i);
+            LocalDateTime start = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1).withHour(12).withMinute(10+i);
+            LocalDateTime end = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1).withHour(12).withMinute(20+i);
             Record r = new Record(users.get(i%9), activities.get(i%4),start, end);
             recordService.createRecord(r);
         }

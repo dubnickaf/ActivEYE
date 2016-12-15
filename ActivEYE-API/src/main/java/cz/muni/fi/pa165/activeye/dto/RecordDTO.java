@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.activeye.dto;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 /**
@@ -14,8 +15,8 @@ public class RecordDTO {
     private UserDTO user;
     private ActivityDTO activity;
     private BigDecimal burnedCalories;
-    private Calendar startDate;
-    private Calendar endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     public Long getId() {
         return id;
@@ -49,19 +50,19 @@ public class RecordDTO {
         this.burnedCalories = burnedCalories;
     }
 
-    public Calendar getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Calendar getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Calendar endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 }

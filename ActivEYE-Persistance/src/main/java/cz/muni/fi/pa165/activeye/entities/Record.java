@@ -1,7 +1,12 @@
 package cz.muni.fi.pa165.activeye.entities;
 
+import cz.muni.fi.pa165.activeye.annotations.Past;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Calendar;
 
 /**
@@ -26,11 +31,9 @@ public class Record {
 
     private BigDecimal burnedCalories;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar startDate;
+    private LocalDateTime startDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Calendar endDate;
+    private LocalDateTime endDate;
 
 
     public User getUser() {
@@ -68,7 +71,7 @@ public class Record {
     public Record() {
     }
 
-    public Record(User user, Activity activity, Calendar startDate, Calendar endDate) {
+    public Record(User user, Activity activity, LocalDateTime startDate, LocalDateTime endDate) {
         this.user = user;
         this.activity = activity;
         this.startDate = startDate;
@@ -81,8 +84,8 @@ public class Record {
                 "user: " + user + ", " +
                 "activity: " + activity + ", " +
                 "burnedCalories: " + burnedCalories + ", " +
-                "startDate: " + startDate.getTime() +  ", " +
-                "endDate:" + endDate.getTime() + "]";
+                "startDate: " + startDate.toString() +  ", " +
+                "endDate:" + endDate.toString() + "]";
     }
 
     @Override
@@ -121,23 +124,23 @@ public class Record {
         return result;
     }
 
-    public Calendar getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Calendar endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
-    public Calendar getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
     
     public BigDecimal getHoursSpent() {
-        return BigDecimal.valueOf(getEndDate().getTimeInMillis() - getStartDate().getTimeInMillis()).divide(BigDecimal.valueOf(3600000), 2, BigDecimal.ROUND_HALF_UP);
+        return BigDecimal.valueOf(getEndDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() - getStartDate().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()).divide(BigDecimal.valueOf(3600000), 2, BigDecimal.ROUND_HALF_UP);
     }
 }

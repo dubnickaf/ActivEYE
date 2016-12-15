@@ -1,14 +1,15 @@
 package cz.muni.fi.pa165.activeye.entities;
 
+import cz.muni.fi.pa165.activeye.annotations.Past;
 import cz.muni.fi.pa165.activeye.enums.Gender;
 import cz.muni.fi.pa165.activeye.enums.UserRole;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 
@@ -33,9 +34,8 @@ public class User {
     @Column(unique=true)
     private String emailAddress;
 
-    @Temporal(TemporalType.DATE)
     @Past
-    private Date bornDate;
+    private LocalDate bornDate;
 
     private Gender gender;
 
@@ -54,7 +54,7 @@ public class User {
     public User() {
     }
 
-    public User(String name, String emailAddress, Date bornDate, Gender gender, UserRole role) {
+    public User(String name, String emailAddress, LocalDate bornDate, Gender gender, UserRole role) {
         this.name = name;
         this.emailAddress = emailAddress;
         this.bornDate = bornDate;
@@ -86,11 +86,11 @@ public class User {
         this.emailAddress = emailAddress;
     }
 
-    public Date getBornDate() {
+    public LocalDate getBornDate() {
         return bornDate;
     }
 
-    public void setBornDate(Date bornDate) {
+    public void setBornDate(LocalDate bornDate) {
         this.bornDate = bornDate;
     }
 
