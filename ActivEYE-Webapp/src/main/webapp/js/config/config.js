@@ -4,10 +4,10 @@
 
 angular.module('mainApp').config(config);
 
-config.$inject = ['$stateProvider', '$urlRouterProvider'];
+config.$inject = ['$stateProvider'];
 
-function config($stateProvider, $urlRouterProvider) {
-    console.log('registered');
+function config($stateProvider, $urlRouterProvider,mediator) {
+    console.log('configuring');
     $stateProvider.state({
         name: 'root',
         url: '',

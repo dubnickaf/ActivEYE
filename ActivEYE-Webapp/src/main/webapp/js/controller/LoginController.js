@@ -3,9 +3,9 @@
  */
 angular.module('mainApp').controller('LoginController',LoginController);
 
-LoginController.$inject = ['$rootScope','UserService','mediator','$scope'];
+LoginController.$inject = ['$rootScope','UserService','$scope','mediator','Session','Router'];
 
-function LoginController($rootScope,UserService,mediator,$scope){
+function LoginController($rootScope,UserService,$scope,mediator,Session,Router){
     console.log('registered');
     $scope.valid = false;
     mediator.listen('user:login:validate').act(function(event,data){
@@ -17,9 +17,13 @@ function LoginController($rootScope,UserService,mediator,$scope){
                 $rootScope.$broadcast('user:login:invalid');
             }
             else {
-                console.log('called');
-                $rootScope.$broadcast('user:login:successful');
-                $rootScope.$broadcast('router:dashboard');
+                UserService.findByEmail(data.email).then(function(user){
+                    console.log(user.data);
+                    Session.saveUser(user.data);
+                    Router.redirect('/dashboard');
+                },function(err){
+                    console.log(err);
+                });
             }
         })
     });
