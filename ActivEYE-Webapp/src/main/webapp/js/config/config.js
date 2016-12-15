@@ -7,14 +7,21 @@ angular.module('mainApp').config(config);
 config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
 function config($stateProvider, $urlRouterProvider) {
+    console.log('registered');
     $stateProvider.state({
         name: 'root',
-        url: '/',
+        url: '',
         redirectTo: 'login'
     })
         .state({
             name: 'login',
             url: '/login',
-            controller: 'DemoController',
+            controller: 'LoginController',
             templateUrl: 'pages/login.html'
+        })
+        .state({
+            name: 'dashboard',
+            url: '/dashboard',
+            controller: 'DashboardController',
+            templateUrl: 'pages/dashboard.html'
         });}

@@ -22,13 +22,15 @@
                             <label for="inputUsername" class="col-sm-2 col-md-2 control-label">Username</label>
                             <div class="col-sm-10 col-md-10">
                                 <input type="text" class="form-control" id="inputUsername" placeholder="Please enter a valid email address" tabindex="1" pf-validation="validEmail(input)" ng-model="nauDto.email">
+                                <span id="login-help-block" class="help-block">{{helpMessage}}</span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword" class="col-sm-2 col-md-2 control-label">Password</label>
                             <div class="col-sm-10 col-md-10">
                                 <input type="password" class="form-control" id="inputPassword" placeholder="********"
-                                       tabindex="2" ng-model="nauDto.password">
+                                       tabindex="2" ng-model="nauDto.password" pf-validation="validPassword(input)">
+                                <span class="help-block">Password must contain at least one character</span>
                             </div>
                         </div>
                         <div class="form-group">

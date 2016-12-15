@@ -5,19 +5,21 @@
 
 angular.module('activeye.services').factory('UserService', UserService);
 
-UserService.$inject = ['$resource'];
+UserService.$inject = ['$http'];
 
-function UserService($resource) {
-        return $resource(null, null, {
-            getAll: {
-                method: 'GET',
-                isArray: true,
-                url: '/pa165/rest/users/all'
-            },
-            login: {
-                method: 'POST',
-                params: '@NotAuthenticatedUser',
-                url: '/pa165/rest/users/login'
-            }
+function UserService($http) {
+    console.log('registered');
+    var vm = this;
+    vm.getAll = function () {
+        return $http.get('/pa165/rest/users/all')
+    };
+    vm.login = function (user){
+        return $http.post('/pa165/rest/users/login',user);
+    };
+    vm.findByEmail = function (email){
+        return $http.get('/pa165/rest/users/get',{
+            params: {email: email}
         });
+    };
+    return vm;
 }

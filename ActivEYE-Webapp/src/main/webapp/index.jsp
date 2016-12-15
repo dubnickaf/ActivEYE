@@ -35,8 +35,10 @@
     <script src="js/mediator/mediator.js"></script>
     <script src="js/config/config.js"></script>
     <script src="js/service/Services.js"></script>
+    <script src="js/service/Session.js"></script>
+    <script src="js/service/Router.js"></script>
     <script src="js/service/UserService.js"></script>
-    <script src="js/controller/DemoCtrl.js"></script>
+    <script src="js/controller/LoginController.js"></script>
     <script src="js/controller/LoginValidationController.js"></script>
     <script src="js/controller/UpdateUserController.js"></script>
     <script src="js/controller/DashboardController.js"></script>

@@ -1,4 +1,7 @@
 
-angular.module('mainApp').controller('DashboardController',function($scope){
+angular.module('mainApp').controller('DashboardController',DashboardController);
 
-});
+
+function DashboardController(){
+
+}
