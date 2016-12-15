@@ -99,27 +99,27 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public Collection<User> getAllUsers(Group group) {
-        if (group == null) {
-            throw new IllegalArgumentException("Can't get contents of null Group");
+    public Collection<User> getAllUsers(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Can't get contents of null id Group");
         }
         try {
-            return groupDao.getAllUsers(group);
+            return groupDao.getAllUsers(id);
         } catch (Exception e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
     }
 
     @Override
-    public void addUser(User user, Group group) {
-        if (group == null) {
-            throw new IllegalArgumentException("Can't add to null Group");
+    public void addUser(User user, Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("Can't add to null Group of id null");
         }
         if (user == null) {
             throw new IllegalArgumentException("Can't add null User");
         }
         try {
-            groupDao.addUser(user, group);
+            groupDao.addUser(user, groupDao.findById(id));
         } catch (Exception e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }

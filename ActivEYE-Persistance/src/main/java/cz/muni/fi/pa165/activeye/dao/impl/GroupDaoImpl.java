@@ -54,8 +54,8 @@ public class GroupDaoImpl implements GroupDao{
     }
 
     @Override
-    public Set<User> getAllUsers(Group group) {
-        return findById(group.getId()).getUsers();
+    public Set<User> getAllUsers(Long id) {
+        return findById(id).getUsers();
     }
 
     @Override
