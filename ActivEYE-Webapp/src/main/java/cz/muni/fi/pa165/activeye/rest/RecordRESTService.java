@@ -52,7 +52,7 @@ public class RecordRESTService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/get-all")
+    @Path("/get/all")
     public final List<RecordDTO> getAllRecords() {
         return recordFacade.getAllRecords();
     }
