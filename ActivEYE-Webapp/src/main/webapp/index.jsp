@@ -52,13 +52,12 @@
     <script src="js/AppController.js"></script>
     <link rel="stylesheet" href="css/app.css">
     <link rel="import" href="pages/login.html">
+    <link rel="import" href="pages/dashboard.html">
 
 
 
 </head>
-<body ng-app="mainApp" ng-controller="AppController as appController">
-    <div ng-if="appController.showHeader" ng-include="'pages/header.html'"></div>
-
+<body ng-app="mainApp">
     <ui-view></ui-view>
 </body>
 </html>

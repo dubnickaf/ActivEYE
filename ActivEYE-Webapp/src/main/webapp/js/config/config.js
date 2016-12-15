@@ -6,14 +6,14 @@ angular.module('mainApp').config(config);
 
 config.$inject = ['$stateProvider'];
 
-function config($stateProvider, $urlRouterProvider,mediator) {
+function config($stateProvider) {
     console.log('configuring');
     $stateProvider.state({
         name: 'root',
         url: '',
         redirectTo: 'login'
     })
-        .state('list',{
+        .state({
             name: 'login',
             url: '/login',
             controller: 'LoginController',
@@ -42,10 +42,12 @@ function config($stateProvider, $urlRouterProvider,mediator) {
             url: '/activities',
             controller: 'ActivitiesController',
             templateUrl: 'pages/activities.html'
+
         })
         .state({
             name: 'update_profile',
             url: '/update_profile',
             controller: 'UpdateProfileController',
             templateUrl: 'pages/update_profile.html'
-    });}
+    });
+}
