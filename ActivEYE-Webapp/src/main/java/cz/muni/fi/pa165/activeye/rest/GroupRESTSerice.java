@@ -58,7 +58,7 @@ public class GroupRESTSerice {
         return groupFacade.getAllUsers(Long.valueOf(id));
     }
 
-    @PUT
+    @POST
     @Path("/update/{groupId}")
     @Consumes(MediaType.APPLICATION_JSON)
     public final void addUser(UserDTO userDTO, @PathParam("groupId") String id) {

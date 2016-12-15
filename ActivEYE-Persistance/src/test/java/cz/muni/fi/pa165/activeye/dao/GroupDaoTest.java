@@ -189,7 +189,7 @@ public class GroupDaoTest {
         group.setUsers(usersToDB);
         groupDao.create(group);
 
-        assertThat(groupDao.getAllUsers(group)).doesNotContain(user3).containsOnly(user1,user2);
+        assertThat(groupDao.getAllUsers(group.getId())).doesNotContain(user3).containsOnly(user1,user2);
     }
 
     @Test
@@ -204,6 +204,6 @@ public class GroupDaoTest {
         groupDao.create(group);
 
         groupDao.addUser(user1,group);
-        assertThat(groupDao.getAllUsers(group)).containsOnly(user1);
+        assertThat(groupDao.getAllUsers(group.getId())).containsOnly(user1);
     }
 }

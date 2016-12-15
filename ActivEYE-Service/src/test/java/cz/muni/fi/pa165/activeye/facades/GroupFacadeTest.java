@@ -6,7 +6,6 @@ import cz.muni.fi.pa165.activeye.dto.UserDTO;
 import cz.muni.fi.pa165.activeye.entities.Group;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.mapping.BeanMappingService;
-import cz.muni.fi.pa165.activeye.mapping.BeanMappingServiceImpl;
 import cz.muni.fi.pa165.activeye.service.GroupService;
 import java.util.Collection;
 import org.mockito.*;
@@ -98,7 +97,8 @@ public class GroupFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testDeleteGroup() {
-        groupFacade.delete(groupDTO);
+        when(groupService.findById(0L)).thenReturn(group);
+        groupFacade.delete(groupDTO.getId());
         verify(groupService).delete(group);
     }
 
@@ -130,9 +130,9 @@ public class GroupFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testGetAllUsers() {
-        when(groupService.getAllUsers(group)).thenReturn(users);
+        when(groupService.getAllUsers(group.getId())).thenReturn(users);
 
-        Collection<UserDTO> userCollection = groupFacade.getAllUsers(groupDTO);
+        Collection<UserDTO> userCollection = groupFacade.getAllUsers(groupDTO.getId());
 
         Assert.assertEquals(2, userCollection.size());
         Assert.assertEquals(beanMappingService.mapTo(userCollection.toArray()[1], User.class), user1);
@@ -141,8 +141,8 @@ public class GroupFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testAddUser() {
-        groupFacade.addUser(user1DTO, groupDTO);
-        verify(groupService).addUser(user1, group);
+        groupFacade.addUser(user1DTO, groupDTO.getId());
+        verify(groupService).addUser(user1, group.getId());
     }
 
 }
