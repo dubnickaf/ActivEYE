@@ -1,5 +1,8 @@
 <html>
 <head>
+    <link type="favicon" href="/images/favicon.ico" rel="icon" />
+    <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
+
     <!-- PatternFly core -->
     <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly.min.css">
     <link rel="stylesheet" href="bower_components/patternfly/dist/css/patternfly-additions.min.css">
@@ -29,6 +32,7 @@
     <script src="bower_components/c3/c3.min.js"></script>
     <script src="bower_components/d3/d3.min.js"></script>
 
+
     <!-- APP -->
     <!-- Controllers -->
     <script src="js/app.js"></script>
@@ -40,7 +44,7 @@
     <script src="js/service/UserService.js"></script>
     <script src="js/controller/LoginController.js"></script>
     <script src="js/controller/LoginValidationController.js"></script>
-    <script src="js/controller/UpdateUserController.js"></script>
+    <script src="js/controller/UpdateProfileController.js"></script>
     <script src="js/controller/DashboardController.js"></script>
     <script src="js/controller/GroupsController.js"></script>
     <script src="js/controller/ActivitiesController.js"></script>

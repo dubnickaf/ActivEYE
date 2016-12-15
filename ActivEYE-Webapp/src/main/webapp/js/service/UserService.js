@@ -8,7 +8,6 @@ angular.module('activeye.services').factory('UserService', UserService);
 UserService.$inject = ['$http'];
 
 function UserService($http) {
-    console.log('registered');
     var vm = this;
     vm.getAll = function () {
         return $http.get('/pa165/rest/users/all')
@@ -20,6 +19,9 @@ function UserService($http) {
         return $http.get('/pa165/rest/users/get',{
             params: {email: email}
         });
+    };
+    vm.initialize = function(){
+        console.log('registered');
     };
     return vm;
 }

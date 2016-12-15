@@ -4,10 +4,10 @@
 
 angular.module('mainApp').config(config);
 
-config.$inject = ['$stateProvider', '$urlRouterProvider'];
+config.$inject = ['$stateProvider'];
 
-function config($stateProvider, $urlRouterProvider) {
-    console.log('registered');
+function config($stateProvider, $urlRouterProvider,mediator) {
+    console.log('configuring');
     $stateProvider.state({
         name: 'root',
         url: '',
@@ -42,4 +42,10 @@ function config($stateProvider, $urlRouterProvider) {
             url: '/activities',
             controller: 'ActivitiesController',
             templateUrl: 'pages/activities.html'
-        });}
+        })
+        .state({
+            name: 'update_profile',
+            url: '/update_profile',
+            controller: 'UpdateProfileController',
+            templateUrl: 'pages/update_profile.html'
+    });}

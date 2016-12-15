@@ -3,14 +3,17 @@
  */
 angular.module('activeye.services').factory('Session',Session);
 
-Session.$inject = ['$scope','mediator','UserService'];
-
-function Session($scope,mediator,UserService) {
-    console.log('registered');
-    $scope.user = undefined;
-    mediator.listen('user:login:successful').act(function(event,data){
-        UserService.findByEmail({email: data.email},function(result){
-            $scope.user = result;
-        })
-    })
+function Session() {
+    var vm = this;
+    vm.user = undefined;
+    vm.saveUser = function(user){
+        vm.user = user;
+    };
+    vm.getUser = function(){
+        return vm.user;
+    };
+    vm.initialize = function(){
+        console.log('Session initialized');
+    };
+    return vm;
 }
