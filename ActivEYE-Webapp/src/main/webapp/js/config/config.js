@@ -42,5 +42,12 @@ function config($stateProvider) {
             url: '/activities',
             controller: 'ActivitiesController',
             templateUrl: 'pages/activities.html'
-        });
+
+        })
+        .state({
+            name: 'update_profile',
+            url: '/update_profile',
+            controller: 'UpdateProfileController',
+            templateUrl: 'pages/update_profile.html'
+    });
 }
