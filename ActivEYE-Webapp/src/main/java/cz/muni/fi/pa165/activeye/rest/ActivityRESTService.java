@@ -56,7 +56,7 @@ public class ActivityRESTService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/all")
+    @Path("/get/all")
     public final List<ActivityDTO> findAll() {
         return activityFacade.findAll();
     }
