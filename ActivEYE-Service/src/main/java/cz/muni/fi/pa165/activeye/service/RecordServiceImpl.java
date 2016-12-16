@@ -6,6 +6,8 @@ import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
 import java.util.List;
 
 /**
@@ -27,12 +29,15 @@ public class RecordServiceImpl implements RecordService {
         if (record == null){
             throw new IllegalArgumentException("Record null");
         }
-        record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
         try {
+            record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
             recordDao.createRecord(record);
         }
-        catch (Exception e){
+        catch (IllegalArgumentException | PersistenceException e) {
             throw new ActiveyeDataAccessException("Error occured when creating record",e);
+        }
+        catch (NullPointerException e) {
+            throw new ActiveyeDataAccessException("Record has no activity set",e);
         }
     }
 
@@ -41,12 +46,15 @@ public class RecordServiceImpl implements RecordService {
         if (record == null){
             throw new IllegalArgumentException("Record null");
         }
-        record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
         try {
+            record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
             recordDao.updateRecord(record);
         }
-        catch(Exception e){
+        catch(IllegalArgumentException | TransactionRequiredException e){
             throw new ActiveyeDataAccessException("Error occured when updating record",e);
+        }
+        catch (NullPointerException e) {
+            throw new ActiveyeDataAccessException("Record has no activity set",e);
         }
     }
 
@@ -55,7 +63,11 @@ public class RecordServiceImpl implements RecordService {
         if (id == null){
             throw new IllegalArgumentException("Id cannot be null");
         }
-        return recordDao.getRecord(id);
+        try {
+            return recordDao.getRecord(id);
+        } catch (IllegalArgumentException e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
@@ -63,7 +75,11 @@ public class RecordServiceImpl implements RecordService {
         if (record == null){
             throw new IllegalArgumentException("Record cannot be null");
         }
-        recordDao.deleteRecord(record);
+        try {
+            recordDao.deleteRecord(record);
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
+            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
+        }
     }
 
     @Override
