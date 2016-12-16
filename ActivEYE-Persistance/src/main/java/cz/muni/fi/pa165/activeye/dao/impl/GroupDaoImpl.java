@@ -50,6 +50,8 @@ public class GroupDaoImpl implements GroupDao{
     public boolean isUserInGroup(User user, Group group) {
         if (user == null)
             throw new IllegalArgumentException("User can't be null");
+        if (group == null)
+            throw new IllegalArgumentException("Group can't be null");
         return findById(group.getId()).getUsers().contains(user);
     }
 
@@ -60,6 +62,10 @@ public class GroupDaoImpl implements GroupDao{
 
     @Override
     public void addUser(User user, Group group) {
+        if (user == null)
+            throw new IllegalArgumentException("User can't be null");
+        if (group == null)
+            throw new IllegalArgumentException("Group can't be null");
         group.addUser(user);
         update(group);
     }

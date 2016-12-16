@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
 import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import org.springframework.stereotype.Service;
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
 import java.util.Collection;
 
 /**
@@ -25,7 +27,7 @@ public class GroupServiceImpl implements GroupService {
         }
         try {
             groupDao.create(group);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | PersistenceException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
     }
@@ -37,7 +39,7 @@ public class GroupServiceImpl implements GroupService {
         }
         try {
             groupDao.update(group);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
     }
@@ -52,7 +54,7 @@ public class GroupServiceImpl implements GroupService {
         }
         try {
             groupDao.delete(group);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
     }
@@ -65,7 +67,7 @@ public class GroupServiceImpl implements GroupService {
         Group g;
         try {
             g = groupDao.findById(id);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
         if(g == null) {
@@ -76,11 +78,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Collection<Group> findAll() {
-        try {
-            return groupDao.findAll();
-        } catch (Exception e) {
-            throw new ActiveyeDataAccessException("Problem on DAO layer", e);
-        }
+        return groupDao.findAll();
     }
 
     @Override
@@ -93,7 +91,7 @@ public class GroupServiceImpl implements GroupService {
         }
         try {
             return groupDao.isUserInGroup(user, group);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
     }
@@ -105,7 +103,7 @@ public class GroupServiceImpl implements GroupService {
         }
         try {
             return groupDao.getAllUsers(id);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
     }
@@ -120,7 +118,7 @@ public class GroupServiceImpl implements GroupService {
         }
         try {
             groupDao.addUser(user, groupDao.findById(id));
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }
     }
