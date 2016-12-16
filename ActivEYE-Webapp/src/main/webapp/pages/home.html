@@ -66,13 +66,13 @@
             <li>
                 <a href="#!/dashboard">Dashboard</a>
             </li>
-            <li>
+            <li ui-sref-active="active">
                 <a ui-sref=".records">My records</a>
             </li>
-            <li>
+            <li ng-class="{active : $state.includes('dashboard.groups')}">
                 <a ui-sref=".groups">Groups</a>
             </li>
         </ul>
     </div>
-    <div ui-view></div>
 </nav>
+<div ui-view></div>

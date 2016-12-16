@@ -1,4 +1,3 @@
-<div ng-include="'pages/header.html'"></div>
 
 <div class="row row-cards-pf">
     <div class="col-xs-9 col-sm-12 col-md-11">
@@ -44,7 +43,7 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <button type="submit" class="btn btn-primary">Save</button>
-                            <a href="#!/dashboard"> <button type="submit" class="btn btn-default">Back</button></a>
+                            <button type="submit" class="btn btn-default" ng-class="$dismiss()">Back</button>
                         </div>
                     </div>
                 </form>

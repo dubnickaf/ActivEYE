@@ -54,8 +54,11 @@ function config($stateProvider) {
             templateUrl: 'pages/create_record.html'
         })
         .state('dashboard.groups.create_group',{
-            url: '/create_group',
-            controller: 'CreateGroupController',
-            templateUrl: 'pages/create_group.html'
+            onEnter: function($modal) {
+                $modal.open({
+                    templateUrl: 'pages/create_group.html',
+                    controller: 'CreateGroupController'
+                })
+            }
         });
 }

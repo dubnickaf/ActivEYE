@@ -2,7 +2,7 @@ angular.module('mainApp').controller('RecordsController',RecordsController);
 
 
 function RecordsController($rootScope, Session, UserService, $scope){
-    $scope.userWithRecords;
+    $scope.userWithRecords = undefined;
     $scope.loadData = loadData();
     function loadData() {
         console.log("usertouse",Session.getUser());
