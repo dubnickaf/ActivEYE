@@ -1,8 +1,18 @@
 angular.module('mainApp').controller('RecordsController',RecordsController);
 
+//RecordsController.$inject = ['RecordService'];
 
-function RecordsController($rootScope, Session, UserService, $scope){
+function RecordsController($rootScope, Session, UserService, $scope){//,RecordService){
     $scope.userWithRecords;
+/*
+    $scope.deleteRecord = deleteRecord();
+    function deleteRecord(record){
+            RecordService.delete(record).then(function(){
+                console.log($scope.userWithRecords);
+                Router.redirect('/dashboard/records');
+            });
+    }*/
+
     $scope.loadData = loadData();
     function loadData() {
         console.log("usertouse",Session.getUser());
