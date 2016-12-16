@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import javax.persistence.TransactionRequiredException;
+import java.math.BigDecimal;
+import java.time.DateTimeException;
 import java.util.List;
 
 /**
@@ -31,6 +33,10 @@ public class RecordServiceImpl implements RecordService {
         }
         try {
             record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
+
+            if (record.getBurnedCalories().compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Record cannot have negative value of burned calories");
+            }
             recordDao.createRecord(record);
         }
         catch (IllegalArgumentException | PersistenceException e) {
@@ -38,6 +44,9 @@ public class RecordServiceImpl implements RecordService {
         }
         catch (NullPointerException e) {
             throw new ActiveyeDataAccessException("Record has no activity set",e);
+        }
+        catch (DateTimeException e) {
+            throw new ActiveyeDataAccessException("Record for an Activity cannot end before it starts",e);
         }
     }
 
@@ -51,6 +60,10 @@ public class RecordServiceImpl implements RecordService {
         }
         try {
             record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
+
+            if (record.getBurnedCalories().compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Record cannot have negative value of burned calories");
+            }
             recordDao.updateRecord(record);
         }
         catch(IllegalArgumentException | TransactionRequiredException e){
@@ -58,6 +71,9 @@ public class RecordServiceImpl implements RecordService {
         }
         catch (NullPointerException e) {
             throw new ActiveyeDataAccessException("Record has no activity set",e);
+        }
+        catch (DateTimeException e) {
+            throw new ActiveyeDataAccessException("Record for an Activity cannot end before it starts",e);
         }
     }
 
