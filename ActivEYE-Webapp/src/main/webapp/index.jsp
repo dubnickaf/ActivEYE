@@ -53,8 +53,9 @@
     <script src="js/controller/CreateGroupController.js"></script>
     <script src="js/AppController.js"></script>
     <link rel="stylesheet" href="css/app.css">
+    <link rel="import" href="pages/home.html">
     <link rel="import" href="pages/login.html">
-    <link rel="import" href="pages/dashboard.html">
+    <link rel="import" href="pages/records.html">
 
 
 

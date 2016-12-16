@@ -23,16 +23,14 @@ function config($stateProvider) {
             name: 'dashboard',
             url: '/dashboard',
             controller: 'DashboardController',
-            templateUrl: 'pages/dashboard.html'
+            templateUrl: 'pages/home.html'
         })
-        .state({
-            name: 'records',
+        .state('dashboard.records',{
             url: '/records',
             controller: 'RecordsController',
             templateUrl: 'pages/records.html'
         })
-        .state({
-            name: 'groups',
+        .state('dashboard.groups',{
             url: '/groups',
             controller: 'GroupsController',
             templateUrl: 'pages/groups.html'
@@ -50,14 +48,12 @@ function config($stateProvider) {
             controller: 'UpdateProfileController',
             templateUrl: 'pages/update_profile.html'
         })
-        .state({
-            name: 'create_record',
+        .state('dashboard.records.create_record',{
             url: '/create_record',
             controller: 'CreateRecordController',
             templateUrl: 'pages/create_record.html'
         })
-        .state({
-            name: 'create_group',
+        .state('dashboard.groups.create_group',{
             url: '/create_group',
             controller: 'CreateGroupController',
             templateUrl: 'pages/create_group.html'

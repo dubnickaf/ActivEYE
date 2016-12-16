@@ -1,11 +1,9 @@
-<html class="layout-pf layout-pf-fixed">
-<div ng-include="'pages/header.html'"></div>
-
 <div class="container-fluid container-cards-pf">
-    <a align="right" href="#!/create_group">
+    <a align="right" ui-sref=".create_group">
         <div align="right">
             <button class="btn btn-primary btn-lg " type="button">Create new group</button>
         </div>
+        <div ui-view></div>
     </a>
     <br><br>
     <div class="row row-cards-pf">
