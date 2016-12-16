@@ -63,13 +63,13 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-primary">
-            <li>
-                <a href="#!/dashboard">Dashboard</a>
+            <li ng-class="{active: $state.is('home') || $state.is('home.dashboard')}">
+                <a ui-sref=".dashboard">Dashboard</a>
             </li>
-            <li ui-sref-active="active">
+            <li ng-class="{active : $state.is('home.records')}">
                 <a ui-sref=".records">My records</a>
             </li>
-            <li ng-class="{active : $state.includes('dashboard.groups')}">
+            <li ng-class="{active : $state.is('home.groups')}">
                 <a ui-sref=".groups">Groups</a>
             </li>
         </ul>

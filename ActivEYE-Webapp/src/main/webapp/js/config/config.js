@@ -20,20 +20,24 @@ function config($stateProvider) {
             templateUrl: 'pages/login.html'
         })
         .state({
-            name: 'dashboard',
-            url: '/dashboard',
-            controller: 'DashboardController',
+            name: 'home',
+            url: '/home',
             templateUrl: 'pages/home.html'
         })
-        .state('dashboard.records',{
+        .state('home.records',{
             url: '/records',
             controller: 'RecordsController',
             templateUrl: 'pages/records.html'
         })
-        .state('dashboard.groups',{
+        .state('home.groups',{
             url: '/groups',
             controller: 'GroupsController',
             templateUrl: 'pages/groups.html'
+        })
+        .state('home.dashboard',{
+            url: '/dashboard',
+            controller: 'DashboardController',
+            templateUrl: 'pages/dashboard.html'
         })
         .state({
             name: 'activities',
@@ -48,12 +52,12 @@ function config($stateProvider) {
             controller: 'UpdateProfileController',
             templateUrl: 'pages/update_profile.html'
         })
-        .state('dashboard.records.create_record',{
+        .state('home.records.create_record',{
             url: '/create_record',
             controller: 'CreateRecordController',
             templateUrl: 'pages/create_record.html'
         })
-        .state('dashboard.groups.create_group',{
+        .state('home.groups.create_group',{
             onEnter: function($modal) {
                 $modal.open({
                     templateUrl: 'pages/create_group.html',

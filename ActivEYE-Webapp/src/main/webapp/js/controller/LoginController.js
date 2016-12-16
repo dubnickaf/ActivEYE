@@ -20,7 +20,7 @@ function LoginController($rootScope,UserService,$scope,mediator,Session,Router){
                 UserService.findByEmail(data.email).then(function(user){
                     console.log(user.data);
                     Session.saveUser(user.data);
-                    Router.redirect('/dashboard');
+                    Router.redirect('/home/dashboard');
                 },function(err){
                     console.log(err);
                 });

@@ -1,9 +1,9 @@
 
 angular.module('mainApp').controller('DashboardController',DashboardController);
 
-DashboardController.$inject = ['$rootScope','UserService','$scope','mediator','Session','Router'];
+DashboardController.$inject = ['UserService','$scope','Session'];
 
-function DashboardController($rootScope,UserService,$scope,mediator,Session,Router){
+function DashboardController(UserService,$scope,Session){
     console.log(Session.getUser());
     $scope.statsDto = {
         userDto 			                : undefined,
