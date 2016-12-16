@@ -43,6 +43,7 @@
     <script src="js/service/Router.js"></script>
     <script src="js/service/UserService.js"></script>
     <script src="js/service/GroupService.js"></script>
+    <script src="js/service/RecordService.js"></script>
     <script src="js/controller/LoginController.js"></script>
     <script src="js/controller/LoginValidationController.js"></script>
     <script src="js/controller/UpdateProfileController.js"></script>
