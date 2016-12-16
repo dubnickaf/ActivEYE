@@ -7,15 +7,15 @@ import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeMistakeInCalculationException;
+import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDateTime;
 import java.util.*;
 
 /**
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
         u.setPasswordHash(BCrypt.hashpw(password, BCrypt.gensalt()));
         try {
             userDao.create(u);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | PersistenceException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
     }
@@ -71,7 +71,7 @@ public class UserServiceImpl implements UserService {
         }
         try{
             userDao.update(u);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
     }
@@ -87,13 +87,13 @@ public class UserServiceImpl implements UserService {
         for (Record record : u.getActivityRecords()){
             try{
                 recordDao.deleteRecord(record);
-            } catch (Exception e) {
+            } catch (IllegalArgumentException | TransactionRequiredException e) {
                 throw new ActiveyeDataAccessException("Problem on DAO layer",e);
             }
         }
         try{
             userDao.delete(u);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
     }
@@ -103,11 +103,20 @@ public class UserServiceImpl implements UserService {
         if (userId == null) {
             throw new IllegalArgumentException("Cannot find user with null id.");
         }
+
+        User user;
+
         try{
-           return userDao.findUserById(userId);
-        } catch (Exception e) {
+           user = userDao.findUserById(userId);
+        } catch (IllegalArgumentException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
+
+        if (user == null) {
+            throw new NoSuchEntityFoundException("Cannot find user with id " + userId);
+        }
+
+        return user;
     }
 
     @Override
@@ -115,20 +124,25 @@ public class UserServiceImpl implements UserService {
         if (email == null) {
             throw new IllegalArgumentException("Cannot find user with null email.");
         }
-        try{
-            return userDao.findUserByEmail(email);
-        } catch (Exception e) {
+
+        User user;
+
+        try {
+            user = userDao.findUserByEmail(email);
+        } catch (IllegalArgumentException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
+
+        if (user == null) {
+            throw new NoSuchEntityFoundException("Cannot find user with email " + email);
+        }
+
+        return user;
     }
 
     @Override
     public Collection<User> getAllUsers() {
-        try{
-            return userDao.findAll();
-        } catch (Exception e) {
-            throw new ActiveyeDataAccessException("Problem on DAO layer",e);
-        }
+        return userDao.findAll();
     }
 
     @Override
