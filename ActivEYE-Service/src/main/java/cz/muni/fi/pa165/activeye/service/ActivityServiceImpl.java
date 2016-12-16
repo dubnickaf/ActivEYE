@@ -7,6 +7,8 @@ import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
 import java.util.List;
 
 /**
@@ -31,7 +33,7 @@ public class ActivityServiceImpl implements ActivityService {
 
         try {
             activityDao.create(a);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | PersistenceException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
     }
@@ -50,7 +52,7 @@ public class ActivityServiceImpl implements ActivityService {
 
         try {
             activityDao.update(a);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
     }
@@ -67,7 +69,7 @@ public class ActivityServiceImpl implements ActivityService {
 
         try {
             activityDao.delete(a);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
     }
@@ -82,7 +84,7 @@ public class ActivityServiceImpl implements ActivityService {
 
         try {
             activity = activityDao.findById(id);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
 
@@ -103,7 +105,7 @@ public class ActivityServiceImpl implements ActivityService {
 
         try {
             activity = activityDao.findByName(name);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
         }
 
