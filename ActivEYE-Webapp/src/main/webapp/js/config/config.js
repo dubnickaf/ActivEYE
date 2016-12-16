@@ -58,11 +58,14 @@ function config($stateProvider) {
             templateUrl: 'pages/create_record.html'
         })
         .state('home.groups.create_group',{
-            onEnter: function($modal) {
-                $modal.open({
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                $uibModal.open({
                     templateUrl: 'pages/create_group.html',
                     controller: 'CreateGroupController'
-                })
-            }
+                }).result.finally(function() {
+                    $state.go('^');
+                });
+            }]
+
         });
 }

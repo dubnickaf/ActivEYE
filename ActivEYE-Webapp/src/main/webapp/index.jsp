@@ -44,6 +44,7 @@
     <script src="js/service/UserService.js"></script>
     <script src="js/service/GroupService.js"></script>
     <script src="js/service/RecordService.js"></script>
+    <script src="js/service/SelectedUsersService.js"></script>
     <script src="js/controller/LoginController.js"></script>
     <script src="js/controller/LoginValidationController.js"></script>
     <script src="js/controller/UpdateProfileController.js"></script>
@@ -52,6 +53,7 @@
     <script src="js/controller/ActivitiesController.js"></script>
     <script src="js/controller/RecordsController.js"></script>
     <script src="js/controller/CreateRecordController.js"></script>
+    <script src="js/patternfly/CreateGroupSelectController.js"></script>
     <script src="js/controller/CreateGroupController.js"></script>
     <script src="js/AppController.js"></script>
     <link rel="stylesheet" href="css/app.css">
