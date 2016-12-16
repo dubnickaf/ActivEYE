@@ -49,5 +49,17 @@ function config($stateProvider) {
             url: '/update_profile',
             controller: 'UpdateProfileController',
             templateUrl: 'pages/update_profile.html'
-    });
+        })
+        .state({
+            name: 'create_record',
+            url: '/create_record',
+            controller: 'CreateRecordController',
+            templateUrl: 'pages/create_record.html'
+        })
+        .state({
+            name: 'create_group',
+            url: '/create_group',
+            controller: 'CreateGroupController',
+            templateUrl: 'pages/create_group.html'
+        });
 }

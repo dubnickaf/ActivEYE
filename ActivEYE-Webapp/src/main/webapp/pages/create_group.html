@@ -1,0 +1,55 @@
+<div ng-include="'pages/header.html'"></div>
+
+<div class="row row-cards-pf">
+    <div class="col-xs-9 col-sm-12 col-md-11">
+        <div class="card-pf">
+            <div class="card-pf-body">
+                <p>Update profile</p>
+            </div>
+            <div class="card-pf-footer">
+                <p>
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="nameInput">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="nameInput" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="sel1">Select users:</label>
+                        <!--http://davidstutz.github.io/bootstrap-multiselect/-->
+                        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css"/>
+                        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+                        <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+                        <script type="text/javascript" src="bower_components/bootstrap-select/dist/js/bootstrap-multiselect.js"></script>
+                        <link rel="stylesheet" href="bower_components/bootstrap-multiselect-master/dist/css/bootstrap-multiselect.css" type="text/css"/>
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('sel1').multiselect({
+                                    includeSelectAllOption: true,
+                                    selectAllName: 'sel1'
+                                });
+                            });
+                        </script>
+                        <select id="sel1" multiple="multiple">
+                            <option value="Jano">Jano</option>
+                            <option value="Martin">Martin</option>
+                            <option value="Marek">Marek</option>
+                            <option value="Pepa">Pepa</option>
+                            <option value="Jaro">Jaro</option>
+                            <option value="Filip">Filip</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a href="#!/dashboard"> <button type="submit" class="btn btn-default">Back</button></a>
+                        </div>
+                    </div>
+                </form>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

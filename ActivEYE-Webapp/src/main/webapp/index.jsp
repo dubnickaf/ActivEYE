@@ -49,6 +49,8 @@
     <script src="js/controller/GroupsController.js"></script>
     <script src="js/controller/ActivitiesController.js"></script>
     <script src="js/controller/RecordsController.js"></script>
+    <script src="js/controller/CreateRecordController.js"></script>
+    <script src="js/controller/CreateGroupController.js"></script>
     <script src="js/AppController.js"></script>
     <link rel="stylesheet" href="css/app.css">
     <link rel="import" href="pages/login.html">
