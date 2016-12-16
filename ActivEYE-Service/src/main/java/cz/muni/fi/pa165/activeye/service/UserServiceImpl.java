@@ -219,4 +219,10 @@ public class UserServiceImpl implements UserService {
     private static LocalDateTime getTodaysMidnight(){
         return LocalDateTime.now().withHour(0).withMinute(0).withSecond(0);
     }
+
+    @Override
+    public Integer getNumberOfGroups(User user) {
+        if(user.getGroups() == null)return null;
+        return user.getGroups().size();
+    }
 }

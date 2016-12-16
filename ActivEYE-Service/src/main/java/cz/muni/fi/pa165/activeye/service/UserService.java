@@ -131,4 +131,14 @@ public interface UserService {
      * @throws cz.muni.fi.pa165.activeye.exceptions.ActiveyeMistakeInCalculationException if there is problem with calculation
      */
     Activity calculateMostUsedActivity(User user);
+
+    /**
+     * This method calculates number of groups for user
+     * @param user User to calculate for
+     * @return number of groups
+     * @throws IllegalArgumentException if wrong argument is given
+     * @throws ActiveyeDataAccessException if problem in persistance occurred
+     */
+    Integer getNumberOfGroups(User user);
+
 }

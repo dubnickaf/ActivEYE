@@ -200,7 +200,7 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
         Assert.assertEquals(returnedValue.getEmailAddress(),jankoEmailAdress);
         Assert.assertEquals(returnedValue.getName(),jankoName);
         Assert.assertEquals(returnedValue.getId(),jankoId);
-        Assert.assertEquals(returnedValue.getActivityRecords(),records);
+        Assertions.assertThat(returnedValue.getActivityRecords()).containsExactlyElementsOf(records);
     }
 
     @Test
@@ -220,8 +220,49 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests{
         Assert.assertEquals(fromFacade.getId(),jankoId);
         Assertions.assertThat(fromFacade.getActivityRecords()).containsExactlyElementsOf(records);
     }
+    @Test
+    public void testFindWithGroupsById(){
+        UserWithGroupsDTO userDTO = new UserWithGroupsDTO();
+        userDTO.setId(jankoId);
+        userDTO.setEmailAddress(jankoEmailAdress);
+        userDTO.setName(jankoName);
+        Set<GroupDTO> groups = new HashSet<>();
+        groups.add(getGroup());
+        userDTO.setGroups(groups);
+        User toReturn = beanMappingService.mapTo(userDTO,User.class);
+        when(userService.findUserById(jankoId)).thenReturn(toReturn);
+        UserWithGroupsDTO returnedValue = userFacade.findUserWithGroupsById(jankoId);
+        Assert.assertEquals(returnedValue.getEmailAddress(),jankoEmailAdress);
+        Assert.assertEquals(returnedValue.getName(),jankoName);
+        Assert.assertEquals(returnedValue.getId(),jankoId);
+        Assertions.assertThat(returnedValue.getGroups()).containsExactlyElementsOf(groups);
+    }
+
+    @Test
+    public void testFindWithGroupsByEmail(){
+        UserWithGroupsDTO userDTO = new UserWithGroupsDTO();
+        userDTO.setId(jankoId);
+        userDTO.setEmailAddress(jankoEmailAdress);
+        userDTO.setName(jankoName);
+        Set<GroupDTO> groups = new HashSet<>();
+        groups.add(getGroup());
+        userDTO.setGroups(groups);
+        User toReturn = beanMappingService.mapTo(userDTO,User.class);
+        when(userService.findUserByEmail(jankoEmailAdress)).thenReturn(toReturn);
+        UserWithGroupsDTO returnedValue = userFacade.findUserWithGroupsByEmail(jankoEmailAdress);
+        Assert.assertEquals(returnedValue.getEmailAddress(),jankoEmailAdress);
+        Assert.assertEquals(returnedValue.getName(),jankoName);
+        Assert.assertEquals(returnedValue.getId(),jankoId);
+        Assertions.assertThat(returnedValue.getGroups()).containsExactlyElementsOf(groups);
+    }
+
+    private GroupDTO getGroup() {
+        GroupDTO groupDTO = new GroupDTO();
+        groupDTO.setName("GroupName");
+        return groupDTO;
+    }
+
     private RecordDTO getRecord() {
-        int i;
         ActivityDTO a = new ActivityDTO();
         a.setCaloriesRatio(BigDecimal.ONE);
         a.setId(4L);

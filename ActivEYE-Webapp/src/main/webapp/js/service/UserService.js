@@ -37,6 +37,16 @@ function UserService($http) {
             params: {email: email}
         });
     };
+    vm.findWithGroupsById = function (id){
+        return $http.get('/pa165/rest/users/getWGroups',{
+            params: {id: id}
+        });
+    };
+    vm.findWithGroupsByEmail = function (email){
+        return $http.get('/pa165/rest/users/getWGroups',{
+            params: {email: email}
+        });
+    };
     vm.getAll = function () {
         return $http.get('/pa165/rest/users/all');
     };

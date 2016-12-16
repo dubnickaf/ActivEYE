@@ -12,7 +12,8 @@ function DashboardController($rootScope,UserService,$scope,mediator,Session,Rout
         averageBurnedCaloriesPerRecord      : undefined,
         totalRecords                        : undefined,
         recordsToday                        : undefined,
-        mostUsedActivity                    : undefined
+        mostUsedActivity                    : undefined,
+        numberOfGroups                      : undefined
     };
     $scope.loadData = loadData();
     function loadData() {

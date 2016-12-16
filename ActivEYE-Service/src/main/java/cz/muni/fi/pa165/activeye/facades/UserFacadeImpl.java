@@ -123,6 +123,7 @@ public class UserFacadeImpl implements UserFacade {
         statisticsDTO.setRecordsToday(userService.calculateRecordsToday(user));
         statisticsDTO.setAverageBurnedCaloriesPerRecord(userService.calculateAverageBurnedCaloriesPerRecord(user));
         statisticsDTO.setTotalRecords(userService.getTotalRecords(user));
+        statisticsDTO.setNumberOfGroups(userService.getNumberOfGroups(user));
 
         ActivityDTO favActivity = beanMappingService.mapTo(userService.calculateMostUsedActivity(user), ActivityDTO.class);
         statisticsDTO.setMostUsedActivity(favActivity);
@@ -148,5 +149,24 @@ public class UserFacadeImpl implements UserFacade {
         User user = userService.findUserByEmail(email);
         if(user == null) throw new NoSuchEntityFoundException("No user with email " + email + " found");
         return beanMappingService.mapTo(user, UserWithRecordsDTO.class);
+    }
+    @Override
+    public UserWithGroupsDTO findUserWithGroupsById(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("Cannot find user with null id.");
+        }
+        User user = userService.findUserById(userId);
+        if(user == null) throw new NoSuchEntityFoundException("No user with user id " + userId + " found");
+        return beanMappingService.mapTo(user, UserWithGroupsDTO.class);
+    }
+
+    @Override
+    public UserWithGroupsDTO findUserWithGroupsByEmail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException("Cannot find user with null email.");
+        }
+        User user = userService.findUserByEmail(email);
+        if(user == null) throw new NoSuchEntityFoundException("No user with email " + email + " found");
+        return beanMappingService.mapTo(user, UserWithGroupsDTO.class);
     }
 }

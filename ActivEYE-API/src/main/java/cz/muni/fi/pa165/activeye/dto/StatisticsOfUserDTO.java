@@ -21,6 +21,24 @@ public class StatisticsOfUserDTO {
 
     private ActivityDTO mostUsedActivity;//null if totalRecords = 0
 
+    private Integer numberOfGroups;
+
+    public void setTotalRecords(Integer totalRecords) {
+        this.totalRecords = totalRecords;
+    }
+
+    public void setRecordsToday(Integer recordsToday) {
+        this.recordsToday = recordsToday;
+    }
+
+    public Integer getNumberOfGroups() {
+        return numberOfGroups;
+    }
+
+    public void setNumberOfGroups(Integer numberOfGroups) {
+        this.numberOfGroups = numberOfGroups;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

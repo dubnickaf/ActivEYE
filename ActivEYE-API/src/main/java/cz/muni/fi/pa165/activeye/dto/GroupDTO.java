@@ -43,4 +43,24 @@ public class GroupDTO {
     public void setName(String name) {
         this.name = name;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GroupDTO)) {
+            return false;
+        }
+
+        final GroupDTO group = (GroupDTO) o;
+        return //getUsers().equals(group.getUsers()) &&
+                getName().equals(group.getName());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 11;
+        return result * 31 + (getName() != null ? getName().hashCode() : 0);
+    }
 }
