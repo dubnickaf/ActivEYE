@@ -46,6 +46,9 @@ public class RecordServiceImpl implements RecordService {
         if (record == null){
             throw new IllegalArgumentException("Record null");
         }
+        if(record.getId() == null) {
+            throw new IllegalArgumentException("Record id cannot be null");
+        }
         try {
             record.setBurnedCalories(record.getActivity().getCaloriesRatio().multiply(record.getHoursSpent()));
             recordDao.updateRecord(record);

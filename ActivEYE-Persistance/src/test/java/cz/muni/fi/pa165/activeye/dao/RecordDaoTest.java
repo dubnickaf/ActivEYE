@@ -33,11 +33,15 @@ import java.util.List;
 public class RecordDaoTest {
 
     private static RecordDao recordDao;
+    private static ActivityDao activityDao;
+    private static UserDao userDao;
 
     @BeforeClass
     public static void init(){
         ApplicationContext appContext = new AnnotationConfigApplicationContext(InMemoryDatabaseSpring.class, PersistenceContext.class);
         recordDao = appContext.getBean(RecordDao.class);
+        activityDao = appContext.getBean(ActivityDao.class);
+        userDao = appContext.getBean(UserDao.class);
     }
 
     @After
@@ -139,10 +143,13 @@ public class RecordDaoTest {
 
         // compulsory attributes for Activity and User
         activity.setName("name for my activity");
+        activity.setCaloriesRatio(new BigDecimal("111"));
         user.setName("name for my user");
         user.setEmailAddress("e@mail.com");
         user.setPasswordHash("password");
         user.setRole(UserRole.USER);
+        activityDao.create(activity);
+        userDao.create(user);
 
         record.setActivity(activity);
         record.setUser(user);

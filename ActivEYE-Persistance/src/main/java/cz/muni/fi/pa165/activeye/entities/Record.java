@@ -22,11 +22,11 @@ public class Record {
     private Long id;
 
     @JoinColumn(name = "USER_ID")
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne
     private User user;
 
     @JoinColumn(name = "ACTIVITY_ID")
-    @OneToOne(cascade=CascadeType.PERSIST)
+    @OneToOne
     private Activity activity;
 
     private BigDecimal burnedCalories;
