@@ -91,7 +91,7 @@ public class UserRESTService {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/getStats")
-    public final StatisticsOfUserDTO getStatistics(@QueryParam("email")String id){
+    public final StatisticsOfUserDTO getStatistics(@QueryParam("id")String id){
         UserDTO userDTO = userFacade.findUserById(Long.parseLong(id));
         return userFacade.getStatistics(userDTO);
     }

@@ -3,9 +3,9 @@ angular.module('mainApp').controller('DashboardController',DashboardController);
 
 DashboardController.$inject = ['$rootScope','UserService','$scope','mediator','Session','Router'];
 
-function DashboardController($rootScope,Session, UserService){
-    var vm=this;
-    vm.statsDto = {
+function DashboardController($rootScope,UserService,$scope,mediator,Session,Router){
+    console.log(Session.getUser());
+    $scope.statsDto = {
         userDto 			                : undefined,
         totalCaloriesBurned			        : undefined,
         caloriesBurnedToday                 : undefined,
@@ -14,13 +14,14 @@ function DashboardController($rootScope,Session, UserService){
         recordsToday                        : undefined,
         mostUsedActivity                    : undefined
     };
-    vm.loadData = loadData();
+    $scope.loadData = loadData();
     function loadData() {
         console.log(Session);
-        vm.statsDto = UserService.getStatistics(UserService.findByEmail(Session.user.email));
-        console.log(vm.statsDto);
+        UserService.getStatistics(Session.getUser().id).then(function(data){
+            console.log(data);
+            $scope.statsDto = data.data;
+        });
+        console.log($scope.statsDto);
     }
-
     loadData();
-    return vm;
 }
