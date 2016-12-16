@@ -22,6 +22,7 @@ function config($stateProvider) {
         .state({
             name: 'home',
             url: '/home',
+            controller: 'HomeController',
             templateUrl: 'pages/home.html'
         })
         .state('home.records',{

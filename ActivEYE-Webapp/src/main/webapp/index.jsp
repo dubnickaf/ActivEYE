@@ -56,6 +56,7 @@
     <script src="js/patternfly/CreateGroupSelectController.js"></script>
     <script src="js/controller/CreateGroupController.js"></script>
     <script src="js/AppController.js"></script>
+    <script src="js/controller/HomeController.js"></script>
     <link rel="stylesheet" href="css/app.css">
 
     <link rel="import" href="pages/home.html">

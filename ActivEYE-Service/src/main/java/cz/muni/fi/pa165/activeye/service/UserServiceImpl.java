@@ -184,7 +184,7 @@ public class UserServiceImpl implements UserService {
     public BigDecimal calculateAverageBurnedCaloriesPerRecord(User user) {
         if(user.getActivityRecords() == null)return null;
         BigDecimal averageBurnedCaloriesPerRecord = BigDecimal.ZERO;
-        return calculateTotalCaloriesBurned(user).divide(new BigDecimal(user.getActivityRecords().size()),BigDecimal.ROUND_UNNECESSARY);
+        return calculateTotalCaloriesBurned(user).divide(new BigDecimal(user.getActivityRecords().size()),BigDecimal.ROUND_HALF_UP);
     }
 
     @Override
