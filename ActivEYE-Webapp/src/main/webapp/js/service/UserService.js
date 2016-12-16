@@ -40,7 +40,7 @@ function UserService($http) {
     vm.getAll = function () {
         return $http.get('/pa165/rest/users/all');
     };
-    vm.getStatistics = function (i) {
+    vm.getStatistics = function (id) {
         return $http.get('/pa165/rest/users/getStats',{
             params: {id: id}
         });
