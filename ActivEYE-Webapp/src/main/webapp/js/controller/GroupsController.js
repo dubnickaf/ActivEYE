@@ -10,7 +10,9 @@ function GroupsController($rootScope, GroupService, $scope, mediator, Session, R
         console.log(Session);
         GroupService.findAll().then(function(data) {
             console.log(data);
+            $scope.groupsDto = data.data;
         });
+        console.log($scope.groupsDto);
     }
     loadData2();
 }
