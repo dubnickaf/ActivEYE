@@ -68,14 +68,14 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
         users.addAll(userService.getAllUsers());
 
         //Create Records
-        for (int i = 0; i<10; i++) {
-            LocalDateTime start = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1).withHour(12).withMinute(10+i);
-            LocalDateTime end = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1).withHour(12).withMinute(20+i);
+        for (int i = 0; i<50; i++) {
+            LocalDateTime start = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1+(i)%28).withHour((12+i)%24).withMinute((10+i)%60);
+            LocalDateTime end = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1+(i)%28).withHour((12+i)%24).withMinute((20+i)%60);
             Record r = new Record(users.get(i%9), activities.get(i%4),start, end);
             recordService.createRecord(r);
         }
         records.addAll(recordService.getAllRecords());
-        for (int i = 0; i<10; i++) {
+        for (int i = 0; i<50; i++) {
             users.get(i%9).getActivityRecords().add(records.get(i));
             userService.updateUser(users.get(i%9));
         }
