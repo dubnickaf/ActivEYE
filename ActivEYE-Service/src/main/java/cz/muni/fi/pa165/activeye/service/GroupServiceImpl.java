@@ -37,6 +37,12 @@ public class GroupServiceImpl implements GroupService {
         if (group == null) {
             throw new IllegalArgumentException("Can't update null Group");
         }
+        if (group.getId() == null) {
+            throw new IllegalArgumentException("Group's id cannot be null.");
+        }
+        if (group.getName() == null) {
+            throw new IllegalArgumentException("Group's name cannot be null.");
+        }
         try {
             groupDao.update(group);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
