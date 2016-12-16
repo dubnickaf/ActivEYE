@@ -45,9 +45,6 @@ public class RecordServiceImpl implements RecordService {
         catch (NullPointerException e) {
             throw new ActiveyeDataAccessException("Record has no activity set",e);
         }
-        catch (DateTimeException e) {
-            throw new ActiveyeDataAccessException("Record for an Activity cannot end before it starts",e);
-        }
     }
 
     @Override
@@ -71,9 +68,6 @@ public class RecordServiceImpl implements RecordService {
         }
         catch (NullPointerException e) {
             throw new ActiveyeDataAccessException("Record has no activity set",e);
-        }
-        catch (DateTimeException e) {
-            throw new ActiveyeDataAccessException("Record for an Activity cannot end before it starts",e);
         }
     }
 
