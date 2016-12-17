@@ -62,7 +62,7 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
             Calendar cal = Calendar.getInstance();
             cal.set(2000+i,1,1);
             Gender gender = i%2 == 0 ? Gender.MALE : Gender.FEMALE;
-            User u = new User("user"+i, "user"+i+"@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), gender, UserRole.USER);
+            User u = new User("User"+i, "user"+i+"@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), gender, UserRole.USER);
             userService.registerUser(u, "user"+i);
         }
         users.addAll(userService.getAllUsers());
