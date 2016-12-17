@@ -13,10 +13,9 @@ function RecordsController(RecordService,Session, UserService, $scope){
                 Router.redirect('home/dashboard/records');
             });
     };
-    $scope.loadData = function () {
+    $scope.loadData = function(){
         console.log("usertouse",Session.getUser());
         UserService.findWithRecordsByEmail(Session.getUser().emailAddress).then(function(data){
-
             $scope.userWithRecords = data.data;
             console.log($scope.userWithRecords);
         });

@@ -17,12 +17,9 @@ function DashboardController(UserService,$scope,Session){
     };
     $scope.loadData = loadData();
     function loadData() {
-        console.log(Session);
         UserService.getStatistics(Session.getUser().id).then(function(data){
-            console.log(data);
             $scope.statsDto = data.data;
         });
-        console.log($scope.statsDto);
     }
     loadData();
 }
