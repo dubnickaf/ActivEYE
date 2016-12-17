@@ -1,8 +1,8 @@
 angular.module('mainApp').controller('RecordsController',RecordsController);
 
-RecordsController.$inject = ['RecordService','Session','UserService','$scope'];
+RecordsController.$inject = ['RecordService','Session','UserService','$scope',mediator];
 
-function RecordsController(RecordService,Session, UserService, $scope){
+function RecordsController(RecordService,Session, UserService, $scope,mediator){
 
     $scope.userWithRecords = undefined;
     $scope.deleteRecord = function (record){
@@ -14,6 +14,7 @@ function RecordsController(RecordService,Session, UserService, $scope){
             });
     };
     $scope.loadData = function(){
+        console.log($scope);
         console.log("usertouse",Session.getUser());
         UserService.findWithRecordsByEmail(Session.getUser().emailAddress).then(function(data){
             $scope.userWithRecords = data.data;
@@ -21,6 +22,9 @@ function RecordsController(RecordService,Session, UserService, $scope){
         });
         console.log($scope.userWithRecords);
     };
+    mediator.listen('record:created').act(function(){
+        $scope.loadData();
+    });
     $scope.loadData();
 
 }

@@ -2,11 +2,11 @@
 angular.module('mainApp').controller('CreateRecordController',CreateRecordController);
 
 
-CreateRecordController.$inject = ['$scope','RecordService','CreateRecordService','Session','$state'];
+CreateRecordController.$inject = ['$scope','$rootScope','RecordService','CreateRecordService','Session'];
 
-function CreateRecordController($scope,RecordService,CreateRecordService,Session,$state){
-    $scope.dismiss = function(){
-        $scope.$dismiss();
+function CreateRecordController($scope,$rootScope,RecordService,CreateRecordService,Session){
+    $scope.back = function(){
+        $scope.$close(true);
     };
     $scope.createRecord = function(){
         var record = {};
@@ -16,7 +16,10 @@ function CreateRecordController($scope,RecordService,CreateRecordService,Session
         record.endDate = CreateRecordService.getEndTime();
         record.burnedCalories = CreateRecordService.getCalories();
         RecordService.create(record).then(function(){
-            $scope.dismiss();
+            console.log($scope);
+            $rootScope.$broadcast('record:created');
+            console.log('emmmited');
+            $scope.$close(true);
         });
     }
 }

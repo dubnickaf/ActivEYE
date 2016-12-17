@@ -54,13 +54,13 @@ function config($stateProvider) {
             templateUrl: 'pages/update_profile.html'
         })
         .state('home.records.create_record',{
-            onEnter: ['$stateParams', '$state', '$uibModal',function($stateParams,$state,$uibModal){
+            onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    controller: 'CreateRecordController',
-                    templateUrl: 'pages/create_record.html'
-                }).result.finally(function(){
+                    templateUrl: 'pages/create_record.html',
+                    controller: 'CreateRecordController'
+                }).result.finally(function() {
                     $state.go('^');
-                })
+                });
             }]
         })
         .state('home.groups.create_group',{
