@@ -70,6 +70,9 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Cannot update inserted null user.");
         }
         try{
+            if(u.getPasswordHash() == null) {
+                u.setPasswordHash(findUserById(u.getId()).getPasswordHash());
+            }
             userDao.update(u);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);

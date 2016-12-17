@@ -4,7 +4,7 @@ angular.module('mainApp').controller('DashboardController',DashboardController);
 DashboardController.$inject = ['UserService','$scope','Session'];
 
 function DashboardController(UserService,$scope,Session){
-    console.log(Session.getUser());
+    $scope.actualUser = Session.getUser();
     $scope.statsDto = {
         userDto 			                : undefined,
         totalCaloriesBurned			        : undefined,
