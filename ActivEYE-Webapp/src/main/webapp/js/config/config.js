@@ -54,9 +54,14 @@ function config($stateProvider) {
             templateUrl: 'pages/update_profile.html'
         })
         .state('home.records.create_record',{
-            url: '/create_record',
-            controller: 'CreateRecordController',
-            templateUrl: 'pages/create_record.html'
+            onEnter: ['$stateParams', '$state', '$uibModal',function($stateParams,$state,$uibModal){
+                $uibModal.open({
+                    controller: 'CreateRecordController',
+                    templateUrl: 'pages/create_record.html'
+                }).result.finally(function(){
+                    $state.go('^');
+                })
+            }]
         })
         .state('home.groups.create_group',{
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {

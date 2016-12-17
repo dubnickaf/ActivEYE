@@ -5,15 +5,15 @@ RecordsController.$inject = ['RecordService','Session','UserService','$scope'];
 function RecordsController(RecordService,Session, UserService, $scope){
 
     $scope.userWithRecords = undefined;
-    $scope.deleteRecord = deleteRecord();
-    function deleteRecord(record){
-            RecordService.delete(record).then(function(){
+    $scope.deleteRecord = function (record){
+            console.log(record);
+            RecordService.delete(record.id).then(function(){
                 console.log($scope.userWithRecords);
+                $scope.loadData();
                 Router.redirect('home/dashboard/records');
             });
-    }
-    $scope.loadData = loadData();
-    function loadData() {
+    };
+    $scope.loadData = function () {
         console.log("usertouse",Session.getUser());
         UserService.findWithRecordsByEmail(Session.getUser().emailAddress).then(function(data){
 
@@ -21,7 +21,7 @@ function RecordsController(RecordService,Session, UserService, $scope){
             console.log($scope.userWithRecords);
         });
         console.log($scope.userWithRecords);
-    }
-    loadData();
+    };
+    $scope.loadData();
 
 }

@@ -5,14 +5,13 @@ GroupsController.$inject = ['$rootScope','GroupService','$scope','mediator','Ses
 
 function GroupsController($rootScope, GroupService, $scope, mediator, Session, Router) {
     console.log("aaaaa");
-    $scope.loadData2 = loadData2();
-    function loadData2() {
+    $scope.loadData2 = function() {
         console.log(Session);
         GroupService.findAll().then(function(data) {
             console.log(data);
             $scope.groupsDto = data.data;
         });
         console.log($scope.groupsDto);
-    }
-    loadData2();
+    };
+    $scope.loadData2();
 }
