@@ -46,22 +46,27 @@ ___
 ```
 curl -i -X POST -H "Content-type: application/json" -d '{"creatorsUserId":1,"users":[{"id":9,"name":"user8","emailAddress":"user8@mail.com","bornDate":"2008-02-01","gender":"MALE","role":"USER"}],"name":"CEPECKARI"}' http://localhost:8080/pa165/rest/groups/create 
 ```
+
 **update**
 ```
 curl -i -X PUT -H "Content-type: application/json" -d '{"id":6,"creatorsUserId":1,"users":[],"name":"CEPECKARIxxxxxx"}' http://localhost:8080/pa165/rest/groups/update
 ```
+
 **delete**
 ```
 curl -i -X DELETE http://localhost:8080/pa165/rest/groups/delete/6
 ```
+
 **findById**
 ```
 curl -i -X GET http://localhost:8080/pa165/rest/groups/get/1
 ```
+
 **findAll**
 ```
 curl -i -X GET http://localhost:8080/pa165/rest/groups/get/all
 ```
+
 **findAllUsers**
 ```
 curl -i -X GET http://localhost:8080/pa165/rest/groups/get/all/1
@@ -96,7 +101,6 @@ curl -i -X GET http://localhost:8080/pa165/rest/records/get/10
 **findAll**
 ```
 curl -i -X GET http://localhost:8080/pa165/rest/records/get/all
-
 ```
 ___
 
@@ -107,8 +111,10 @@ curl -i -X POST -H "Content-type: application/json" -d '{"email":"user0@mail.com
 ```
 **register**
 ```
-curl -i -X POST -H "Content-type: application/json" -d '{"emailAddress":"thenewcustomer@mail.com"}' http://localhost:8080/pa165/rest/users/register\?password=stronkpass
+curl -i -X POST -H "Content-type: application/json" -d '{"emailAddress":"thenewcustomer@mail.com"}' http://localhost:8080/pa165/rest/users/register?password=stronkpass
 ```
+(if using fish escape the "?" with "\")
+
 **update**
 ```
 curl -i -X PUT -H "Content-type: application/json" -d '{"id":1,"name":"user0","emailAddress":"carl.pilkington@mail.com","bornDate":"2015-02-01","gender":"MALE","role":"USER"}' http://localhost:8080/pa165/rest/users/update
@@ -131,6 +137,7 @@ curl -i -X GET http://localhost:8080/pa165/rest/users/get/1
 curl -i -X GET http://localhost:8080/pa165/rest/users/get?email=user0@mail.com
 ```
 (if using fish escape the "?" with "\")
+
 **findUserWithRecordsById**
 ```
 curl -i -X GET http://localhost:8080/pa165/rest/users/getWRecords/1
@@ -140,6 +147,7 @@ curl -i -X GET http://localhost:8080/pa165/rest/users/getWRecords/1
 curl -i -X GET http://localhost:8080/pa165/rest/users/getWRecords?email=user1@mail.com
 ```
 (if using fish escape the "?" with "\")
+
 **findUserWithGroupsById**
 ```
 curl -i -X GET http://localhost:8080/pa165/rest/users/getWGroups/4
@@ -149,6 +157,7 @@ curl -i -X GET http://localhost:8080/pa165/rest/users/getWGroups/4
 curl -i -X GET http://localhost:8080/pa165/rest/users/getWGroups?email=user3@mail.com
 ```
 (if using fish escape the "?" with "\")
+
 **getStatistics**
 ```
 curl -i -X GET http://localhost:8080/pa165/rest/users/getStats?id=1
