@@ -12,6 +12,7 @@ angular.module('mainApp').controller('UpdateProfileController',UpdateProfileCont
         $scope.gender = undefined;
         $scope.role = undefined;
         $scope.loadCurrent = function(){
+            console.log('initialized');
             $scope.id = Session.getUser().id;
             $scope.email = Session.getUser().emailAddress;
             $scope.name = Session.getUser().name;

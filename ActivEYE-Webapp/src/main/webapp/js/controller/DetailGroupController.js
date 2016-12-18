@@ -1,9 +1,9 @@
 
-angular.module('mainApp').controller('UpdateProfileController',UpdateProfileController);
+angular.module('mainApp').controller('DetailGroupController',DetailGroupController);
 
 
-UpdateProfileController.$inject = ['$rootScope','$scope','GroupService','Session'];
+DetailGroupController.$inject = ['$rootScope','$scope','GroupService','Session'];
 
-function UpdateProfileController($rootScope,$scope,GroupService,Session){
+function DetailGroupController($rootScope,$scope,GroupService,Session){
     console.log("detail open");
 }
