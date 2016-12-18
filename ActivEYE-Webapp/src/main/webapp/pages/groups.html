@@ -13,7 +13,7 @@
                             </h2>
                             <div class="card-pf-items text-center">
                                 <div class="card-pf-item">
-                                    <button ng-click="showDetail(g)" class="btn btn-primary btn-lg " type="button">Show</button>
+                                    <button ui-sref="home.groups.detail_group({groupId: g.id})" class="btn btn-primary btn-lg " type="button">Show</button>
                                     <button ui-sref="home.groups.update_group({groupId: g.id})" class="btn btn-primary btn-lg " type="button">Edit</button><!--ng-click="editGroup(g)"-->
                                     <button ng-click="deleteGroup(g)" class="btn btn-primary btn-lg " type="button">Delete</button>
                                 </div>
@@ -36,7 +36,7 @@
                             </h2>
                             <div class="card-pf-items text-center">
                                 <div class="card-pf-item">
-                                    <button ng-click="showDetail(group)" class="btn btn-primary btn-lg " type="button">Show</button>
+                                    <button ui-sref="home.groups.detail_group({groupId: group.id})" class="btn btn-primary btn-lg " type="button">Show</button>
                                     <button ui-sref="home.groups.update_group({groupId: group.id})" ng-if="userRole === 'ADMIN'" class="btn btn-primary btn-lg " type="button">Edit</button>
                                     <button ng-if="userRole === 'ADMIN'" ng-click="deleteGroup(group)" class="btn btn-primary btn-lg " type="button">Delete</button>
                                 </div>

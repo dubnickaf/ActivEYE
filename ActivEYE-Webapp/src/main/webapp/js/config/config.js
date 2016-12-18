@@ -102,6 +102,8 @@ function config($stateProvider) {
             }]
         })
         .state('home.groups.detail_group', {
+            url: '/:groupId',
+            params: ['groupId'],
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
                     templateUrl: 'pages/detail_group.html',

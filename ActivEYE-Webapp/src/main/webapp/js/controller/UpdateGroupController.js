@@ -10,7 +10,7 @@ function UpdateGroupController($stateParams,$rootScope,$scope,SelectedUsersServi
     $scope.dismiss = function(){
         $scope.$close(true);
     };
-    $scope.loadGroupDetail = function(){
+    $scope.loadGroupUpdate = function(){
         console.log("id groupy ktoru idem editovat",$stateParams.groupId);
         GroupService.findById($stateParams.groupId).then(function(data) {
             console.log("This rec",data);
@@ -35,5 +35,5 @@ function UpdateGroupController($stateParams,$rootScope,$scope,SelectedUsersServi
             $scope.$close(true);
         });
     };
-    $scope.loadGroupDetail();
+    $scope.loadGroupUpdate();
 }
