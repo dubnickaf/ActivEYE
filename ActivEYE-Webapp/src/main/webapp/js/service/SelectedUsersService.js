@@ -11,7 +11,10 @@ function SelectedUsersService(){
         vm.multipleSelect = groupsArray;
         console.log("to multipleselect",vm.multipleSelect);
     };
-
+    vm.getSelected = function(){
+        console.log("From multipleselect",vm.multipleSelect);
+        return vm.multipleSelect;
+    };
     vm.flush = function(){
         console.log("flush");
         vm.multipleSelect = [];
