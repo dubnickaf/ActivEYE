@@ -15,6 +15,7 @@ function HomeController($rootScope,UserService,$scope,mediator,Session,Router){
     $scope.redirectIfLoggedOut();
     $scope.logOutConsequences = function() {
         Session.saveUser(undefined);
+        Router.redirect('/login');
     };
     $scope.loadData = function(){
         $scope.user = Session.getUser();
