@@ -33,7 +33,7 @@ angular.module('mainApp').controller('UpdateProfileController',UpdateProfileCont
             UserService.update(user).then(function(){
                 Session.saveUser(user);
                 $rootScope.$broadcast('user:updated');
-                $scope.dismiss();
+                $scope.$close(true);
             });
         };
         $scope.loadCurrent();

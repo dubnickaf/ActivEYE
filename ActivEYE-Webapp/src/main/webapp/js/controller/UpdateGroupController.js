@@ -8,7 +8,7 @@ function UpdateGroupController($stateParams,$rootScope,$scope,SelectedUsersServi
     $scope.name = undefined;
     $scope.users = undefined;
     $scope.dismiss = function(){
-        $scope.$dismiss();
+        $scope.$close(true);
     };
     $scope.loadGroupDetail = function(){
         console.log("id groupy ktoru idem editovat",$stateParams.groupId);
@@ -32,7 +32,7 @@ function UpdateGroupController($stateParams,$rootScope,$scope,SelectedUsersServi
         GroupService.create(toCreate).then(function(){
             SelectedUsersService.flush();
             $rootScope.$broadcast('group:created');
-            $scope.dismiss();
+            $scope.$close(true);
         });
     };
     $scope.loadGroupDetail();

@@ -13,7 +13,7 @@ function UpdateRecordController($stateParams,$scope,$rootScope,RecordService,Cre
     $scope.startTime = undefined;
     $scope.endTime = undefined;
     $scope.dismiss = function(){
-        $scope.$dismiss();
+        $scope.$close(true);
     };
     $scope.updateRecord = function() {
         var record = {};
@@ -24,7 +24,7 @@ function UpdateRecordController($stateParams,$scope,$rootScope,RecordService,Cre
         record.endDate = $scope.endTime;
         RecordService.update(record).then(function() {
             console.log("UPDATED");
-            $scope.dismiss();
+            $scope.$close(true);
         })
     };
     $scope.loadRecordToUpdate = function() {
