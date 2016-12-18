@@ -40,7 +40,7 @@ function config($stateProvider) {
             controller: 'DashboardController',
             templateUrl: 'pages/dashboard.html'
         })
-        .state({
+        .state({///not used in app
             name: 'activities',
             url: '/activities',
             controller: 'ActivitiesController',
@@ -60,7 +60,7 @@ function config($stateProvider) {
         .state('home.records.create_record', {
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'pages/create_record.html',
+                    templateUrl: 'pages/form_record.html',
                     controller: 'CreateRecordController'
                 }).result.finally(function () {
                     $state.go('^');
@@ -68,9 +68,11 @@ function config($stateProvider) {
             }]
         })
         .state('home.records.update_record', {
+            url: '/:touchedRecordId',
+            params: ['touchedRecordId'],
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'pages/create_record.html',
+                    templateUrl: 'pages/form_record.html',
                     controller: 'UpdateRecordController'
                 }).result.finally(function () {
                     $state.go('^');
@@ -80,7 +82,7 @@ function config($stateProvider) {
         .state('home.groups.create_group', {
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'pages/create_group.html',
+                    templateUrl: 'pages/form_group.html',
                     controller: 'CreateGroupController'
                 }).result.finally(function () {
                     $state.go('^');
@@ -88,9 +90,11 @@ function config($stateProvider) {
             }]
         })
         .state('home.groups.update_group', {
+            url: '/:groupId',
+            params: ['groupId'],
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'pages/create_group.html',
+                    templateUrl: 'pages/form_group.html',
                     controller: 'UpdateGroupController'
                 }).result.finally(function () {
                     $state.go('^');

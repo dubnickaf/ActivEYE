@@ -5,6 +5,8 @@ angular.module('mainApp').controller('CreateRecordController',CreateRecordContro
 CreateRecordController.$inject = ['$scope','$rootScope','RecordService','CreateRecordService','Session'];
 
 function CreateRecordController($scope,$rootScope,RecordService,CreateRecordService,Session){
+
+    $scope.createVsUpdate =  'CREATE';
     $scope.back = function(){
         $scope.$close(true);
     };

@@ -16,9 +16,7 @@ function RecordService($http) {
         return $http.delete('/pa165/rest/records/delete/' + id);
     };
     vm.findById = function (id){
-        return $http.get('/pa165/rest/records/get',{
-            params: {id: id}
-        });
+        return $http.get('/pa165/rest/records/get'+id);
     };
     vm.findAll = function () {
         return $http.get('/pa165/rest/records/get/all');

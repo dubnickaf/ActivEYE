@@ -1,7 +1,9 @@
 <div class="col-xs-9 col-sm-12 col-md-11">
     <div class="card-pf">
         <div class="card-pf-body">
-            <p>Create new Group</p>
+            <p ng-if="createVsUpdate === 'CREATE'">Create new Group</p>
+            <p ng-if="createVsUpdate === 'UPDATE'">Update Group</p>
+
         </div>
         <div class="card-pf-footer">
 
@@ -26,7 +28,8 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button onclick='console.log("clicked")' type="submit" class="btn btn-primary" ng-click="createGroup()">Save</button>
+                        <button ng-if="createVsUpdate === 'CREATE'" onclick='console.log("clicked")' type="submit" class="btn btn-primary" ng-click="createGroup()">Create</button>
+                        <button ng-if="createVsUpdate === 'UPDATE'" onclick='console.log("clicked")' type="submit" class="btn btn-primary" ng-click="updateGroup()">Update</button>
                         <button type="submit" class="btn btn-default" ng-click="dismiss()">Back</button>
                     </div>
                 </div>

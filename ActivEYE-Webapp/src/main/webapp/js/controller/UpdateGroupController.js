@@ -1,16 +1,23 @@
 angular.module('mainApp').controller('UpdateGroupController',UpdateGroupController);
 
-UpdateGroupController.$inject = ['$rootScope','$scope','SelectedUsersService','GroupService','Session'];
+UpdateGroupController.$inject = ['$stateParams','$rootScope','$scope','SelectedUsersService','GroupService','Session'];
 
-function UpdateGroupController($rootScope,$scope,SelectedUsersService,GroupService,Session){
+function UpdateGroupController($stateParams,$rootScope,$scope,SelectedUsersService,GroupService,Session){
+
+    $scope.createVsUpdate =  'UPDATE';
     $scope.name = undefined;
     $scope.users = undefined;
     $scope.dismiss = function(){
         $scope.$dismiss();
     };
     $scope.loadGroupDetail = function(){
-        $scope.name = undefined;
-        $scope.users = undefined;
+        console.log("id groupy ktoru idem editovat",$stateParams.groupId);
+        GroupService.findById($stateParams.groupId).then(function(data) {
+            console.log("This rec",data);
+            $scope.name = data.data.name;
+            $scope.users = data.data.users;
+        })
+
     };
     $scope.selectUsers = function(){
         $scope.users = SelectedUsersService.getSelected();

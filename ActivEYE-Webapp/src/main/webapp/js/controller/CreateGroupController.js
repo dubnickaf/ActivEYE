@@ -5,6 +5,8 @@ angular.module('mainApp').controller('CreateGroupController',CreateGroupControll
 CreateGroupController.$inject = ['$rootScope','$scope','SelectedUsersService','GroupService','Session'];
 
 function CreateGroupController($rootScope,$scope,SelectedUsersService,GroupService,Session){
+
+    $scope.createVsUpdate =  'CREATE';
     $scope.name = undefined;
     $scope.users = undefined;
     $scope.dismiss = function(){
