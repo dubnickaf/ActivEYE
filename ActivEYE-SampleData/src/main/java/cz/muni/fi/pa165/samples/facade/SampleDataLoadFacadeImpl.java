@@ -68,10 +68,12 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
         cal.set(1999,Calendar.JANUARY,1);
         User admin = new User("Admin", "admin@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), Gender.MALE, UserRole.USER);
         userService.registerAdmin(admin,"admin");
+        admin= userService.findUserById(admin.getId());
 
         users.addAll(userService.getAllUsers());
 
         //Create Records
+
         for (int i = 0; i<40; i++) {
             LocalDateTime start = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1+(i)%28).withHour((12+i)%24).withMinute((10+i)%60);
             LocalDateTime end = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1+(i)%28).withHour((12+i)%24).withMinute((20+i)%60);
@@ -83,6 +85,14 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
             users.get(i%9).getActivityRecords().add(records.get(i));
             userService.updateUser(users.get(i%9));
         }
+
+        //admin's record
+        LocalDateTime start=LocalDateTime.now().minusHours(2);
+        LocalDateTime end=LocalDateTime.now().minusHours(1);
+        Record r = new Record(admin, activities.get(1),start, end);
+        recordService.createRecord(r);
+        admin.getActivityRecords().add(r);
+        userService.updateUser(admin);
 
         //Create Groups
         Set<User> temp = new HashSet<User>(Arrays.asList(users.get(0), users.get(4), users.get(8)));
@@ -99,6 +109,10 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
 
         temp = new HashSet<User>(Arrays.asList(users.get(1), users.get(3), users.get(5), users.get(7)));
         groups.add(new Group(users.get(1).getId(), temp, "Friends"));
+
+        temp = new HashSet<User>();
+        temp.add(admin);
+        groups.add(new Group(admin.getId(), temp, "Admins"));
 
         for (Group g : groups) {
             groupService.create(g);

@@ -24,4 +24,7 @@ function CreateRecordController($scope,$rootScope,RecordService,CreateRecordServ
             $scope.$close(true);
         });
     }
+    $scope.dismiss = function(){
+        $scope.$dismiss();
+    };
 }
