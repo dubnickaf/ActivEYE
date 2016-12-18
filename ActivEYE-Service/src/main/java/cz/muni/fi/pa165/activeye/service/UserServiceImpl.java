@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.activeye.dao.UserDao;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
+import cz.muni.fi.pa165.activeye.enums.UserRole;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeMistakeInCalculationException;
 import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
@@ -36,6 +37,20 @@ public class UserServiceImpl implements UserService {
         if (u == null) {
             throw new IllegalArgumentException("Cannot register inserted null user.");
         }
+        u.setRole(UserRole.USER);
+        register(u, password);
+    }
+
+    @Override
+    public void registerAdmin(User u, String password) {
+        if (u == null) {
+            throw new IllegalArgumentException("Cannot register inserted null user.");
+        }
+        u.setRole(UserRole.ADMIN);
+        register(u, password);
+    }
+
+    private void register(User u, String password){
         if (u.getEmailAddress() == null){
             throw new IllegalArgumentException("Cannot register user with inserted null email address.");
         }

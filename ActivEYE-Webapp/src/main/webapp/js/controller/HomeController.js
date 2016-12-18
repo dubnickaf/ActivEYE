@@ -7,6 +7,10 @@ function HomeController($rootScope,UserService,$scope,mediator,Session,Router){
     $scope.redirectIfLoggedOut = function() {
         if(Session.isAnyoneLoggedIn() === false) {
             Router.redirect('/login');
+        }else{
+            $scope.userEmailAddress = Session.getUser().emailAddress;
+            $scope.userName = Session.getUser().name;
+            $scope.userRole = Session.getUser().role;
         }
     };
     mediator.listen('user:updated').act(function(){

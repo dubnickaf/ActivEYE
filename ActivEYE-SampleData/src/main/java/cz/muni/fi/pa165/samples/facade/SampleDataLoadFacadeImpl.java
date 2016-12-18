@@ -58,13 +58,17 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
         activities = activityService.findAll();
 
         //Create Users
+        Calendar cal = Calendar.getInstance();
         for (int i = 0; i<10; i++) {
-            Calendar cal = Calendar.getInstance();
-            cal.set(2000+i,1,1);
+            cal.set(2000+i,Calendar.JANUARY,1);
             Gender gender = i%2 == 0 ? Gender.MALE : Gender.FEMALE;
             User u = new User("User"+i, "user"+i+"@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), gender, UserRole.USER);
             userService.registerUser(u, "user"+i);
         }
+        cal.set(1999,Calendar.JANUARY,1);
+        User admin = new User("Admin", "admin@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), Gender.MALE, UserRole.USER);
+        userService.registerAdmin(admin,"admin");
+
         users.addAll(userService.getAllUsers());
 
         //Create Records

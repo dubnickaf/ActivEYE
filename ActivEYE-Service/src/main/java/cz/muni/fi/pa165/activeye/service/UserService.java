@@ -24,6 +24,15 @@ public interface UserService {
     void registerUser(User u, String password);
 
     /**
+     * This method registers the given user with given password
+     * @param u user to be registered to app
+     * @param password user´s chosen password (unencrypted)
+     * @throws IllegalArgumentException if wrong argument is given
+     * @throws ActiveyeDataAccessException if problem in persistance occurred
+     */
+    void registerAdmin(User u, String password);
+
+    /**
      * This method authenticates a user.
      * @param u user to be authenticated
      * @param password user´s version of password from input(unencrypted)
