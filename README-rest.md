@@ -79,7 +79,7 @@ ___
 ### RECORD
 **create**
 ```
-curl -i -X POST -H "Content-type: application/json" -d '{"user":{"id":1,"name":"user0","emailAddress":"user0@mail.com","bornDate":"2000-02-01","gender":"MALE","role":"USER"},"activity":{"id":1,"name":"Running","caloriesRatio":654.00},"burnedCalories":111.18,"startDate":"2015-01-01T12:10:32.864","endDate":"2016-01-01T12:20:32.864"}' http://localhost:8080/pa165/rest/records/create
+curl -i -X POST -H "Content-type: application/json" -d '{"user":{"id":1,"name":"user0","emailAddress":"user0@mail.com","bornDate":"2000-02-01","gender":"MALE","role":"USER"},"activity":{"id":1,"name":"Running","caloriesRatio":654.00}, "startDate":"2016-01-01T12:10:32.864","endDate":"2016-01-01T12:25:32.864"}' http://localhost:8080/pa165/rest/records/create
 ```
 **update**
 ```
