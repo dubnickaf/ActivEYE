@@ -15,19 +15,19 @@ function GroupService($http) {
         return $http.put('/pa165/rest/groups/update')
     };
     vm.delete = function (groupId) {
-        return $http.delete('/pa165/rest/groups/delete/:groupId')
+        return $http.delete('/pa165/rest/groups/delete/'+groupId)
     };
     vm.findById = function (groupId) {
-        return $http.get('/pa165/rest/groups/get/:groupId')
+        return $http.get('/pa165/rest/groups/get/'+groupId)
     };
     vm.findAll = function () {
         return $http.get('/pa165/rest/groups/get/all')
     };
     vm.findAllUsers = function (groupId) {
-        return $http.get('/pa165/rest/groups/get/all/:groupId')
+        return $http.get('/pa165/rest/groups/get/all/'+groupId)
     };
     vm.addUser = function (groupId) {
-        return $http.put('/pa165/rest/groups/update/:groupId')
+        return $http.put('/pa165/rest/groups/update/'+groupId)
     };
     return vm;
 }
