@@ -98,3 +98,59 @@ curl -i -X GET http://localhost:8080/pa165/rest/records/get/10
 curl -i -X GET http://localhost:8080/pa165/rest/records/get/all
 
 ```
+___
+
+### USER
+**login**
+```
+curl -i -X POST -H "Content-type: application/json" -d '{"email":"user0@mail.com", "password":"user0"}' http://localhost:8080/pa165/rest/users/login
+```
+**register**
+```
+curl -i -X POST -H "Content-type: application/json" -d '{"emailAddress":"thenewcustomer@mail.com"}' http://localhost:8080/pa165/rest/users/register\?password=stronkpass
+```
+**update**
+```
+curl -i -X PUT -H "Content-type: application/json" -d '{"id":1,"name":"user0","emailAddress":"carl.pilkington@mail.com","bornDate":"2015-02-01","gender":"MALE","role":"USER"}' http://localhost:8080/pa165/rest/users/update
+```
+**delete**
+```
+curl -i -X DELETE -H "Content-type: application/json" -d '{"id":10,"emailAddress":"user9@mail.com","name":"User9","bornDate":"2009-01-01","gender":"FEMALE","role":"USER"}' http://localhost:8080/pa165/rest/users/delete
+```
+**findAll**
+```
+curl -i -X GET http://localhost:8080/pa165/rest/users/all
+```
+**findById**
+```
+curl -i -X GET http://localhost:8080/pa165/rest/users/get/1
+
+```
+**findByEmail**
+```
+curl -i -X GET http://localhost:8080/pa165/rest/users/get?email=user0@mail.com
+```
+(if using fish escape the "?" with "\")
+**findUserWithRecordsById**
+```
+curl -i -X GET http://localhost:8080/pa165/rest/users/getWRecords/1
+```
+**findUserWithRecordsByEmail**
+```
+curl -i -X GET http://localhost:8080/pa165/rest/users/getWRecords?email=user1@mail.com
+```
+(if using fish escape the "?" with "\")
+**findUserWithGroupsById**
+```
+curl -i -X GET http://localhost:8080/pa165/rest/users/getWGroups/4
+```
+**findUserWithGroupsByEmail**
+```
+curl -i -X GET http://localhost:8080/pa165/rest/users/getWGroups?email=user3@mail.com
+```
+(if using fish escape the "?" with "\")
+**getStatistics**
+```
+curl -i -X GET http://localhost:8080/pa165/rest/users/getStats?id=1
+```
+(if using fish escape the "?" with "\")
