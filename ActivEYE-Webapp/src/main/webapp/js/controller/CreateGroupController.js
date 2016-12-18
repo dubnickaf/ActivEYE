@@ -2,9 +2,9 @@
 angular.module('mainApp').controller('CreateGroupController',CreateGroupController);
 
 
-CreateGroupController.$inject = ['$scope','SelectedUsersService','GroupService','Session'];
+CreateGroupController.$inject = ['$rootScope','$scope','SelectedUsersService','GroupService','Session'];
 
-function CreateGroupController($scope,SelectedUsersService,GroupService,Session){
+function CreateGroupController($rootScope,$scope,SelectedUsersService,GroupService,Session){
     $scope.name = undefined;
     $scope.users = undefined;
     $scope.dismiss = function(){
@@ -21,6 +21,7 @@ function CreateGroupController($scope,SelectedUsersService,GroupService,Session)
         toCreate.name = $scope.name;
         GroupService.create(toCreate).then(function(){
             SelectedUsersService.flush();
+            $rootScope.$broadcast('group:created');
             $scope.dismiss();
         });
     }

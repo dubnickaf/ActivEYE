@@ -21,5 +21,11 @@ function CreateRecordDateController($scope,$locale,CreateRecordService){
         CreateRecordService.setStartTime($scope.startTime);
         CreateRecordService.setEndTime($scope.endTime);
     };
+    $scope.validateStartTime = function(input){
+        return input <= moment();
+    };
+    $scope.validateEndTime  = function(input){
+        return input <= $scope.startTime;
+    };
     $scope.init();
 }

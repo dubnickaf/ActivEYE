@@ -1,6 +1,6 @@
 angular.module('mainApp').controller('RecordsController',RecordsController);
 
-RecordsController.$inject = ['RecordService','Session','UserService','$scope',mediator];
+RecordsController.$inject = ['RecordService','Session','UserService','$scope','mediator'];
 
 function RecordsController(RecordService,Session, UserService, $scope,mediator){
 

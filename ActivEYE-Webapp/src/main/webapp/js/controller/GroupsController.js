@@ -13,5 +13,8 @@ function GroupsController($rootScope, GroupService, $scope, mediator, Session, R
         });
         console.log($scope.groupsDto);
     };
+    mediator.listen('group:created').act(function(){
+        $scope.loadData2();
+    });
     $scope.loadData2();
 }
