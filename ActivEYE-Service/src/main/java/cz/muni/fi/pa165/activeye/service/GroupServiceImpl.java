@@ -136,6 +136,8 @@ public class GroupServiceImpl implements GroupService {
         }
         try {
             groupDao.addUser(user, groupDao.findById(id));
+            user.getGroups().add(groupDao.findById(id));
+            userService.updateUser(user);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);
         }

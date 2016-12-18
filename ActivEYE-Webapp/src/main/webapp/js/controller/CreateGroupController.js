@@ -12,17 +12,12 @@ function CreateGroupController($rootScope,$scope,SelectedUsersService,GroupServi
     $scope.dismiss = function(){
         $scope.$dismiss();
     };
-    $scope.selectUsers = function(){
-        $scope.users = SelectedUsersService.getSelected();
-        console.log("users:");
-        console.log($scope.users);
-    };
     $scope.createGroup = function(){
-        $scope.selectUsers();
         var toCreate = {};
         toCreate.creatorsUserId = Session.getUser().id;
-        $scope.users.push(Session.getUser());
-        toCreate.users = $scope.users;
+        Session.globalData.multipleSelect.push(Session.getUser());
+        console.log("Session.globalData.multipleSelect:", Session.globalData.multipleSelect);
+        toCreate.users = Session.globalData.multipleSelect;
         toCreate.name = $scope.name;
         GroupService.create(toCreate).then(function(){
             SelectedUsersService.flush();

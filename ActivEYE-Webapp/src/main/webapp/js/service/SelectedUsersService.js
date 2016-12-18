@@ -6,11 +6,7 @@ angular.module('activeye.services').factory('SelectedUsersService',SelectedUsers
 
 function SelectedUsersService(){
     var vm = this;
-    vm.multipleSelect;
-    vm.getSelected = function(){
-        console.log("From multipleselect",vm.multipleSelect);
-        return vm.multipleSelect;
-    };
+    vm.multipleSelect = [];
     vm.setSelected = function(groupsArray){
         vm.multipleSelect = groupsArray;
         console.log("to multipleselect",vm.multipleSelect);
@@ -18,7 +14,7 @@ function SelectedUsersService(){
 
     vm.flush = function(){
         console.log("flush");
-        vm.multipleSelect = undefined;
+        vm.multipleSelect = [];
     };
     return vm;
 }
