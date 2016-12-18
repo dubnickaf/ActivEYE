@@ -84,6 +84,7 @@ public class UserDTO {
         return passwordHash;
     }
 
+    @JsonIgnore
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }

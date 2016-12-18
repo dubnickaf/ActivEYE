@@ -7,7 +7,7 @@ UpdateRecordController.$inject = ['$stateParams','$scope','$rootScope','RecordSe
 function UpdateRecordController($stateParams,$scope,$rootScope,RecordService,CreateRecordService,Session){
 
     $scope.createVsUpdate =  'UPDATE';
-    console.log("This id",$stateParams.touchedRecordId);
+    $scope.recordId = $stateParams.touchedRecordId;
     //$scope.user = Session.getUser();
     $scope.activity = undefined;
     $scope.startTime = undefined;
@@ -16,7 +16,8 @@ function UpdateRecordController($stateParams,$scope,$rootScope,RecordService,Cre
         $scope.$dismiss();
     };
     $scope.updateRecord = function() {
-        record = {};
+        var record = {};
+        record.id = $scope.recordId;
         record.user = Session.getUser();
         record.activity = $scope.activity;
         record.startDate = $scope.startTime;

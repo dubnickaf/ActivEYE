@@ -20,7 +20,7 @@ angular.module('mainApp').controller('UpdateProfileController',UpdateProfileCont
             $scope.role = Session.getUser().role;
         };
         $scope.dismiss = function(){
-            $scope.$dismiss();
+            $scope.$close(true);
         };
         $scope.updateUser = function(){
             var user = {};
