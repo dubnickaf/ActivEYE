@@ -13,6 +13,5 @@ function CreateGroupSelectController($scope,UserService){
             $scope.allUsers = res.data;
         })
     };
-    $scope.selected = undefined;
     $scope.init();
 }
