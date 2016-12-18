@@ -4,7 +4,7 @@
 
 angular.module('patternfly.select').controller('CreateGroupSelectController',CreateGroupSelectController);
 
-CreateGroupSelectController.$inject = ['$rootScope','$scope','UserService','Session'];
+CreateGroupSelectController.$inject = ['$scope','UserService','Session'];
 
 function CreateGroupSelectController($scope,UserService,Session){
     $scope.allUsers = undefined;
