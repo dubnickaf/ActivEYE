@@ -1,124 +1,46 @@
 <div class="container-fluid container-cards-pf">
-        <div class="row row-cards-pf">
-           <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
-            <div class="col-xs-16 col-sm-9 col-md-4">
-                <div class="card-pf card-pf-accented card-pf-aggregate-status">
-                    <h2 class="card-pf-title">
-                        <a href="#!/records"><span class="fa fa-shield"></span>You already have <span class="card-pf-aggregate-status-count">{{statsDto.totalRecords}}</span> Records</a>
-                    </h2>
-                    <div class="card-pf-body">
-                        <p class="card-pf-aggregate-status-notifications">
-                            <a ui-sref="dashboard.records.create_record"><button class="btn btn-primary btn-lg " type="button">Add new record</button></a>
-                        </p>
-                        <div ui-view></div>
-                    </div>
-                </div>
+    <a align="right" ui-sref="home.records.create_record">
+        <button class="btn btn-primary btn-lg " type="button">Create new record</button>
+    </a>
 
-            </div>
-            <div class="col-xs-16 col-sm-9 col-md-4">
-                <div class="card-pf card-pf-accented card-pf-aggregate-status">
-                    <h2 class="card-pf-title">
-                        <a href="#!/groups"><span class="fa fa-shield"></span>You are part of <span class="card-pf-aggregate-status-count">{{statsDto.numberOfGroups}}</span> groups</a>
-                    </h2>
-                    <div class="card-pf-body">
-                        <p class="card-pf-aggregate-status-notifications">
-                            <a href="#!/create_group"><button class="btn btn-primary btn-lg " type="button">Create new group</button></a>
-                        </p>
+    <div class="list-group list-view-pf list-view-pf-view">
+        <div class="list-group-item">
+            <div class="list-group-item-header">
+                <div class="list-view-pf-main-info" ng-repeat="record in userWithRecords.activityRecords">
+                    <div class="list-view-pf-left">
+                        <div class="list-view-pf-calendar">
+                            {{record.startDate | date:'MM.yyyy' : UTC}}
+                            <strong>{{record.startDate | date:'dd' : UTC}}</strong>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-xs-16 col-sm-9 col-md-4">
-                <div class="card-pf card-pf-accented card-pf-aggregate-status">
-                    <div class="card-pf-body">
-                        <a href="#!/update_profile"><button type="button" class="btn btn-primary btn-lg btn-block">Edit profile</button></a>
-                        <a href="#!/login"><button type="button" class="btn btn-primary btn-lg btn-block" >Log out</button></a>
-                    </div>
-                </div>
-            </div>
-        <div class="row row-cards-pf">
-            <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card-pf card-pf-accented card-pf-aggregate-status card-pf-aggregate-status-mini">
-                    <h2 class="card-pf-title">
-                        <span class="fa fa-rebel"></span>
-                        Total <span class="card-pf-aggregate-status-count">{{statsDto.totalCaloriesBurned}}</span> calories burned.
-                    </h2>
-                    <div class="card-pf-body">
-                        <p class="card-pf-aggregate-status-notifications">
+                    <div class="list-view-pf-body">
+                        <div class="list-view-pf-description">
+                            <div class="list-group-item-heading">
+                                {{record.activity.name}}
+                            </div>
+                            <div class="list-group-item-text">
+                                From {{record.startDate | date:'dd.MM. HH:mm' : UTC}} to {{record.endDate | date:'dd.MM.
+                                HH:mm' : UTC}}
+                            </div>
+                        </div>
+                        <div class="list-view-pf-additional-info">
+                            <div class="list-view-pf-additional-info-item">
+                                <span class="fa fa-fire"></span>
+                                <strong>{{record.burnedCalories}}</strong> calories burned
+                            </div>
+                        </div>
 
-                       </p>
                     </div>
-                </div>
-                </div-->
-                <div class="col-md-8">
-                    <br>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="col-md-1">
-                    <p>
-                        <button class="btn btn-primary btn-lg " type="button">Edit</button>
-                    </p>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card-pf card-pf-accented card-pf-aggregate-status card-pf-aggregate-status-mini">
-                    <h2 class="card-pf-title">
-                        <span class="fa fa-paper-plane"></span>
-                        Today <span class="card-pf-aggregate-status-count">{{statsDto.caloriesBurnedToday}}</span> calories burned.
-                    </h2>
-                    <div class="card-pf-body">
-                        <p class="card-pf-aggregate-status-notifications">
-
+                    <div class="list-view-pf-right">
+                        <p>
+                            <button class="btn btn-primary btn-lg " type="button">Edit</button>
+                            <button class="btn btn-primary btn-lg " type="button" ng-click="deleteRecord(record)">
+                                Delete
+                            </button>
                         </p>
                     </div>
                 </div>
-
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="card-pf card-pf-accented card-pf-aggregate-status card-pf-aggregate-status-mini">
-                    <h2 class="card-pf-title">
-                        <span class="pficon pficon-cluster"></span>
-                        Today <span class="card-pf-aggregate-status-count">{{statsDto.recordsToday}}</span> records.
-                    </h2>
-                    <div class="card-pf-body">
-                        <p class="card-pf-aggregate-status-notifications">
-
-                        </p>
-                    </div>
-                </div>
-        <div class="col-xs-16 col-sm-9 col-md-12">
-            <div class="card-pf card-pf-accented card-pf-aggregate-status">
-                <h2 class="card-pf-title">
-                    <a href="#!/records"><span class="fa fa-shield"></span>Your most used activity is <span class="card-pf-aggregate-status-count">{{statsDto.mostUsedActivity.name}}</span></a>
-                </h2>
-                <div class="card-pf-body">
-                    <p class="card-pf-aggregate-status-notifications">
-                        <a href="#!/create_record"><button class="btn btn-primary btn-lg " type="button">Add new record</button></a>
-                </div-->
-                <div class="col-md-8">
-                    <p> <br>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    </p>
-                </div>
-                <div class="col-md-1">
-                    <p>
-                        <button class="btn btn-primary btn-lg " type="button">Edit</button>
-                    </p>
-                </div>
-            </div>
-
         </div>
     </div>
 </div>

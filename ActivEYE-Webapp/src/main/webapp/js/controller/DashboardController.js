@@ -1,10 +1,9 @@
 
 angular.module('mainApp').controller('DashboardController',DashboardController);
 
-DashboardController.$inject = ['$rootScope','UserService','$scope','mediator','Session','Router'];
+DashboardController.$inject = ['UserService','$scope','Session','mediator'];
 
-function DashboardController($rootScope,UserService,$scope,mediator,Session,Router){
-    console.log(Session.getUser());
+function DashboardController(UserService,$scope,Session,mediator){
     $scope.statsDto = {
         userDto 			                : undefined,
         totalCaloriesBurned			        : undefined,
@@ -15,14 +14,10 @@ function DashboardController($rootScope,UserService,$scope,mediator,Session,Rout
         mostUsedActivity                    : undefined,
         numberOfGroups                      : undefined
     };
-    $scope.loadData = loadData();
-    function loadData() {
-        console.log(Session);
+    $scope.loadData = function () {
         UserService.getStatistics(Session.getUser().id).then(function(data){
-            console.log(data);
             $scope.statsDto = data.data;
         });
-        console.log($scope.statsDto);
-    }
-    loadData();
+    };
+    $scope.loadData();
 }

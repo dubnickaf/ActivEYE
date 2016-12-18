@@ -8,8 +8,8 @@ GroupService.$inject = ['$http'];
 
 function GroupService($http) {
     var vm = this;
-    vm.create = function () {
-        return $http.get('/pa165/rest/groups/create')
+    vm.create = function (group) {
+        return $http.post('/pa165/rest/groups/create',group)
     };
     vm.update = function () {
         return $http.put('/pa165/rest/groups/update')

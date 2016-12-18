@@ -20,20 +20,25 @@ function config($stateProvider) {
             templateUrl: 'pages/login.html'
         })
         .state({
-            name: 'dashboard',
-            url: '/dashboard',
-            controller: 'DashboardController',
+            name: 'home',
+            url: '/home',
+            controller: 'HomeController',
             templateUrl: 'pages/home.html'
         })
-        .state('dashboard.records',{
+        .state('home.records', {
             url: '/records',
             controller: 'RecordsController',
             templateUrl: 'pages/records.html'
         })
-        .state('dashboard.groups',{
+        .state('home.groups', {
             url: '/groups',
             controller: 'GroupsController',
             templateUrl: 'pages/groups.html'
+        })
+        .state('home.dashboard', {
+            url: '/dashboard',
+            controller: 'DashboardController',
+            templateUrl: 'pages/dashboard.html'
         })
         .state({
             name: 'activities',
@@ -42,20 +47,43 @@ function config($stateProvider) {
             templateUrl: 'pages/activities.html'
 
         })
-        .state({
-            name: 'update_profile',
-            url: '/update_profile',
-            controller: 'UpdateProfileController',
-            templateUrl: 'pages/update_profile.html'
+        .state('home.update_profile', {
+            onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    controller: 'UpdateProfileController',
+                    templateUrl: 'pages/update_profile.html'
+                }).result.finally(function () {
+                    $state.go('^');
+                })
+            }]
         })
-        .state('dashboard.records.create_record',{
-            url: '/create_record',
-            controller: 'CreateRecordController',
-            templateUrl: 'pages/create_record.html'
+        .state('home.records.create_record', {
+            onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'pages/create_record.html',
+                    controller: 'CreateRecordController'
+                }).result.finally(function () {
+                    $state.go('^');
+                });
+            }]
         })
-        .state('dashboard.groups.create_group',{
-            url: '/create_group',
-            controller: 'CreateGroupController',
-            templateUrl: 'pages/create_group.html'
+        .state('home.groups.create_group', {
+            onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'pages/create_group.html',
+                    controller: 'CreateGroupController'
+                }).result.finally(function () {
+                    $state.go('^');
+                });
+            }]
+        }).state('home.groups.detail_group', {
+            onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'pages/detail_group.html',
+                    controller: 'DetailGroupController'
+                }).result.finally(function () {
+                    $state.go('^');
+                });
+            }]
         });
 }

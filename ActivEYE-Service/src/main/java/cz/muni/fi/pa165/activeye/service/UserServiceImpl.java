@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.activeye.dao.UserDao;
 import cz.muni.fi.pa165.activeye.entities.Activity;
 import cz.muni.fi.pa165.activeye.entities.Record;
 import cz.muni.fi.pa165.activeye.entities.User;
+import cz.muni.fi.pa165.activeye.enums.UserRole;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeDataAccessException;
 import cz.muni.fi.pa165.activeye.exceptions.ActiveyeMistakeInCalculationException;
 import cz.muni.fi.pa165.activeye.exceptions.NoSuchEntityFoundException;
@@ -36,6 +37,20 @@ public class UserServiceImpl implements UserService {
         if (u == null) {
             throw new IllegalArgumentException("Cannot register inserted null user.");
         }
+        u.setRole(UserRole.USER);
+        register(u, password);
+    }
+
+    @Override
+    public void registerAdmin(User u, String password) {
+        if (u == null) {
+            throw new IllegalArgumentException("Cannot register inserted null user.");
+        }
+        u.setRole(UserRole.ADMIN);
+        register(u, password);
+    }
+
+    private void register(User u, String password){
         if (u.getEmailAddress() == null){
             throw new IllegalArgumentException("Cannot register user with inserted null email address.");
         }
@@ -70,6 +85,9 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Cannot update inserted null user.");
         }
         try{
+            if(u.getPasswordHash() == null) {
+                u.setPasswordHash(findUserById(u.getId()).getPasswordHash());
+            }
             userDao.update(u);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer",e);
@@ -183,8 +201,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public BigDecimal calculateAverageBurnedCaloriesPerRecord(User user) {
         if(user.getActivityRecords() == null)return null;
-        BigDecimal averageBurnedCaloriesPerRecord = BigDecimal.ZERO;
-        return calculateTotalCaloriesBurned(user).divide(new BigDecimal(user.getActivityRecords().size()),BigDecimal.ROUND_UNNECESSARY);
+        if(user.getActivityRecords().size() == 0) return BigDecimal.ZERO;
+        return calculateTotalCaloriesBurned(user).divide(new BigDecimal(user.getActivityRecords().size()),BigDecimal.ROUND_HALF_UP);
     }
 
     @Override

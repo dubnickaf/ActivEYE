@@ -58,24 +58,28 @@ public class SampleDataLoadFacadeImpl implements SampleDataLoadFacade {
         activities = activityService.findAll();
 
         //Create Users
+        Calendar cal = Calendar.getInstance();
         for (int i = 0; i<10; i++) {
-            Calendar cal = Calendar.getInstance();
-            cal.set(2000+i,1,1);
+            cal.set(2000+i,Calendar.JANUARY,1);
             Gender gender = i%2 == 0 ? Gender.MALE : Gender.FEMALE;
-            User u = new User("user"+i, "user"+i+"@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), gender, UserRole.USER);
+            User u = new User("User"+i, "user"+i+"@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), gender, UserRole.USER);
             userService.registerUser(u, "user"+i);
         }
+        cal.set(1999,Calendar.JANUARY,1);
+        User admin = new User("Admin", "admin@mail.com", LocalDate.from(Instant.ofEpochMilli(cal.getTimeInMillis()).atZone(ZoneId.systemDefault()).toLocalDate()), Gender.MALE, UserRole.USER);
+        userService.registerAdmin(admin,"admin");
+
         users.addAll(userService.getAllUsers());
 
         //Create Records
-        for (int i = 0; i<10; i++) {
-            LocalDateTime start = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1).withHour(12).withMinute(10+i);
-            LocalDateTime end = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1).withHour(12).withMinute(20+i);
+        for (int i = 0; i<40; i++) {
+            LocalDateTime start = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1+(i)%28).withHour((12+i)%24).withMinute((10+i)%60);
+            LocalDateTime end = LocalDateTime.now().withYear(2016).withMonth(1).withDayOfMonth(1+(i)%28).withHour((12+i)%24).withMinute((20+i)%60);
             Record r = new Record(users.get(i%9), activities.get(i%4),start, end);
             recordService.createRecord(r);
         }
         records.addAll(recordService.getAllRecords());
-        for (int i = 0; i<10; i++) {
+        for (int i = 0; i<40; i++) {
             users.get(i%9).getActivityRecords().add(records.get(i));
             userService.updateUser(users.get(i%9));
         }
