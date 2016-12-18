@@ -90,7 +90,7 @@ function config($stateProvider) {
             }]
         })
         .state('home.groups.update_group', {
-            url: '/:groupId',
+            url: '/update/:groupId',
             params: ['groupId'],
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -102,7 +102,7 @@ function config($stateProvider) {
             }]
         })
         .state('home.groups.detail_group', {
-            url: '/:groupId',
+            url: '/show/:groupId',
             params: ['groupId'],
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
