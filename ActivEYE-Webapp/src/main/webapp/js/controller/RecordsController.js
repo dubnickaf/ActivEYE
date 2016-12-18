@@ -5,6 +5,9 @@ RecordsController.$inject = ['RecordService','Session','UserService','$scope','m
 function RecordsController(RecordService,Session, UserService, $scope,mediator){
 
     $scope.userWithRecords = undefined;
+    $scope.editRecord = function (record){
+
+    };
     $scope.deleteRecord = function (record){
             console.log(record);
             RecordService.delete(record.id).then(function(){

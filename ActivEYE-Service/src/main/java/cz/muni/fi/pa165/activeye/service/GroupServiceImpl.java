@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import javax.persistence.TransactionRequiredException;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * @author Branislav Bajužík; 445772
@@ -64,7 +65,9 @@ public class GroupServiceImpl implements GroupService {
         try {
             if(group.getUsers() != null) {
                 for (User user : group.getUsers()) {
-                    user.setGroups(null);
+                    Set<Group> usersGroups = user.getGroups();
+                    usersGroups.remove(group);
+                    user.setGroups(usersGroups);
                     userService.updateUser(user);
                 }
             }

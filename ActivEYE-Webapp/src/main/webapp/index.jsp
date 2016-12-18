@@ -64,6 +64,8 @@
     <script src="js/controller/CreateRecordController.js"></script>
     <script src="js/controller/CreateGroupController.js"></script>
     <script src="js/controller/DetailGroupController.js"></script>
+    <script src="js/controller/UpdateGroupController.js"></script>
+    <script src="js/controller/UpdateRecordController.js"></script>
 
 
     <script src="js/patternfly/CreateGroupSelectController.js"></script>

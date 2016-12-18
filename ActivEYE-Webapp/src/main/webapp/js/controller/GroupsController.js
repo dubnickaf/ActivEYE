@@ -7,11 +7,15 @@ function GroupsController($state, $rootScope, GroupService, UserService, $scope,
     $scope.allGroups = undefined;
     $scope.usersGroups = undefined;
     $scope.userRole = Session.getUser().role;
+    $scope.editGroup = function (record){
+
+    };
     $scope.showDetail = function (group){
         console.log("showdetail",group);
         $state.go('home.groups.detail_group');
     };
     $scope.deleteGroup = function (group){
+        console.log(group);
         GroupService.delete(group.id).then(function(){
             $scope.loadUsersGroups();
             $scope.loadAllGroups();

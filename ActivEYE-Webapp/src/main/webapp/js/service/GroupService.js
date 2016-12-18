@@ -12,7 +12,7 @@ function GroupService($http) {
         return $http.post('/pa165/rest/groups/create',group)
     };
     vm.update = function () {
-        return $http.put('/pa165/rest/groups/update')
+        return $http.put('/pa165/rest/groups/update',group)
     };
     vm.delete = function (groupId) {
         return $http.delete('/pa165/rest/groups/delete/'+groupId)
