@@ -20,6 +20,9 @@ public class GroupServiceImpl implements GroupService {
     @Inject
     private GroupDao groupDao;
 
+    @Inject
+    private UserService userService;
+
     @Override
     public void create(Group group) {
         if (group == null) {
@@ -59,6 +62,12 @@ public class GroupServiceImpl implements GroupService {
             throw new IllegalArgumentException("Group hasn't been persisted yet");
         }
         try {
+            if(group.getUsers() != null) {
+                for (User user : group.getUsers()) {
+                    user.setGroups(null);
+                    userService.updateUser(user);
+                }
+            }
             groupDao.delete(group);
         } catch (IllegalArgumentException | TransactionRequiredException e) {
             throw new ActiveyeDataAccessException("Problem on DAO layer", e);

@@ -18,9 +18,7 @@ function UserService($http) {
         return $http.delete('/pa165/rest/users/delete',user);
     };
     vm.findById = function (id){
-        return $http.get('/pa165/rest/users/get',{
-            params: {id: id}
-        });
+        return $http.get('/pa165/rest/users/get'+groupId);
     };
     vm.findByEmail = function (email){
         return $http.get('/pa165/rest/users/get',{
@@ -28,9 +26,7 @@ function UserService($http) {
         });
     };
     vm.findWithRecordsById = function (id){
-        return $http.get('/pa165/rest/users/getWRecords',{
-            params: {id: id}
-        });
+        return $http.get('/pa165/rest/users/getWRecords'+groupId);
     };
     vm.findWithRecordsByEmail = function (email){
         return $http.get('/pa165/rest/users/getWRecords',{
@@ -38,9 +34,7 @@ function UserService($http) {
         });
     };
     vm.findWithGroupsById = function (id){
-        return $http.get('/pa165/rest/users/getWGroups',{
-            params: {id: id}
-        });
+        return $http.get('/pa165/rest/users/getWGroups'+groupId);
     };
     vm.findWithGroupsByEmail = function (email){
         return $http.get('/pa165/rest/users/getWGroups',{

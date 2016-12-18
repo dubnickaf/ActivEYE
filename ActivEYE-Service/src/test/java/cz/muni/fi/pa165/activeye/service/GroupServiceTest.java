@@ -32,6 +32,9 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private GroupDao groupDao;
 
+    @Mock
+    private UserService userService;
+
     @InjectMocks
     private GroupServiceImpl groupService = new GroupServiceImpl();
 
