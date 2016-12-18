@@ -1,6 +1,6 @@
 <html>
 <head>
-    <link type="favicon" href="/images/favicon.ico" rel="icon" />
+    <link type="favicon" href="images/favicon.ico" rel="icon" />
     <link rel="shortcut icon" type="image/ico" href="/images/favicon.ico"/>
 
     <!-- PatternFly core -->
@@ -63,6 +63,7 @@
     <script src="js/controller/RecordsController.js"></script>
     <script src="js/controller/CreateRecordController.js"></script>
     <script src="js/controller/CreateGroupController.js"></script>
+    <script src="js/controller/DetailGroupController.js"></script>
 
 
     <script src="js/patternfly/CreateGroupSelectController.js"></script>

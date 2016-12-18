@@ -76,6 +76,14 @@ function config($stateProvider) {
                     $state.go('^');
                 });
             }]
-
+        }).state('home.groups.detail_group', {
+            onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'pages/detail_group.html',
+                    controller: 'DetailGroupController'
+                }).result.finally(function () {
+                    $state.go('^');
+                });
+            }]
         });
 }

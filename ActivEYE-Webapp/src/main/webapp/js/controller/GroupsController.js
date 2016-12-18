@@ -1,11 +1,23 @@
 
 angular.module('mainApp').controller('GroupsController',GroupsController);
 
-GroupsController.$inject = ['$rootScope','GroupService','UserService','$scope','mediator','Session','Router'];
+GroupsController.$inject = ['$state','$rootScope','GroupService','UserService','$scope','mediator','Session','Router'];
 
-function GroupsController($rootScope, GroupService, UserService, $scope, mediator, Session, Router) {
+function GroupsController($state, $rootScope, GroupService, UserService, $scope, mediator, Session, Router) {
     $scope.allGroups = undefined;
     $scope.usersGroups = undefined;
+    $scope.userRole = Session.getUser().role;
+    $scope.showDetail = function (group){
+        console.log("showdetail",group);
+        $state.go('home.groups.detail_group');
+    };
+    $scope.deleteGroup = function (group){
+        GroupService.delete(group.id).then(function(){
+            $scope.loadUsersGroups();
+            $scope.loadAllGroups();
+            Router.redirect('home/dashboard/groups');
+        });
+    };
     $scope.loadUsersGroups = function() {
         UserService.findWithGroupsByEmail(Session.getUser().emailAddress).then(function(data) {
             console.log(data);
