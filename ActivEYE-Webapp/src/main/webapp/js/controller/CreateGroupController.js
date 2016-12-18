@@ -12,6 +12,11 @@ function CreateGroupController($rootScope,$scope,SelectedUsersService,GroupServi
     $scope.dismiss = function(){
         $scope.$dismiss();
     };
+    $scope.selectUsers = function(){
+        $scope.users = SelectedUsersService.getSelected();
+        console.log("users:");
+        console.log($scope.users);
+    };
     $scope.createGroup = function(){
         var toCreate = {};
         toCreate.creatorsUserId = Session.getUser().id;

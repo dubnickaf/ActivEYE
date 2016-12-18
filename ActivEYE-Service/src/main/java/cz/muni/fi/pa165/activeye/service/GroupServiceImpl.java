@@ -53,7 +53,7 @@ public class GroupServiceImpl implements GroupService {
         }
         try {
             groupDao.update(group);
-            for(User user : group.getUsers()) {
+            for (User user : group.getUsers()) {
                 if(!user.getGroups().contains(group)) {
                     user.getGroups().add(group);
                     userService.updateUser(user);
