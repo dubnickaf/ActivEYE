@@ -14,7 +14,7 @@ function CreateRecordController($scope,$rootScope,RecordService,CreateRecordServ
         record.activity = CreateRecordService.getActivity();
         record.startDate = CreateRecordService.getStartTime();
         record.endDate = CreateRecordService.getEndTime();
-        record.burnedCalories = CreateRecordService.getCalories();
+        //record.burnedCalories = CreateRecordService.getCalories();
         RecordService.create(record).then(function(){
             console.log($scope);
             $rootScope.$broadcast('record:created');

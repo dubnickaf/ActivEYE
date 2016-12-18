@@ -67,6 +67,16 @@ function config($stateProvider) {
                 });
             }]
         })
+        .state('home.records.update_record', {
+            onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'pages/create_record.html',
+                    controller: 'UpdateRecordController'
+                }).result.finally(function () {
+                    $state.go('^');
+                });
+            }]
+        })
         .state('home.groups.create_group', {
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -76,7 +86,18 @@ function config($stateProvider) {
                     $state.go('^');
                 });
             }]
-        }).state('home.groups.detail_group', {
+        })
+        .state('home.groups.update_group', {
+            onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
+                $uibModal.open({
+                    templateUrl: 'pages/create_group.html',
+                    controller: 'UpdateGroupController'
+                }).result.finally(function () {
+                    $state.go('^');
+                });
+            }]
+        })
+        .state('home.groups.detail_group', {
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
                     templateUrl: 'pages/detail_group.html',
