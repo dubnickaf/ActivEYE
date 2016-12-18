@@ -8,7 +8,7 @@ function CreateGroupController($rootScope,$scope,SelectedUsersService,GroupServi
 
     $scope.createVsUpdate =  'CREATE';
     $scope.name = undefined;
-    $scope.users = undefined;
+    $scope.users = [];
     $scope.dismiss = function(){
         $scope.$dismiss();
     };
