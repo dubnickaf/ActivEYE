@@ -10,17 +10,17 @@ function UpdateRecordController($stateParams,$scope,$rootScope,RecordService,Cre
     console.log("This id",$stateParams.touchedRecordId);
     //$scope.user = Session.getUser();
     $scope.activity = undefined;
-    $scope.startDate = undefined;
-    $scope.endDate = undefined;
+    $scope.startTime = undefined;
+    $scope.endTime = undefined;
     $scope.dismiss = function(){
         $scope.$dismiss();
     };
     $scope.updateRecord = function() {
         record = {};
         record.user = Session.getUser();
-        record.activity = undefined;
-        record.startDate = undefined;
-        record.endDate = undefined;
+        record.activity = $scope.activity;
+        record.startDate = $scope.startTime;
+        record.endDate = $scope.endTime;
         RecordService.update(record).then(function() {
             console.log("UPDATED");
             $scope.dismiss();
@@ -30,8 +30,8 @@ function UpdateRecordController($stateParams,$scope,$rootScope,RecordService,Cre
         RecordService.findById($stateParams.touchedRecordId).then(function(data) {
             console.log("This rec",data);
             $scope.activity = data.data.activity;
-            $scope.startDate = data.data.startDate;
-            $scope.endDate = data.data.endDate;
+            $scope.startTime = data.data.startDate;
+            $scope.endTime = data.data.endDate;
         })
     };
     $scope.loadRecordToUpdate();

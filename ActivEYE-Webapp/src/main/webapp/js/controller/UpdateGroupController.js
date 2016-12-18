@@ -16,6 +16,7 @@ function UpdateGroupController($stateParams,$rootScope,$scope,SelectedUsersServi
             console.log("This rec",data);
             $scope.name = data.data.name;
             $scope.users = data.data.users;
+            SelectedUsersService.setSelected($scope.users);
         })
 
     };
