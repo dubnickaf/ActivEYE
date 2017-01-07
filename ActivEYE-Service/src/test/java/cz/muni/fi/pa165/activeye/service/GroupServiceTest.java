@@ -94,6 +94,7 @@ public class GroupServiceTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testUpdate() {
+        System.err.println("testUpdate");
         groupService.update(group1);
         verify(groupDao).update(group1);
     }

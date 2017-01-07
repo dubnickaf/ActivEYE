@@ -151,12 +151,16 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        String ret =  "User{" +
                 "id=" + getId() +
                 ", name='" + getName() + '\'' +
                 ", emailAddress='" + getEmailAddress() + '\'' +
                 ", bornDate=" + getBornDate() +
                 ", gender=" + getGender() +
-                '}';
+                ", groups=[";
+        for (Group g : groups) {
+            ret += g.getName() + ", ";
+        }
+        return ret + "]}";
     }
 }

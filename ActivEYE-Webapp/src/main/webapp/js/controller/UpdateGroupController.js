@@ -1,36 +1,25 @@
 angular.module('mainApp').controller('UpdateGroupController',UpdateGroupController);
 
-UpdateGroupController.$inject = ['$stateParams','$rootScope','$scope','SelectedUsersService','GroupService','Session'];
+UpdateGroupController.$inject = ['$stateParams','$rootScope','$scope','GroupService','Session'];
 
-function UpdateGroupController($stateParams,$rootScope,$scope,SelectedUsersService,GroupService,Session){
+function UpdateGroupController($stateParams,$rootScope,$scope,GroupService,Session){
 
     $scope.createVsUpdate =  'UPDATE';
-    $scope.name = undefined;
-    $scope.users = undefined;
+    $scope.new = undefined;
     $scope.dismiss = function(){
         $scope.$close(true);
     };
     $scope.loadGroupUpdate = function(){
-        console.log("id groupy ktoru idem editovat",$stateParams.groupId);
         GroupService.findById($stateParams.groupId).then(function(data) {
-            console.log("This rec",data);
-            $scope.name = data.data.name;
-            $scope.users = data.data.users;
-            SelectedUsersService.setSelected($scope.users);
-        })
-
-    };
-    $scope.selectUsers = function(){
-        $scope.users = SelectedUsersService.getSelected();
+            $scope.new = data.data;
+        });
     };
     $scope.updateGroup = function(){
-        $scope.selectUsers();
-        var toCreate = {};
-        toCreate.creatorsUserId = Session.getUser().id;
-        toCreate.users = $scope.users;
-        toCreate.name = $scope.name;
-        GroupService.create(toCreate).then(function(){
-            SelectedUsersService.flush();
+        var toUpdate = $scope.new;
+        Session.globalData.multipleSelect.push(Session.getUser());
+        toUpdate.users = Session.globalData.multipleSelect;
+        //console.log("updateController.ToUpdate: ", toUpdate);
+        GroupService.update(toUpdate).then(function(){
             $rootScope.$broadcast('group:created');
             $scope.$close(true);
         });

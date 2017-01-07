@@ -88,8 +88,11 @@ public class Group {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Group:{id:").append(getId()).append(", name:").append(getName()).append(", creatorsUserId:")
-                .append(getCreatorsUserId()).append(", users:").append(getUsers().toString()).append("}");
+        builder.append("Group:{id:").append(getId())
+                .append(", name:").append(getName())
+                .append(", creatorsUserId:").append(getCreatorsUserId())
+                .append(", users:").append(getUsers().toString())
+                .append("}");
         return builder.toString();
     }
 

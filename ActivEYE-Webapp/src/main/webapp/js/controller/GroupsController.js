@@ -9,7 +9,7 @@ function GroupsController($state, $rootScope, GroupService, UserService, $scope,
     $scope.userRole = Session.getUser().role;
 
     $scope.deleteGroup = function (group){
-        console.log(group);
+        //console.log(group);
         GroupService.delete(group.id).then(function(){
             $scope.loadUsersGroups();
             $scope.loadAllGroups();
@@ -18,13 +18,13 @@ function GroupsController($state, $rootScope, GroupService, UserService, $scope,
     };
     $scope.loadUsersGroups = function() {
         UserService.findWithGroupsByEmail(Session.getUser().emailAddress).then(function(data) {
-            console.log(data);
+            //console.log(data);
             $scope.usersGroups = data.data.groups;
         });
     };
     $scope.loadAllGroups = function() {
         GroupService.findAll().then(function(data) {
-            console.log(data);
+            //console.log(data);
             $scope.allGroups = data.data;
         });
     };

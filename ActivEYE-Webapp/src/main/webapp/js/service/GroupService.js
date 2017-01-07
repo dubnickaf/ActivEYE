@@ -11,7 +11,7 @@ function GroupService($http) {
     vm.create = function (group) {
         return $http.post('/pa165/rest/groups/create',group)
     };
-    vm.update = function () {
+    vm.update = function (group) {
         return $http.put('/pa165/rest/groups/update',group)
     };
     vm.delete = function (groupId) {
