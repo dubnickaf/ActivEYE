@@ -47,7 +47,7 @@ function config($stateProvider) {
             templateUrl: 'pages/activities.html'
 
         })
-        .state('home.update_profile', {
+        .state('home.dashboard.update_profile', {
             onEnter: ['$stateParams', '$state', '$uibModal', function ($stateParams, $state, $uibModal) {
                 $uibModal.open({
                     controller: 'UpdateProfileController',

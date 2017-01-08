@@ -10,18 +10,18 @@
                     <div class="card-pf-footer">
                         <form class="form-horizontal">
                             <div class="form-group" ng-controller="CreateRecordActivityController">
-                                <label id="activity" class="col-sm-2 control-label">Select activity:</label>
+                                <label id="activity" class="col-sm-3 control-label">Select activity:</label>
                                 <select class="col-sm-9" ng-options="activity.name for activity in activities"
                                         ng-model="activity" ng-change="changeActivity()">
                                 </select>
                             </div>
                             <div class="form-group" ng-controller="CreateRecordDateController">
-                                <span>Start Time</span>
-                                <div pf-date-timepicker ng-model="startTime" options="options" date="startTime"
-                                     ng-change="changeStartTime()"></div>
-                                <span>End Time</span>
-                                <div pf-date-timepicker ng-model="endTime" options="options" date="endTime"
-                                     ng-change="changeEndTime()">End time
+                                <label class="col-sm-3 control-label">Start Time:</label>
+                                <div class="col-sm-9" pf-date-timepicker ng-model="startTime" options="options"
+                                     date="startTime" ng-change="changeStartTime()"></div><br>
+                                <label class="col-sm-3 control-label">End Time:</label>
+                                <div class="col-sm-9" pf-date-timepicker ng-model="endTime" options="options"
+                                     date="endTime" ng-change="changeEndTime()">End time
                                 </div>
                             </div>
                             <!--<div class="form-group" ng-controller="CreateRecordCaloriesValidationController">
